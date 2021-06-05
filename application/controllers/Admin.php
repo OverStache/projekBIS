@@ -14,6 +14,9 @@ class Admin extends CI_Controller
     $data['title'] = 'Dashboard';
     // select * from tbl_user where email = email dari session
     $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['total_user'] = $this->db->where('role_id', 2)->from('tbl_user')->count_all_results();
+    $data['total_admin'] = $this->db->where('role_id', 1)->from('tbl_user')->count_all_results();
+
     $this->load->view('templates/header', $data);
     $this->load->view('templates/sidebar', $data);
     $this->load->view('templates/navbar', $data);
