@@ -7,50 +7,41 @@ class Admin extends CI_Controller
   {
     parent::__construct();
     is_logged_in();
+    $url = uri_string();
+    $data['title'] = $this->db->get_where('tbl_user_sub_menu', ['url' => $url])->row_array();
+
+    $data['uri1'] = $this->uri->segment(1);
+    $data['uri2'] = $this->uri->segment(2);
+
+    // select * from tbl_user where email = email dari session
+    $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/navbar', $data);
+    $this->load->view('templates/sidebar', $data);
   }
 
   public function index()
   {
-    $data['title'] = 'Dashboard';
-    // select * from tbl_user where email = email dari session
-    $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/navbar', $data);
+    $data['total_user'] = $this->db->where('role_id', 1)->from("tbl_user")->count_all_results();
+    $data['total_admin'] = $this->db->where('role_id', 2)->from("tbl_user")->count_all_results();
     $this->load->view('admin/index', $data);
     $this->load->view('templates/footer');
   }
 
   public function role()
   {
-    $data['title'] = 'Role';
-    // select * from tbl_user where email = email dari session
-    $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
-
     $data['role'] = $this->db->get('tbl_user_role')->result_array();
 
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/navbar', $data);
     $this->load->view('admin/role', $data);
     $this->load->view('templates/footer');
   }
 
   public function roleAccess($role_id)
   {
-    $data['title'] = 'Role Access';
-    // select * from tbl_user where email = email dari session
-    $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
-
-    $data['role'] = $this->db->get_where('tbl_user_role', ['id' => $role_id])->row_array();
-
+    $data['role_id'] = $this->db->get_where('tbl_user_role', ['id' => $role_id])->row_array();
 
     $this->db->where('id!=', 1);
     $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
-
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/navbar', $data);
     $this->load->view('admin/roleAccess', $data);
     $this->load->view('templates/footer');
   }
@@ -73,5 +64,14 @@ class Admin extends CI_Controller
       $this->db->delete('tbl_user_access_menu', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Revoked!</div>');
     }
+  }
+
+  public function user()
+  {
+    $this->db->where('role_id!=', 1);
+    $data['user'] = $this->db->get('tbl_user')->result_array();
+
+    $this->load->view('admin/user', $data);
+    $this->load->view('templates/footer');
   }
 }

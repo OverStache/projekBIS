@@ -8,7 +8,6 @@
   <!-- query menu -->
   <?php
   $role_id = $this->session->userdata('role_id');
-  $username = $this->session->userdata('email');
   $queryMenu = "SELECT `tbl_user_menu`.`id`, `menu`
                   FROM `tbl_user_menu` JOIN `tbl_user_access_menu`
                     ON `tbl_user_menu`.`id` = `tbl_user_access_menu`.`menu_id`
@@ -80,7 +79,7 @@
           <!-- looping submenu -->
           <?php foreach ($subMenu as $sm) : ?>
             <li class="nav-item">
-              <a href="<?= base_url($sm['url']); ?>" <?php if ($title == $sm['title']) : ?> class="nav-link active" <?php else : ?> class="nav-link" <?php endif ?>>
+              <a href="<?= base_url($sm['url']); ?>" <?php if ($title['title'] == $sm['title']) : ?> class="nav-link active" <?php else : ?> class="nav-link" <?php endif ?>>
                 <i class="<?= $sm['icon']; ?>"></i>
                 <p>
                   <?= $sm['title']; ?>

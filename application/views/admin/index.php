@@ -3,21 +3,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1><?= $title; ?></h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Blank Page</li>
-          </ol>
-        </div>
-      </div>
-    </div><!-- /.container-fluid -->
-  </section>
+  <?php $this->load->view('templates/contentHeader'); ?>
   <!-- /.content -->
   <!-- main content -->
   <section class="content">
@@ -29,7 +15,7 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3><?= $total_user; ?></h3>
+              <h3><?= $total_admin; ?></h3>
 
               <p>Admins</p>
             </div>
@@ -44,7 +30,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-6">
           <!-- small box -->
-          <div class="small-box bg-warning">
+          <div class="small-box bg-danger">
             <div class="inner">
               <h3><?= $total_user; ?></h3>
 

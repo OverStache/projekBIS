@@ -11,12 +11,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1><?= $title; ?></h1>
+          <h1>Role Access</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Blank Page</li>
+            <li class="breadcrumb-item"><a href="<?= base_url('admin'); ?>"><?= $uri1; ?></a></li>
+            <li class="breadcrumb-item active"><?= $uri2; ?></li>
           </ol>
         </div>
       </div>
@@ -31,7 +31,7 @@
           <div class="card">
             <div class="card-header">
               <?= $this->session->flashdata('message'); ?>
-              <h5 class="mt-2">Role : <?= $role['role']; ?></h5>
+              <h5 class="mt-2">Role : <?= $role_id['role']; ?></h5>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -51,7 +51,7 @@
                       <td><?= $m['menu']; ?></td>
                       <td>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" <?= check_access($role['id'], $m['id']); ?> data-role="<?= $role['id']; ?>" data-menu=" <?= $m['id']; ?>">
+                          <input class="form-check-input" type="checkbox" <?= check_access($role_id['id'], $m['id']); ?> data-role="<?= $role_id['id']; ?>" data-menu=" <?= $m['id']; ?>">
                           </label>
                         </div>
                       </td>

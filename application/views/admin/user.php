@@ -1,4 +1,4 @@
-<!-- index role -->
+<!-- User Management -->
 
 <!-- Navbar -->
 
@@ -7,21 +7,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1><?= $title; ?></h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Blank Page</li>
-          </ol>
-        </div>
-      </div>
-    </div><!-- /.container-fluid -->
-  </section>
+  <?php $this->load->view('templates/contentHeader'); ?>
 
   <!-- Main content -->
   <section class="content">
@@ -83,11 +69,11 @@
 <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="newRoleModal" tabindex="-1" aria-labelledby="newRoleModalLabel" aria-hidden="true">
+<div class="modal fade" id="newUserModel" tabindex="-1" aria-labelledby="newUserModelLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="newRoleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="newUserModelLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

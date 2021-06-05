@@ -7,13 +7,32 @@ class Menu extends CI_Controller
   {
     parent::__construct();
     is_logged_in();
-  }
-  public function index()
-  {
-    $data['title'] = 'Menu Management';
+    $data['uri1'] = $this->uri->segment(1);
+    $data['uri2'] = $this->uri->segment(2);
+    $url = $data['uri1'] . '/' . $data['uri2'];
+    // $data['title'] = $this->db->get_where('tbl_user_sub_menu', ['url' => $url])->row_array();
+
+    var_dump($data['uri1'] . '/' . $data['uri2']);
+
+    if ($this->uri->segment(2)) {
+      $data['title'] = $this->db->get_where('tbl_user_sub_menu', ['url' => $url])->row_array();
+    } else {
+      $data['title'] = $this->db->get_where('tbl_user_sub_menu', ['url' => $data['uri1']])->row_array();
+    }
+
 
     // select * from tbl_user where email = email dari session
     $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/navbar', $data);
+    $this->load->view('templates/sidebar', $data);
+  }
+  public function index()
+  {
+    // $data['title'] = 'Menu Management';
+
+    // // select * from tbl_user where email = email dari session
+    // $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
 
     // select * from tbl_user_menu
     $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
@@ -21,9 +40,9 @@ class Menu extends CI_Controller
     $this->form_validation->set_rules('menu', 'Menu', 'required');
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/navbar', $data);
+      // $this->load->view('templates/header', $data);
+      // $this->load->view('templates/sidebar', $data);
+      // $this->load->view('templates/navbar', $data);
       $this->load->view('menu/index', $data);
       $this->load->view('templates/footer');
     } else {
@@ -37,10 +56,10 @@ class Menu extends CI_Controller
   }
   public function submenu()
   {
-    $data['title'] = 'Sub Menu Management';
+    // $data['title'] = 'Sub Menu Management';
 
-    // select * from tbl_user where email = email dari session
-    $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
+    // // select * from tbl_user where email = email dari session
+    // $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
 
     $this->load->model('Menu_model', 'menu');
 
@@ -53,9 +72,9 @@ class Menu extends CI_Controller
     $this->form_validation->set_rules('icon', 'Icon', 'required');
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/navbar', $data);
+      // $this->load->view('templates/header', $data);
+      // $this->load->view('templates/sidebar', $data);
+      // $this->load->view('templates/navbar', $data);
       $this->load->view('menu/submenu', $data);
       $this->load->view('templates/footer');
     } else {
@@ -75,16 +94,16 @@ class Menu extends CI_Controller
   }
   public function editMenu($id)
   {
-    $data['title'] = 'Menu edit';
+    // $data['title'] = 'Menu edit';
 
-    // select * from tbl_user where email = email dari session
-    $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
+    // // select * from tbl_user where email = email dari session
+    // $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
     $data['tbl_user_menu'] = $this->db->get_where('tbl_user_menu', ['id' => $id])->row_array();
     // var_dump($data);
 
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/navbar', $data);
+    // $this->load->view('templates/header', $data);
+    // $this->load->view('templates/sidebar', $data);
+    // $this->load->view('templates/navbar', $data);
     $this->load->view('menu/editMenu', $data);
     $this->load->view('templates/footer');
   }
