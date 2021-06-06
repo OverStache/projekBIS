@@ -80,6 +80,62 @@
     });
   });
 </script>
+<!-- menu/index editMenu modal -->
+<script>
+  $(function() {
+    $('.modalAdd').on('click', function() {
+      $('#modalLabel').html('Tambah Data');
+      $('.modal-footer button[type=submit]').html('Tambah Data')
+      $('.modal-body #menu').val('');
+    });
+
+    $('.modalUpdate').on('click', function() {
+      $('#modalLabel').html('Update Data');
+      $('.modal-footer button[type=submit]').html('Update Data');
+      $('.modal-body form').attr('action', 'http://localhost:81/iseng2/phpmvc/public/mahasiswa/update');
+      const id = $(this).data('id');
+      const menu = $(this).data('menu');
+      $('.modal-body #menu').val(menu);
+
+    });
+  });
+</script>
+<!-- menu/submenu editSubMenu modal -->
+<script>
+  $(function() {
+    $('.modalAdd').on('click', function() {
+      $('#modalLabel').html('Tambah Data');
+      $('.modal-footer button[type=submit]').html('Tambah Data')
+      $('.modal-body #title').val('');
+      $('.modal-body #menu_id').val('');
+      $('.modal-body #url').val('');
+      $('.modal-body #icon').val('');
+      $('.modal-body #is_active').attr('checked', false);
+    });
+
+    $('.modalUpdate').on('click', function() {
+      $('#modalLabel').html('Update Data');
+      $('.modal-footer button[type=submit]').html('Update Data');
+      const id = $(this).data('id');
+      const title = $(this).data('title');
+      const menu_id = $(this).data('menu_id');
+      const url = $(this).data('url');
+      const icon = $(this).data('icon');
+      const is_active = $(this).data('is_active');
+      $('.modal-body #title').val(title);
+      $('.modal-body #menu_id').val(menu_id);
+      $('.modal-body #url').val(url);
+      $('.modal-body #icon').val(icon);
+      if (is_active == 1) {
+        $('.modal-body .form-check-input').attr('checked', true);
+      } else {
+        $('.modal-body .form-check-input').attr('checked', false);
+      }
+
+
+    });
+  });
+</script>
 </body>
 
 </html>

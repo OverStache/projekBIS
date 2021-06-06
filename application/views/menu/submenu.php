@@ -13,7 +13,7 @@
         <div class="col">
           <div class="card">
             <div class="card-header">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#newSubMenuModal">Add New Sub Menu</a>
+              <a href="" class="btn btn-primary modalAdd" data-toggle="modal" data-target="#subMenuModal">Add New Sub Menu</a>
               <!-- alert -->
               <?php if (validation_errors()) : ?>
                 <div class="alert alert-danger mt-3" role="alert">
@@ -47,8 +47,8 @@
                       <td><?= $sm['icon']; ?></td>
                       <td><?= $sm['is_active']; ?></td>
                       <td>
-                        <a href="<?= base_url('menu/editSubMenu/' . $sm['id']); ?>" class="badge badge-success">Edit</a>
-                        <a href="" class="badge badge-danger">Delete</a>
+                        <a href="" class="badge badge-success modalUpdate" data-toggle="modal" data-target="#subMenuModal" data-id="<?= $sm['id']; ?>" data-title="<?= $sm['title']; ?>" data-menu_id="<?= $sm['menu_id']; ?>" data-url="<?= $sm['url']; ?>" data-icon="<?= $sm['icon']; ?>" data-is_active="<?= $sm['is_active']; ?>">Edit</a>
+                        <a href="" class=" badge badge-danger">Delete</a>
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -82,11 +82,11 @@
 <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="newSubMenuModal" tabindex="-1" aria-labelledby="newSubMenuModalLabel" aria-hidden="true">
+<div class="modal fade" id="subMenuModal" tabindex="-1" aria-labelledby="subMenuModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="newSubMenuModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="subMenuModalLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -112,7 +112,8 @@
           </div>
           <div class="form-group">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active" checked>
+              <input type="hidden" id="is_active" name="is_active" value="0">
+              <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active">
               <label class="form-check-label" for="is_active">
                 Active
               </label>
