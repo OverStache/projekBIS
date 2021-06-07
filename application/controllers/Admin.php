@@ -7,11 +7,17 @@ class Admin extends CI_Controller
   {
     parent::__construct();
     is_logged_in();
-    $url = uri_string();
-    $data['title'] = $this->db->get_where('tbl_user_sub_menu', ['url' => $url])->row_array();
 
     $data['uri1'] = $this->uri->segment(1);
     $data['uri2'] = $this->uri->segment(2);
+
+    if ($this->uri->segment(2)) {
+      $url = $data['uri1'] . '/' . $data['uri2'];
+    } else {
+      $url = $data['uri1'];
+    }
+    $data['title'] = $this->db->get_where('tbl_user_sub_menu', ['url' => $url])->row_array();
+
 
     // select * from tbl_user where email = email dari session
     $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
@@ -22,8 +28,8 @@ class Admin extends CI_Controller
 
   public function index()
   {
-    $data['total_user'] = $this->db->where('role_id', 1)->from("tbl_user")->count_all_results();
-    $data['total_admin'] = $this->db->where('role_id', 2)->from("tbl_user")->count_all_results();
+    $data['total_user'] = $this->db->where('role_id', 2)->from("tbl_user")->count_all_results();
+    $data['total_admin'] = $this->db->where('role_id', 1)->from("tbl_user")->count_all_results();
     $this->load->view('admin/index', $data);
     $this->load->view('templates/footer');
   }

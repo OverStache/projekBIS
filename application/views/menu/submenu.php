@@ -48,6 +48,7 @@
                       <td><?= $sm['is_active']; ?></td>
                       <td>
                         <a href="" class="badge badge-success modalUpdate" data-toggle="modal" data-target="#subMenuModal" data-id="<?= $sm['id']; ?>" data-title="<?= $sm['title']; ?>" data-menu_id="<?= $sm['menu_id']; ?>" data-url="<?= $sm['url']; ?>" data-icon="<?= $sm['icon']; ?>" data-is_active="<?= $sm['is_active']; ?>">Edit</a>
+                        <!-- <a href="<?= base_url('menu/editSubMenu/') . $sm['id']; ?>" class=" badge badge-success">Edit</a> -->
                         <a href="" class=" badge badge-danger">Delete</a>
                       </td>
                     </tr>

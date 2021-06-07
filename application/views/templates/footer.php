@@ -100,6 +100,7 @@
     });
   });
 </script>
+
 <!-- menu/submenu editSubMenu modal -->
 <script>
   $(function() {
@@ -113,7 +114,7 @@
       $('.modal-body #is_active').attr('checked', false);
     });
 
-    $('.modalUpdate').on('click', function() {
+    $('body').on('click', '.modalUpdate', function() {
       $('#modalLabel').html('Update Data');
       $('.modal-footer button[type=submit]').html('Update Data');
       const id = $(this).data('id');
