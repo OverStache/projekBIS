@@ -77,17 +77,17 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url('menu'); ?>" method="POST">
-        <div class="modal-body">
+      <div class="modal-body">
+        <form action="<?= base_url('menu'); ?>" method="POST">
           <div class="form-group">
             <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name...">
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Add</button>
-        </div>
-      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

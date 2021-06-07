@@ -75,25 +75,45 @@
         roleId: roleId
       },
       success: function() {
-        document.location.href = "<?= base_url('admin/roleaccess/'); ?>" + roleId;
+        document.location.href = "<?= base_url('admin/role/'); ?>" + roleId;
+      }
+    });
+  });
+
+  // auto change role
+  $('.dropdown-menu li').click(function() {
+    const id = this.value;
+    const name = $(this).text();
+    $('.roleTarget').html(id);
+    $(this).parents('.dropdown').find('.dropdown-toggle').html(name);
+    $.ajax({
+      url: "<?= base_url('admin/changeRole'); ?>",
+      type: 'post',
+      data: {
+        id: id
+      },
+      success: function() {
+        document.location.href = "<?= base_url('admin/roleAccess/'); ?>" + id;
       }
     });
   });
 </script>
+
 <!-- menu/index editMenu modal -->
 <script>
   $(function() {
     $('.modalAdd').on('click', function() {
       $('#modalLabel').html('Tambah Data');
-      $('.modal-footer button[type=submit]').html('Tambah Data')
+      $('.modal-footer button[type=submit]').html('Tambah Data');
+      $('.modal-body form').attr('action', "<?= base_url('menu') ?>");
       $('.modal-body #menu').val('');
     });
 
-    $('.modalUpdate').on('click', function() {
+    $('body').on('click', '.modalUpdate', function() {
       $('#modalLabel').html('Update Data');
       $('.modal-footer button[type=submit]').html('Update Data');
-      $('.modal-body form').attr('action', 'http://localhost:81/iseng2/phpmvc/public/mahasiswa/update');
       const id = $(this).data('id');
+      $('.modal-body form').attr('action', "<?= base_url('menu/editMenu/') ?>" + id);
       const menu = $(this).data('menu');
       $('.modal-body #menu').val(menu);
 
@@ -105,24 +125,25 @@
 <script>
   $(function() {
     $('.modalAdd').on('click', function() {
-      $('#modalLabel').html('Tambah Data');
-      $('.modal-footer button[type=submit]').html('Tambah Data')
+      $('#subMenuModalLabel').html('Tambah Data');
+      $('.modal-body form').attr('action', "<?= base_url('menu/submenu') ?>");
       $('.modal-body #title').val('');
       $('.modal-body #menu_id').val('');
       $('.modal-body #url').val('');
       $('.modal-body #icon').val('');
       $('.modal-body #is_active').attr('checked', false);
+      $('.modal-footer button[type=submit]').html('Tambah Data')
     });
 
     $('body').on('click', '.modalUpdate', function() {
-      $('#modalLabel').html('Update Data');
-      $('.modal-footer button[type=submit]').html('Update Data');
       const id = $(this).data('id');
       const title = $(this).data('title');
       const menu_id = $(this).data('menu_id');
       const url = $(this).data('url');
       const icon = $(this).data('icon');
       const is_active = $(this).data('is_active');
+      $('#subMenuModalLabel').html('Update Data');
+      $('.modal-body form').attr('action', "<?= base_url('menu/editSubMenu/') ?>" + id);
       $('.modal-body #title').val(title);
       $('.modal-body #menu_id').val(menu_id);
       $('.modal-body #url').val(url);
@@ -132,8 +153,7 @@
       } else {
         $('.modal-body .form-check-input').attr('checked', false);
       }
-
-
+      $('.modal-footer button[type=submit]').html('Update Data');
     });
   });
 </script>

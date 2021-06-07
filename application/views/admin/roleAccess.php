@@ -16,42 +16,70 @@
           <div class="card">
             <div class="card-header">
               <?= $this->session->flashdata('message'); ?>
-              <h5 class="mt-2">Role : <?= $role_id['role']; ?></h5>
+              <!-- <h5 class="mt-2 roleTarget">Role : <?= $role_id['role']; ?></h5> -->
+              <h5 class="mt-2 roleTarget"></h5>
+              <!-- <div class="form-group">
+                <select class="form-control mySelect" id="menu_id" name="menu_id">
+                  <option value="">Select Menus</option>
+                  <?php foreach ($role as $r) : ?>
+                    <option value="<?= $r['id']; ?>" class="roleOption" data-role="<?= $r['id']; ?>"><?= $r['role']; ?></option>
+                  <?php endforeach ?>
+                </select>
+              </div> -->
+
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <!-- <?= $role_id['role']; ?> -->
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <?php foreach ($role as $r) : ?>
+                    <li value="<?= $r['id']; ?>">
+                      <a class="dropdown-item" href="<?= base_url('admin/roleAccess/') . $r['id']; ?>"><?= $r['role']; ?></a>
+                    </li>
+                  <?php endforeach ?>
+                </div>
+              </div>
+
+
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Menu</th>
-                    <th>Access</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php $i = 1; ?>
-                  <?php foreach ($menu as $m) : ?>
+              <?php $i = 1;
+              if ($menu) : ?>
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
                     <tr>
-                      <td><?= $i++; ?></td>
-                      <td><?= $m['menu']; ?></td>
-                      <td>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" <?= check_access($role_id['id'], $m['id']); ?> data-role="<?= $role_id['id']; ?>" data-menu=" <?= $m['id']; ?>">
-                          </label>
-                        </div>
-                      </td>
-
+                      <th>#</th>
+                      <th>Menu</th>
+                      <th>Access</th>
                     </tr>
-                  <?php endforeach ?>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>#</th>
-                    <th>Menu</th>
-                    <th>Access</th>
-                  </tr>
-                </tfoot>
-              </table>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($menu as $m) : ?>
+                      <tr>
+                        <td><?= $i++; ?></td>
+                        <td><?= $m['menu']; ?></td>
+                        <td>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" <?= check_access($role_id['id'], $m['id']); ?> data-role="<?= $role_id['id']; ?>" data-menu=" <?= $m['id']; ?>">
+                            </label>
+                          </div>
+                        </td>
+
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>#</th>
+                      <th>Menu</th>
+                      <th>Access</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              <?php else : ?>
+                <h5>select role</h5>
+              <?php endif ?>
             </div>
             <!-- /.card-body -->
           </div>

@@ -7,6 +7,22 @@ class User extends CI_Controller
   {
     parent::__construct();
     is_logged_in();
+
+    $data['uri1'] = $this->uri->segment(1);
+    $data['uri2'] = $this->uri->segment(2);
+    $url = $data['uri1'] . '/' . $data['uri2'];
+
+    if ($this->uri->segment(2)) {
+      $data['title'] = $this->db->get_where('tbl_user_sub_menu', ['url' => $url])->row_array();
+    } else {
+      $data['title'] = $this->db->get_where('tbl_user_sub_menu', ['url' => $data['uri1']])->row_array();
+    }
+
+    // select * from tbl_user where email = email dari session
+    $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/navbar', $data);
+    $this->load->view('templates/sidebar', $data);
   }
   public function index()
   {
@@ -15,10 +31,6 @@ class User extends CI_Controller
     $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
 
     $data['role'] = $this->db->get_where('tbl_user_role', ['id' => $this->session->userdata('role_id')])->row_array();
-
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/navbar', $data);
-    $this->load->view('templates/sidebar', $data);
     $this->load->view('user/index', $data);
     $this->load->view('templates/footer');
   }
@@ -32,9 +44,6 @@ class User extends CI_Controller
     $this->form_validation->set_rules('name', 'Name', 'required');
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/navbar', $data);
-      $this->load->view('templates/sidebar', $data);
       $this->load->view('user/edit', $data);
       $this->load->view('templates/footer');
     } else {
@@ -90,9 +99,6 @@ class User extends CI_Controller
     $this->form_validation->set_rules('new_password2', 'Current Password', 'required|trim|min_length[3]|matches[new_password1]');
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/navbar', $data);
-      $this->load->view('templates/sidebar', $data);
       $this->load->view('user/changepassword', $data);
       $this->load->view('templates/footer');
     } else {

@@ -18,6 +18,7 @@ class Admin extends CI_Controller
     }
     $data['title'] = $this->db->get_where('tbl_user_sub_menu', ['url' => $url])->row_array();
 
+    // $this->role(0);
 
     // select * from tbl_user where email = email dari session
     $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
@@ -36,21 +37,35 @@ class Admin extends CI_Controller
 
   public function role()
   {
-    $data['role'] = $this->db->get('tbl_user_role')->result_array();
-
-    $this->load->view('admin/role', $data);
-    $this->load->view('templates/footer');
+    $id = 0;
+    $this->roleAccess($id);
   }
 
-  public function roleAccess($role_id)
+  public function roleAccess($id)
   {
-    $data['role_id'] = $this->db->get_where('tbl_user_role', ['id' => $role_id])->row_array();
+    // $id = $this->input->post('menuId');
+    $data['role'] = $this->db->get('tbl_user_role')->result_array();
+    if ($id) {
+      // cek tbl_user_access_menu kombinasi role_id-menu_id ada ga
+      $data['role_id'] = $this->db->get_where('tbl_user_role', ['id' => $id])->row_array();
 
-    $this->db->where('id!=', 1);
-    $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
+      // tampilin tabel menu
+      $this->db->where('id!=', 1);
+      $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
+    } else {
+      $data['menu'] = 0;
+      // echo 'nampak nya eror';
+    }
     $this->load->view('admin/roleAccess', $data);
     $this->load->view('templates/footer');
   }
+
+  public function changeRole()
+  {
+    $id = $this->input->post('id');
+    $this->role($id);
+  }
+
   public function changeaccess()
   {
     $menu_id = $this->input->post('menuId');
