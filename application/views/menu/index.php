@@ -3,7 +3,14 @@
 <!-- Navbar -->
 
 <!-- Main Sidebar Container -->
-
+<!-- <div class="row">
+  <div class="col-6">
+    <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name...">
+  </div>
+  <div class="col-6">
+    <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name...">
+  </div>
+</div> -->
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -15,7 +22,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <a href="" class="btn btn-primary modalAdd" data-toggle="modal" data-target="#formModal">Add New Menu</a>
+              <a href="#" class="btn btn-primary modalAdd" data-toggle="modal" data-target="#formModal">Add New Menu</a>
               <?= form_error('menu', '<div class="alert alert-danger mt-3">', '</div>'); ?>
               <?= $this->session->flashdata('message'); ?>
             </div>
@@ -38,7 +45,7 @@
                       <td>
                         <!-- <a href="<?= base_url('menu/editMenu/' . $m['id']) ?>" class="badge badge-success">Edit</a> -->
                         <a href="" class="badge btn bg-success rounded-pill float-end modalUpdate ml-1" data-toggle="modal" data-target="#formModal" data-id="<?= $m['id']; ?>" data-menu="<?= $m['menu']; ?>">Update</a>
-                        <a href="" class="badge badge-danger">Delete</a>
+                        <a href="#" class="badge badge-danger modalDelete" data-id="<?= $m['id']; ?>" data-menu="<?= $m['menu']; ?>">Delete</a>
                       </td>
                     </tr>
                   <?php endforeach ?>
@@ -80,7 +87,7 @@
       <div class="modal-body">
         <form action="<?= base_url('menu'); ?>" method="POST">
           <div class="form-group">
-            <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name...">
+            <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name..." required>
           </div>
       </div>
       <div class="modal-footer">

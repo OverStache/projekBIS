@@ -34,10 +34,10 @@ class Admin extends CI_Controller
     $this->load->view('admin/index', $data);
     $this->load->view('templates/footer');
   }
-
+  // menu role
   public function role()
   {
-    $id = 0;
+    $id = 1;
     $this->roleAccess($id);
   }
 
@@ -86,7 +86,9 @@ class Admin extends CI_Controller
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Revoked!</div>');
     }
   }
+  // end of menu role
 
+  // menu user
   public function user()
   {
     $this->db->where('role_id!=', 1);

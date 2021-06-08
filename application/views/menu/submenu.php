@@ -13,7 +13,7 @@
         <div class="col">
           <div class="card">
             <div class="card-header">
-              <a href="" class="btn btn-primary modalAdd" data-toggle="modal" data-target="#subMenuModal">Add New Sub Menu</a>
+              <a href="" class="btn btn-primary subMenuModalAdd" data-toggle="modal" data-target="#subMenuModal">Add New Sub Menu</a>
               <!-- alert -->
               <?php if (validation_errors()) : ?>
                 <div class="alert alert-danger mt-3" role="alert">
@@ -47,9 +47,9 @@
                       <td><?= $sm['icon']; ?></td>
                       <td><?= $sm['is_active']; ?></td>
                       <td>
-                        <a href="" class="badge badge-success modalUpdate" data-toggle="modal" data-target="#subMenuModal" data-id="<?= $sm['id']; ?>" data-title="<?= $sm['title']; ?>" data-menu_id="<?= $sm['menu_id']; ?>" data-url="<?= $sm['url']; ?>" data-icon="<?= $sm['icon']; ?>" data-is_active="<?= $sm['is_active']; ?>">Edit</a>
+                        <a href="" class="badge badge-success subMenuModalUpdate" data-toggle="modal" data-target="#subMenuModal" data-id="<?= $sm['id']; ?>" data-title="<?= $sm['title']; ?>" data-menu_id="<?= $sm['menu_id']; ?>" data-url="<?= $sm['url']; ?>" data-icon="<?= $sm['icon']; ?>" data-is_active="<?= $sm['is_active']; ?>">Edit</a>
                         <!-- <a href="<?= base_url('menu/editSubMenu/') . $sm['id']; ?>" class=" badge badge-success">Edit</a> -->
-                        <a href="" class=" badge badge-danger">Delete</a>
+                        <a href="#" class=" badge badge-danger subMenuModalDelete" data-id="<?= $sm['id']; ?>" data-submenu="<?= $sm['menu']; ?>">Delete</a>
                       </td>
                     </tr>
                   <?php endforeach ?>

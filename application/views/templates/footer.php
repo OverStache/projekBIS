@@ -35,6 +35,8 @@
 <script src="<?= base_url('assets/'); ?>plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="<?= base_url('assets/'); ?>plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?= base_url('assets/'); ?>plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- bootbox -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
 <script>
   $(function() {
     $("#example1").DataTable({
@@ -99,32 +101,56 @@
   });
 </script>
 
-<!-- menu/index editMenu modal -->
+<!-- menu/index Menu CRUD modal -->
 <script>
   $(function() {
     $('.modalAdd').on('click', function() {
-      $('#modalLabel').html('Tambah Data');
-      $('.modal-footer button[type=submit]').html('Tambah Data');
+      $('#modalLabel').html('Tambah Menu');
+      $('.modal-footer button[type=submit]').html('Tambah Menu');
       $('.modal-body form').attr('action', "<?= base_url('menu') ?>");
       $('.modal-body #menu').val('');
     });
 
+
     $('body').on('click', '.modalUpdate', function() {
-      $('#modalLabel').html('Update Data');
-      $('.modal-footer button[type=submit]').html('Update Data');
+      $('#modalLabel').html('Update Menu');
+      $('.modal-footer button[type=submit]').html('Update Menu');
       const id = $(this).data('id');
       $('.modal-body form').attr('action', "<?= base_url('menu/editMenu/') ?>" + id);
       const menu = $(this).data('menu');
       $('.modal-body #menu').val(menu);
+    });
 
+    $('body').on('click', '.modalDelete', function() {
+      const id = $(this).data('id');
+      const menu = $(this).data('menu');
+      bootbox.confirm({
+        title: "sure want to delete?",
+        message: menu,
+        buttons: {
+          confirm: {
+            label: 'Yes',
+            className: 'btn-primary'
+          },
+          cancel: {
+            label: 'No',
+            className: 'btn-secondary'
+          }
+        },
+        callback: function(result) {
+          if (result) {
+            document.location.href = "<?= base_url('menu/deleteMenu/'); ?>" + id;
+          };
+        }
+      });
     });
   });
 </script>
 
-<!-- menu/submenu editSubMenu modal -->
+<!-- menu/submenu Sub Menu CRUD modal -->
 <script>
   $(function() {
-    $('.modalAdd').on('click', function() {
+    $('.subMenuModalAdd').on('click', function() {
       $('#subMenuModalLabel').html('Tambah Data');
       $('.modal-body form').attr('action', "<?= base_url('menu/submenu') ?>");
       $('.modal-body #title').val('');
@@ -135,7 +161,7 @@
       $('.modal-footer button[type=submit]').html('Tambah Data')
     });
 
-    $('body').on('click', '.modalUpdate', function() {
+    $('body').on('click', '.subMenuModalUpdate', function() {
       const id = $(this).data('id');
       const title = $(this).data('title');
       const menu_id = $(this).data('menu_id');
@@ -154,6 +180,30 @@
         $('.modal-body .form-check-input').attr('checked', false);
       }
       $('.modal-footer button[type=submit]').html('Update Data');
+    });
+
+    $('body').on('click', '.subMenuModalDelete', function() {
+      const id = $(this).data('id');
+      const submenu = $(this).data('submenu');
+      bootbox.confirm({
+        title: "sure want to delete?",
+        message: submenu,
+        buttons: {
+          confirm: {
+            label: 'Yes',
+            className: 'btn-primary'
+          },
+          cancel: {
+            label: 'No',
+            className: 'btn-secondary'
+          }
+        },
+        callback: function(result) {
+          if (result) {
+            document.location.href = "<?= base_url('menu/deleteSubMenu/'); ?>" + id;
+          };
+        }
+      });
     });
   });
 </script>

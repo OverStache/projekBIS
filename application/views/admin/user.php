@@ -16,8 +16,8 @@
         <div class="col-6">
           <div class="card">
             <div class="card-header">
-              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#newRoleModal">Add New Role</a>
-              <?= form_error('role', '<div class="alert alert-danger mt-3">', '</div>'); ?>
+              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#newUserModal">Add New User</a>
+              <?= form_error('user', '<div class="alert alert-danger mt-3">', '</div>'); ?>
               <?= $this->session->flashdata('message'); ?>
             </div>
             <!-- /.card-header -->
@@ -26,7 +26,7 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Role</th>
+                    <th>User</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -47,7 +47,7 @@
                 <tfoot>
                   <tr>
                     <th>#</th>
-                    <th>Role</th>
+                    <th>User</th>
                     <th>Action</th>
                   </tr>
                 </tfoot>
@@ -69,11 +69,11 @@
 <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="newUserModel" tabindex="-1" aria-labelledby="newUserModelLabel" aria-hidden="true">
+<div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="newUserModelLabel">Modal title</h5>
+        <h5 class="modal-title" id="newUserModalLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -81,7 +81,15 @@
       <form action="<?= base_url('user'); ?>" method="POST">
         <div class="modal-body">
           <div class="form-group">
-            <input type="text" class="form-control" id="role" name="role" placeholder="Role Name">
+            <input type="text" class="form-control" id="user" name="user" placeholder="User Name" required>
+          </div>
+          <div class="input-group mt-3">
+            <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
