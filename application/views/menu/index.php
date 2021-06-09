@@ -22,7 +22,10 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <a href="#" class="btn btn-primary modalAdd" data-toggle="modal" data-target="#formModal">Add New Menu</a>
+              <?php if ($this->session->userdata('role_id') == 1) : ?>
+                <a href="#" class="btn btn-primary modalAdd" data-toggle="modal" data-target="#formModal">Add New Menu</a>
+              <?php endif ?>
+              <!-- <?= $button; ?> -->
               <?= form_error('menu', '<div class="alert alert-danger mt-3">', '</div>'); ?>
               <?= $this->session->flashdata('message'); ?>
             </div>
@@ -33,7 +36,9 @@
                   <tr>
                     <th>#</th>
                     <th>Menu</th>
-                    <th>Action</th>
+                    <?php if ($this->session->userdata('role_id') == 1) : ?>
+                      <th>Action</th>
+                    <?php endif ?>
                   </tr>
                 </thead>
                 <tbody>
@@ -42,11 +47,14 @@
                     <tr>
                       <td><?= $i++; ?></td>
                       <td><?= $m['menu']; ?></td>
-                      <td>
-                        <!-- <a href="<?= base_url('menu/editMenu/' . $m['id']) ?>" class="badge badge-success">Edit</a> -->
-                        <a href="" class="badge btn bg-success rounded-pill float-end modalUpdate ml-1" data-toggle="modal" data-target="#formModal" data-id="<?= $m['id']; ?>" data-menu="<?= $m['menu']; ?>">Update</a>
-                        <a href="#" class="badge badge-danger modalDelete" data-id="<?= $m['id']; ?>" data-menu="<?= $m['menu']; ?>">Delete</a>
-                      </td>
+                      <?php if ($this->session->userdata('role_id') == 1) : ?>
+                        <td>
+                          <!-- <a href="<?= base_url('menu/editMenu/' . $m['id']) ?>" class="badge badge-success">Edit</a> -->
+                          <a href="" class="badge btn bg-success rounded-pill float-end modalUpdate ml-1" data-toggle="modal" data-target="#formModal" data-id="<?= $m['id']; ?>" data-menu="<?= $m['menu']; ?>">Update</a>
+                          <a href="#" class="badge badge-danger modalDelete" data-id="<?= $m['id']; ?>" data-menu="<?= $m['menu']; ?>">Delete</a>
+                          <!-- <?= $button; ?> -->
+                        </td>
+                      <?php endif ?>
                     </tr>
                   <?php endforeach ?>
                 </tbody>
@@ -54,7 +62,9 @@
                   <tr>
                     <th>#</th>
                     <th>Menu</th>
-                    <th>Action</th>
+                    <?php if ($this->session->userdata('role_id') == 1) : ?>
+                      <th>Action</th>
+                    <?php endif ?>
                   </tr>
                 </tfoot>
               </table>
@@ -87,7 +97,7 @@
       <div class="modal-body">
         <form action="<?= base_url('menu'); ?>" method="POST">
           <div class="form-group">
-            <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name..." required>
+            <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name...">
           </div>
       </div>
       <div class="modal-footer">
