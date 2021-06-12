@@ -56,14 +56,10 @@ class Menu extends CI_Controller
     $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
 
     $this->form_validation->set_rules('menu', 'Title', 'required');
-    $this->load->view('menu/index', $data);
-    $this->load->view('templates/footer');
 
     if ($this->form_validation->run() == false) {
-      $this->session->set_flashdata('message', '<div class="alert alert-danger mt-3" role="alert">
-      Update fail
-      </div>');
-      redirect('menu');
+      $this->load->view('menu/index', $data);
+      $this->load->view('templates/footer');
     } else {
       $title = $this->input->post('menu');
       $this->db->set('menu', $title);
@@ -128,9 +124,8 @@ class Menu extends CI_Controller
     $this->form_validation->set_rules('url', 'URL', 'required');
     $this->form_validation->set_rules('icon', 'Icon', 'required');
 
+
     if ($this->form_validation->run() == false) {
-      // $this->load->view('menu/submenu', $data);
-      // redirect('menu/submenu', $data);
       $this->load->view('menu/submenu', $data);
       $this->load->view('templates/footer');
     } else {

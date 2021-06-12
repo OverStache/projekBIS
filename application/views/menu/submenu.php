@@ -13,7 +13,9 @@
         <div class="col">
           <div class="card">
             <div class="card-header">
-              <a href="" class="btn btn-primary subMenuModalAdd" data-toggle="modal" data-target="#subMenuModal">Add New Sub Menu</a>
+              <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+                <a href="" class="btn btn-primary subMenuModalAdd" data-toggle="modal" data-target="#subMenuModal">Add New Sub Menu</a>
+              <?php endif ?>
               <!-- alert -->
               <?php if (validation_errors()) : ?>
                 <div class="alert alert-danger mt-3" role="alert">
@@ -33,7 +35,9 @@
                     <th>Url</th>
                     <th>Icon</th>
                     <th>Active</th>
-                    <th>Action</th>
+                    <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+                      <th>Action</th>
+                    <?php endif ?>
                   </tr>
                 </thead>
                 <tbody>
@@ -46,11 +50,13 @@
                       <td><?= $sm['url']; ?></td>
                       <td><?= $sm['icon']; ?></td>
                       <td><?= $sm['is_active']; ?></td>
-                      <td>
-                        <a href="" class="badge badge-success subMenuModalUpdate" data-toggle="modal" data-target="#subMenuModal" data-id="<?= $sm['id']; ?>" data-title="<?= $sm['title']; ?>" data-menu_id="<?= $sm['menu_id']; ?>" data-url="<?= $sm['url']; ?>" data-icon="<?= $sm['icon']; ?>" data-is_active="<?= $sm['is_active']; ?>">Edit</a>
-                        <!-- <a href="<?= base_url('menu/editSubMenu/') . $sm['id']; ?>" class=" badge badge-success">Edit</a> -->
-                        <a href="#" class=" badge badge-danger subMenuModalDelete" data-id="<?= $sm['id']; ?>" data-submenu="<?= $sm['menu']; ?>">Delete</a>
-                      </td>
+                      <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+                        <td>
+                          <a href="" class="badge badge-success subMenuModalUpdate" data-toggle="modal" data-target="#subMenuModal" data-id="<?= $sm['id']; ?>" data-title="<?= $sm['title']; ?>" data-menu_id="<?= $sm['menu_id']; ?>" data-url="<?= $sm['url']; ?>" data-icon="<?= $sm['icon']; ?>" data-is_active="<?= $sm['is_active']; ?>">Edit</a>
+                          <!-- <a href="<?= base_url('menu/editSubMenu/') . $sm['id']; ?>" class=" badge badge-success">Edit</a> -->
+                          <a href="#" class=" badge badge-danger subMenuModalDelete" data-id="<?= $sm['id']; ?>" data-submenu="<?= $sm['menu']; ?>">Delete</a>
+                        </td>
+                      <?php endif ?>
                     </tr>
                   <?php endforeach ?>
                 </tbody>
@@ -62,7 +68,9 @@
                     <th>Url</th>
                     <th>Icon</th>
                     <th>Active</th>
-                    <th>Action</th>
+                    <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+                      <th>Action</th>
+                    <?php endif ?>
                   </tr>
                 </tfoot>
               </table>
@@ -95,10 +103,10 @@
       <div class="modal-body">
         <form action="<?= base_url('menu/submenu'); ?>" method="POST">
           <div class="form-group">
-            <input type="text" class="form-control" id="title" name="title" placeholder="Sub Menu Title">
+            <input type="text" class="form-control" id="title" name="title" placeholder="Sub Menu Title" required>
           </div>
           <div class="form-group">
-            <select class="form-control" id="menu_id" name="menu_id">
+            <select class="form-control" id="menu_id" name="menu_id" required>
               <option value="">Select Menus</option>
               <?php foreach ($menu as $m) : ?>
                 <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
@@ -106,10 +114,10 @@
             </select>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" id="url" name="url" placeholder="Sub Menu URL">
+            <input type="text" class="form-control" id="url" name="url" placeholder="Sub Menu URL" required>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" id="icon" name="icon" placeholder="Sub Menu Icon">
+            <input type="text" class="form-control" id="icon" name="icon" placeholder="Sub Menu Icon" required>
           </div>
           <div class="form-group">
             <div class="form-check">

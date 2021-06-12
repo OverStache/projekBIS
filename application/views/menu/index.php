@@ -22,11 +22,11 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <?php if ($this->session->userdata('role_id') == 1) : ?>
+              <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                 <a href="#" class="btn btn-primary modalAdd" data-toggle="modal" data-target="#formModal">Add New Menu</a>
               <?php endif ?>
-              <!-- <?= $button; ?> -->
-              <?= form_error('menu', '<div class="alert alert-danger mt-3">', '</div>'); ?>
+              <!-- <?= form_error('menu', '<div class="alert alert-danger mt-3">', '</div>'); ?> -->
+              <?php echo anchor('form', 'Try it again!'); ?>
               <?= $this->session->flashdata('message'); ?>
             </div>
             <!-- /.card-header -->
@@ -36,7 +36,7 @@
                   <tr>
                     <th>#</th>
                     <th>Menu</th>
-                    <?php if ($this->session->userdata('role_id') == 1) : ?>
+                    <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                       <th>Action</th>
                     <?php endif ?>
                   </tr>
@@ -47,12 +47,11 @@
                     <tr>
                       <td><?= $i++; ?></td>
                       <td><?= $m['menu']; ?></td>
-                      <?php if ($this->session->userdata('role_id') == 1) : ?>
+                      <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                         <td>
                           <!-- <a href="<?= base_url('menu/editMenu/' . $m['id']) ?>" class="badge badge-success">Edit</a> -->
-                          <a href="" class="badge btn bg-success rounded-pill float-end modalUpdate ml-1" data-toggle="modal" data-target="#formModal" data-id="<?= $m['id']; ?>" data-menu="<?= $m['menu']; ?>">Update</a>
+                          <a href="" class="badge badge-success modalUpdate" data-toggle="modal" data-target="#formModal" data-id="<?= $m['id']; ?>" data-menu="<?= $m['menu']; ?>">Update</a>
                           <a href="#" class="badge badge-danger modalDelete" data-id="<?= $m['id']; ?>" data-menu="<?= $m['menu']; ?>">Delete</a>
-                          <!-- <?= $button; ?> -->
                         </td>
                       <?php endif ?>
                     </tr>
@@ -62,7 +61,7 @@
                   <tr>
                     <th>#</th>
                     <th>Menu</th>
-                    <?php if ($this->session->userdata('role_id') == 1) : ?>
+                    <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                       <th>Action</th>
                     <?php endif ?>
                   </tr>
@@ -95,10 +94,13 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="<?= base_url('menu'); ?>" method="POST">
-          <div class="form-group">
-            <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name...">
-          </div>
+        <?php echo validation_errors(); ?>
+
+        <?php echo form_open('form'); ?>
+        <!-- <form action="<?= base_url('menu'); ?>" method="POST"> -->
+        <div class="form-group">
+          <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name...">
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
