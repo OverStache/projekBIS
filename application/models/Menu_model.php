@@ -12,12 +12,13 @@ class Menu_model extends CI_Model
     return $this->db->query($query)->result_array();
   }
 
-  public function getMenuById($id)
+  public function getMenuById($url)
   {
-    // $this->db->query('SELECT * FROM tbl_user_menu WHERE id=:id');
-    // $this->db->bind('id', $id);
-    // return $this->db->single();
-
-    return $this->db->get_where('tbl_user_menu', ['id' => $id])->row_array();
+    $query = "  SELECT *
+                FROM  `tbl_user_sub_menu` JOIN `tbl_user_menu`
+                ON    `tbl_user_sub_menu`.`menu_id` = `tbl_user_menu`.`id`
+                WHERE `tbl_user_sub_menu`.`url` = '$url'
+                ";
+    return $this->db->query($query)->result_array();
   }
 }

@@ -77,28 +77,11 @@
         roleId: roleId
       },
       success: function() {
-        document.location.href = "<?= base_url('admin/role/'); ?>" + roleId;
+        document.location.href = "<?= base_url('admin/roleAccess/'); ?>" + roleId;
       }
     });
   });
 
-  // auto change role
-  $('.dropdown-menu li').click(function() {
-    const id = this.value;
-    const name = $(this).text();
-    $('.roleTarget').html(id);
-    $(this).parents('.dropdown').find('.dropdown-toggle').html(name);
-    $.ajax({
-      url: "<?= base_url('admin/changeRole'); ?>",
-      type: 'post',
-      data: {
-        id: id
-      },
-      success: function() {
-        document.location.href = "<?= base_url('admin/roleAccess/'); ?>" + id;
-      }
-    });
-  });
 </script>
 
 <!-- menu/index Menu CRUD modal -->
@@ -139,7 +122,7 @@
         },
         callback: function(result) {
           if (result) {
-            document.location.href = "<?= base_url('menu/deleteMenu/'); ?>" + id;
+            document.location.href = "<?= base_url('admin/menuDelete/'); ?>" + id;
           };
         }
       });
@@ -161,25 +144,15 @@
       $('.modal-footer button[type=submit]').html('Tambah Data')
     });
 
-    $('body').on('click', '.subMenuModalUpdate', function() {
-      const id = $(this).data('id');
-      const title = $(this).data('title');
+    $('body').on('click', '.editbaten', function() {
       const menu_id = $(this).data('menu_id');
-      const url = $(this).data('url');
-      const icon = $(this).data('icon');
       const is_active = $(this).data('is_active');
-      $('#subMenuModalLabel').html('Update Data');
-      $('.modal-body form').attr('action', "<?= base_url('menu/editSubMenu/') ?>" + id);
-      $('.modal-body #title').val(title);
       $('.modal-body #menu_id').val(menu_id);
-      $('.modal-body #url').val(url);
-      $('.modal-body #icon').val(icon);
       if (is_active == 1) {
         $('.modal-body .form-check-input').attr('checked', true);
       } else {
         $('.modal-body .form-check-input').attr('checked', false);
       }
-      $('.modal-footer button[type=submit]').html('Update Data');
     });
 
     $('body').on('click', '.subMenuModalDelete', function() {
@@ -200,7 +173,7 @@
         },
         callback: function(result) {
           if (result) {
-            document.location.href = "<?= base_url('menu/deleteSubMenu/'); ?>" + id;
+            document.location.href = "<?= base_url('admin/subMenuDelete/'); ?>" + id;
           };
         }
       });

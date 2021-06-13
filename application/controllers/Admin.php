@@ -8,20 +8,13 @@ class Admin extends CI_Controller
     parent::__construct();
     is_logged_in();
 
-    $data['uri1'] = $this->uri->segment(1);
-    $data['uri2'] = $this->uri->segment(2);
+    $this->load->model('Construct_model', 'construct');
 
-    if ($this->uri->segment(2)) {
-      $url = $data['uri1'] . '/' . $data['uri2'];
-    } else {
-      $url = $data['uri1'];
-    }
-    $data['title'] = $this->db->get_where('tbl_user_sub_menu', ['url' => $url])->row_array();
-
-    // $this->role(0);
+    $data['title'] = $this->construct->getTitle();
 
     // select * from tbl_user where email = email dari session
-    $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['tbl_user'] = $this->construct->emailSession();
+
     $this->load->view('templates/header', $data);
     $this->load->view('templates/navbar', $data);
     $this->load->view('templates/sidebar', $data);
@@ -29,41 +22,25 @@ class Admin extends CI_Controller
 
   public function index()
   {
-    $data['total_user'] = $this->db->where('role_id', 2)->from("tbl_user")->count_all_results();
-    $data['total_admin'] = $this->db->where('role_id', 1)->from("tbl_user")->count_all_results();
+    $data['total_pengawas'] = $this->db->where('role_id', 3)->from("tbl_user")->count_all_results();
+    $data['total_member'] = $this->db->where('role_id', 2)->from("tbl_user")->count_all_results();
+    $data['total_pengurus'] = $this->db->where('role_id', 1)->from("tbl_user")->count_all_results();
     $this->load->view('admin/index', $data);
     $this->load->view('templates/footer');
   }
   // menu role
-  public function role()
-  {
-    $id = 1;
-    $this->roleAccess($id);
-  }
 
-  public function roleAccess($id)
+  public function roleAccess($id = 1)
   {
-    // $id = $this->input->post('menuId');
+    // combobox
     $data['role'] = $this->db->get('tbl_user_role')->result_array();
-    if ($id) {
-      // cek tbl_user_access_menu kombinasi role_id-menu_id ada ga
-      $data['role_id'] = $this->db->get_where('tbl_user_role', ['id' => $id])->row_array();
-
-      // tampilin tabel menu
-      $this->db->where('id!=', 1);
-      $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
-    } else {
-      $data['menu'] = 0;
-      // echo 'nampak nya eror';
-    }
-    $this->load->view('admin/roleAccess', $data);
+    // get role_id
+    $data['role_id'] = $this->db->get_where('tbl_user_role', ['id' => $id])->row_array();
+    // tampilin tabel menu
+    $this->db->where('id!=', 1);
+    $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
+    $this->load->view('admin/role/index', $data);
     $this->load->view('templates/footer');
-  }
-
-  public function changeRole()
-  {
-    $id = $this->input->post('id');
-    $this->role($id);
   }
 
   public function changeaccess()
@@ -94,7 +71,166 @@ class Admin extends CI_Controller
     $this->db->where('role_id!=', 1);
     $data['user'] = $this->db->get('tbl_user')->result_array();
 
-    $this->load->view('admin/user', $data);
+    $this->load->model('User_model', 'user');
+    $data['user'] = $this->user->getUserRole();
+
+    $this->load->view('admin/user/index', $data);
     $this->load->view('templates/footer');
+  }
+
+  public function userAdd()
+  {
+    $this->form_validation->set_rules('title', 'Title', 'required');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('admin/user/userAdd');
+      $this->load->view('templates/footer');
+    } else {
+      // insert user baru ke tbl_user_menu
+      $this->db->insert('tbl_user_menu', ['Menu' => $this->input->post('title')]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success mt-3" role="alert">
+      Menu Added
+      </div>');
+      redirect('admin/user');
+    }
+  }
+  //  end of menu user
+
+  public function menu()
+  {
+    $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
+    $this->load->view('admin/menu/index', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function menuAdd()
+  {
+    $this->form_validation->set_rules('title', 'Title', 'required');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('admin/menu/menuAdd');
+      $this->load->view('templates/footer');
+    } else {
+      // insert menu baru ke tbl_user_menu
+      $this->db->insert('tbl_user_menu', ['Menu' => $this->input->post('title')]);
+      $this->session->set_flashdata('message', '<div class="alert alert-success mt-3" role="alert">
+      Menu Added
+      </div>');
+      redirect('admin/menu');
+    }
+  }
+
+  public function menuUpdate($id)
+  {
+    $data['menu'] = $this->db->get_where('tbl_user_menu', ['id' => $id])->row_array();
+
+    $this->form_validation->set_rules('title', 'Title', 'required');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('admin/menu/menuUpdate', $data);
+      $this->load->view('templates/footer');
+    } else {
+      // insert menu baru ke tbl_user_menu
+      $this->db->set('menu', $this->input->post('title'));
+      $this->db->where('id', $id);
+      $this->db->update('tbl_user_menu');
+      $this->session->set_flashdata('message', '<div class="alert alert-success mt-3" role="alert">
+      Menu Added
+      </div>');
+      redirect('admin/menu');
+    }
+  }
+
+  public function menuDelete($id)
+  {
+    $this->db->delete('tbl_user_menu', array('id' => $id));
+    $this->session->set_flashdata('message', '<div class="alert alert-warning mt-3" role="alert">
+    Menu Deleted!
+    </div>');
+    redirect('admin/menu');
+  }
+  // end of Menu Management
+
+  // sub menu management
+  public function subMenu()
+  {
+    $this->load->model('Menu_model', 'menu');
+
+    $data['subMenu'] = $this->menu->getSubMenu();
+    $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
+
+    $this->load->view('admin/subMenu/index', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function subMenuAdd()
+  {
+    $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
+
+    $this->form_validation->set_rules('title', 'Title', 'required');
+    $this->form_validation->set_rules('menu_id', 'Menu', 'required');
+    $this->form_validation->set_rules('url', 'URL', 'required');
+    $this->form_validation->set_rules('icon', 'Icon', 'required');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('admin/subMenu/subMenuAdd', $data);
+      $this->load->view('templates/footer');
+    } else {
+      $data = [
+        'title' => $this->input->post('title'),
+        'menu_id' => $this->input->post('menu_id'),
+        'url' => $this->input->post('url'),
+        'icon' => $this->input->post('icon'),
+        'is_active' => $this->input->post('is_active'),
+      ];
+      // insert menu baru ke tbl_user_menu
+      $this->db->insert('tbl_user_sub_menu', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success mt-3" role="alert">
+      Menu Added!
+      </div>');
+      redirect('admin/subMenu');
+    }
+  }
+
+  public function subMenuUpdate($id)
+  {
+    $data['subMenu'] = $this->db->get_where('tbl_user_sub_menu', ['id' => $id])->row_array();
+    $menu_id = $data['subMenu']['menu_id'];
+    $data['menu'] = $this->db->get_where('tbl_user_menu', ['id' => $menu_id])->row_array();
+    $data['menuLoop'] = $this->db->get('tbl_user_menu')->result_array();
+
+    $this->form_validation->set_rules('title', 'Title', 'required');
+    $this->form_validation->set_rules('menu_id', 'Menu', 'required');
+    $this->form_validation->set_rules('url', 'URL', 'required');
+    $this->form_validation->set_rules('icon', 'Icon', 'required');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('admin/subMenu/subMenuUpdate', $data);
+      $this->load->view('templates/footer');
+    } else {
+      $data = [
+        'title' => $this->input->post('title'),
+        'menu_id' => $this->input->post('menu_id'),
+        'url' => $this->input->post('url'),
+        'icon' => $this->input->post('icon'),
+        'is_active' => $this->input->post('is_active'),
+      ];
+      // insert menu baru ke tbl_user_menu
+      $this->db->where('id', $id);
+      $this->db->update('tbl_user_sub_menu', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success mt-3" role="alert">
+      Sub Menu Updated!
+      </div>');
+      redirect('admin/subMenu');
+    }
+  }
+
+  public function subMenuDelete($id)
+  {
+    $this->db->delete('tbl_user_menu', array('id' => $id));
+    $this->session->set_flashdata('message', '<div class="alert alert-warning mt-3" role="alert">
+    Menu Deleted!
+    </div>');
+    redirect('admin/subMenu');
   }
 }

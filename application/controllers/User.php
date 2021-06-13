@@ -8,28 +8,20 @@ class User extends CI_Controller
     parent::__construct();
     is_logged_in();
 
-    $data['uri1'] = $this->uri->segment(1);
-    $data['uri2'] = $this->uri->segment(2);
-    $url = $data['uri1'] . '/' . $data['uri2'];
+    $this->load->model('Construct_model', 'construct');
 
-    if ($this->uri->segment(2)) {
-      $data['title'] = $this->db->get_where('tbl_user_sub_menu', ['url' => $url])->row_array();
-    } else {
-      $data['title'] = $this->db->get_where('tbl_user_sub_menu', ['url' => $data['uri1']])->row_array();
-    }
+    $data['title'] = $this->construct->getTitle();
 
     // select * from tbl_user where email = email dari session
-    $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['tbl_user'] = $this->construct->emailSession();
+
     $this->load->view('templates/header', $data);
     $this->load->view('templates/navbar', $data);
     $this->load->view('templates/sidebar', $data);
   }
+
   public function index()
   {
-    $data['title'] = 'My Profile';
-    // select * from tbl_user where email = email dari session
-    $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
-
     $data['role'] = $this->db->get_where('tbl_user_role', ['id' => $this->session->userdata('role_id')])->row_array();
     $this->load->view('user/index', $data);
     $this->load->view('templates/footer');
@@ -37,10 +29,7 @@ class User extends CI_Controller
 
   public function edit()
   {
-    $data['title'] = 'Edit Profile';
-    // select * from tbl_user where email = email dari session
-    $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
-
+    $data['tbl_user'] = $this->construct->emailSession();
     $this->form_validation->set_rules('name', 'Name', 'required');
 
     if ($this->form_validation->run() == false) {
@@ -88,9 +77,8 @@ class User extends CI_Controller
 
   public function changepassword()
   {
-    $data['title'] = 'Change Password';
     // select * from tbl_user where email = email dari session
-    $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['tbl_user'] = $this->construct->emailSession();
 
     $data['role'] = $this->db->get_where('tbl_user_role', ['id' => $this->session->userdata('role_id')])->row_array();
 

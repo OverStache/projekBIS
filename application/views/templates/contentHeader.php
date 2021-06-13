@@ -6,8 +6,10 @@
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="<?= base_url('admin'); ?>"><?= $uri1; ?></a></li>
-          <li class="breadcrumb-item active"><?= $uri2; ?></li>
+          <li class="breadcrumb-item"><a href="<?= base_url('admin'); ?>"><?= $this->uri->segment(1); ?></a></li>
+          <?php if ($this->uri->segment(2)) : ?>
+            <li class="breadcrumb-item active"><?= $this->uri->segment(2); ?></li>
+          <?php endif ?>
         </ol>
       </div>
     </div>

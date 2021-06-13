@@ -16,16 +16,6 @@
           <div class="card">
             <div class="card-header">
               <?= $this->session->flashdata('message'); ?>
-              <!-- <h5 class="mt-2 roleTarget">Role : <?= $role_id['role']; ?></h5> -->
-              <h5 class="mt-2 roleTarget"></h5>
-              <!-- <div class="form-group">
-                <select class="form-control mySelect" id="menu_id" name="menu_id">
-                  <option value="">Select Menus</option>
-                  <?php foreach ($role as $r) : ?>
-                    <option value="<?= $r['id']; ?>" class="roleOption" data-role="<?= $r['id']; ?>"><?= $r['role']; ?></option>
-                  <?php endforeach ?>
-                </select>
-              </div> -->
 
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -78,7 +68,7 @@
                   </tfoot>
                 </table>
               <?php else : ?>
-                <h5>select role</h5>
+                <h5>No Menu</h5>
               <?php endif ?>
             </div>
             <!-- /.card-body -->
