@@ -33,7 +33,7 @@
                   <input type="text" class="form-control" id="url" name="url" placeholder="Sub Menu URL" required>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" id="icon" name="icon" placeholder="Sub Menu Icon" required>
+                  <input type="text" class="form-control" id="icon" name="icon" placeholder="Sub Menu Icon">
                 </div>
                 <div class="form-group">
                   <div class="form-check">

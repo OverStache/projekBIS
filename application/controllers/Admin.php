@@ -80,18 +80,31 @@ class Admin extends CI_Controller
 
   public function userAdd()
   {
-    $this->form_validation->set_rules('title', 'Title', 'required');
+    $this->form_validation->set_rules('username', 'Name', 'required');
+    $this->form_validation->set_rules('password', 'Password', 'required');
+    $email = $this->input->post('email', true);
+    $data = [
+      'username' => htmlspecialchars($this->input->post('username', true)),
+      'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+      'email' => htmlspecialchars($email),
+      'image' => 'default.png',
+      'role_id' => $this->input->post('role_id'),
+      'is_active' => 1,
+      'date_created' => time()
+    ];
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('admin/user/userAdd');
+      $data['role'] = $this->db->get('tbl_user_role')->result_array();
+      $this->load->view('admin/user/userAdd', $data);
       $this->load->view('templates/footer');
     } else {
       // insert user baru ke tbl_user_menu
-      $this->db->insert('tbl_user_menu', ['Menu' => $this->input->post('title')]);
-      $this->session->set_flashdata('message', '<div class="alert alert-success mt-3" role="alert">
-      Menu Added
-      </div>');
-      redirect('admin/user');
+      // $this->db->insert('tbl_user_menu', ['Menu' => $this->input->post('title')]);
+      // $this->session->set_flashdata('message', '<div class="alert alert-success mt-3" role="alert">
+      // Menu Added
+      // </div>');
+      var_dump($data);
+      // redirect('admin/user');
     }
   }
   //  end of menu user
@@ -170,7 +183,6 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('title', 'Title', 'required');
     $this->form_validation->set_rules('menu_id', 'Menu', 'required');
     $this->form_validation->set_rules('url', 'URL', 'required');
-    $this->form_validation->set_rules('icon', 'Icon', 'required');
 
     if ($this->form_validation->run() == false) {
       $this->load->view('admin/subMenu/subMenuAdd', $data);

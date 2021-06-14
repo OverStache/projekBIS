@@ -250,11 +250,9 @@ class Auth extends CI_Controller
   {
     $data['title'] = '403 Forbidden';
     $data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/navbar', $data);
+    $this->load->view('templates/authHeader', $data);
     $this->load->view('auth/blocked', $data);
-    $this->load->view('templates/footer');
+    $this->load->view('templates/authFooter');
   }
 
   public function forgotPassword()

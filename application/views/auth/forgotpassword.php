@@ -9,8 +9,7 @@
       <p class="login-box-msg">Forgot your password?</p>
 
       <form action="<?php base_url('auth/forgotpassword') ?>" method="post">
-        <?php echo form_error('email', '<small class="text-danger">', '</small>'); ?>
-        <div class="input-group mb-3">
+        <div class="input-group">
           <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo set_value('email'); ?>">
           <div class=" input-group-append">
             <div class="input-group-text">
@@ -18,7 +17,8 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <?php echo form_error('email', '<small class="text-danger">', '</small>'); ?>
+        <div class="row mt-3">
           <div class="col">
             <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
           </div>

@@ -25,7 +25,6 @@
             </div>
           </div>
         </div>
-        <?php echo form_error('password2', '<small class="text-danger">', '</small>'); ?>
         <div class="input-group mb-3">
           <input type="password" class="form-control" id="password2" name="password2" placeholder="Enter new password...">
           <div class=" input-group-append">
@@ -34,6 +33,7 @@
             </div>
           </div>
         </div>
+        <?php echo form_error('password2', '<small class="text-danger">', '</small>'); ?>
         <div class="row">
           <div class="col">
             <button type="submit" class="btn btn-primary btn-block">Change Password</button>
