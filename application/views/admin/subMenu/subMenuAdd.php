@@ -16,40 +16,40 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="<?= base_url('admin/subMenuAdd'); ?>" method="POST">
-              <div class="card-body">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="title" name="title" placeholder="Sub Menu Title" required>
-                </div>
-                <div class="form-group">
-                  <select class="form-control" id="menu_id" name="menu_id" required>
-                    <option value="">Select Menus</option>
-                    <?php foreach ($menu as $m) : ?>
-                      <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
-                    <?php endforeach ?>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" id="url" name="url" placeholder="Sub Menu URL" required>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" id="icon" name="icon" placeholder="Sub Menu Icon">
-                </div>
-                <div class="form-group">
-                  <div class="form-check">
-                    <input type="hidden" id="is_active" name="is_active" value="0">
-                    <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active">
-                    <label class="form-check-label" for="is_active">
-                      Active
-                    </label>
-                  </div>
+            <?= form_open_multipart('admin/subMenuAdd'); ?>
+            <div class="card-body">
+              <div class="form-group">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Sub Menu Title" required>
+              </div>
+              <div class="form-group">
+                <select class="form-control" id="menu_id" name="menu_id" required>
+                  <option value="">Select Menus</option>
+                  <?php foreach ($menu as $m) : ?>
+                    <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
+                  <?php endforeach ?>
+                </select>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="url" name="url" placeholder="Sub Menu URL" required>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="icon" name="icon" placeholder="Sub Menu Icon">
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input type="hidden" id="is_active" name="is_active" value="0">
+                  <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active">
+                  <label class="form-check-label" for="is_active">
+                    Active
+                  </label>
                 </div>
               </div>
-              <!-- /.card-body -->
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Add New Menu</button>
-                <a href="<?= base_url('admin/subMenu'); ?>" class="btn btn-danger">Cancel</a>
-              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Add New Menu</button>
+              <a href="<?= base_url('admin/subMenu'); ?>" class="btn btn-danger">Cancel</a>
+            </div>
             </form>
           </div>
           <!-- /.card -->

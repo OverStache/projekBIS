@@ -15,25 +15,25 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <?= form_open_multipart('admin/userAdd'); ?>
+            <?= form_open_multipart('admin/userUpdate/' . $user['id']); ?>
             <div class="card-body">
               <div class="form-group">
-                <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>">
                 <?php echo form_error('username', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                <input type="password" class="form-control" id="password" name="password" value=".........">
                 <?php echo form_error('password', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" id="email" name="email" placeholder="email">
+                <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>">
                 <?php echo form_error('email', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <select class="form-control" id="role_id" name="role_id">
+                <select class="form-control" id="role_id" name="role_id" value="<?= $user['role_id']; ?>">
                   <option value="">Select Role</option>
                   <?php foreach ($role as $r) : ?>
-                    <option value="<?= $r['id']; ?>"><?= $r['role']; ?></option>
+                    <option value="<?= $r['id']; ?>" <?php if ($r['id'] == $user['role_id']) : ?> selected <?php endif ?>><?= $r['role']; ?></option>
                   <?php endforeach ?>
                 </select>
                 <?php echo form_error('role_id', '<small class="text-danger">', '</small>'); ?>
@@ -41,7 +41,7 @@
               <div class="form-group">
                 <div class="form-check">
                   <input type="hidden" id="is_active" name="is_active" value="0">
-                  <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active">
+                  <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active" <?php if ($user['is_active'] == 1) : ?> checked <?php endif ?>>
                   <label class="form-check-label" for="is_active">
                     Active
                   </label>

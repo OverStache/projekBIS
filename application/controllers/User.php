@@ -30,13 +30,13 @@ class User extends CI_Controller
   public function edit()
   {
     $data['tbl_user'] = $this->construct->emailSession();
-    $this->form_validation->set_rules('name', 'Name', 'required');
+    $this->form_validation->set_rules('username', 'Name', 'required');
 
     if ($this->form_validation->run() == false) {
       $this->load->view('user/edit', $data);
       $this->load->view('templates/footer');
     } else {
-      $name = $this->input->post('name');
+      $name = $this->input->post('username');
       $email = $this->input->post('email');
 
       // cek jika ada gambar yang akan di upload
@@ -60,17 +60,22 @@ class User extends CI_Controller
           $new_image = $this->upload->data('file_name');
           $this->db->set('image', $new_image);
         } else {
-          echo $this->upload->display_errors();
+          $message = $this->upload->display_errors();
+          $alert = 'danger';
         }
       }
-
+      $message = 'Profile Updated!';
+      $alert = 'success';
+      $this->session->set_flashdata('message', '
+      <div class="alert alert-' . $alert . ' alert-dismissible fade show" role="alert">
+        ' . $message . '
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>');
       $this->db->set('username', $name);
       $this->db->where('email', $email);
       $this->db->update('tbl_user');
-
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-      Profile Updated!
-      </div>');
       redirect('user');
     }
   }
@@ -83,8 +88,8 @@ class User extends CI_Controller
     $data['role'] = $this->db->get_where('tbl_user_role', ['id' => $this->session->userdata('role_id')])->row_array();
 
     $this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
-    $this->form_validation->set_rules('new_password1', 'Current Password', 'required|trim|min_length[3]|matches[new_password2]');
-    $this->form_validation->set_rules('new_password2', 'Current Password', 'required|trim|min_length[3]|matches[new_password1]');
+    $this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[3]|matches[new_password2]');
+    $this->form_validation->set_rules('new_password2', 'Repeat Password', 'required|trim|min_length[3]|matches[new_password1]');
 
     if ($this->form_validation->run() == false) {
       $this->load->view('user/changepassword', $data);
@@ -93,27 +98,29 @@ class User extends CI_Controller
       $current_password = $this->input->post('current_password');
       $new_password = $this->input->post('new_password1');
       if (!password_verify($current_password, $data['tbl_user']['password'])) {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-        Wrong Password!
-        </div>');
-        redirect('user/changepassword');
+        $message = 'Wrong Password!';
+        $alert = 'danger';
       } else {
         if ($current_password == $new_password) {
-          $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-          Password same!
-          </div>');
-          redirect('user/changepassword');
+          $message = 'Password Same!';
+          $alert = 'danger';
         } else {
           $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
           $this->db->set('password', $password_hash);
           $this->db->where('email', $this->session->userdata('email'));
           $this->db->update('tbl_user');
-          $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-          Password Changed!
-          </div>');
-          redirect('user/changepassword');
+          $message = 'Password Changed!';
+          $alert = 'success';
         }
       }
+      $this->session->set_flashdata('message', '
+      <div class="alert alert-' . $alert . ' alert-dismissible fade show" role="alert">
+        ' . $message . '
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>');
+      redirect('user/changepassword');
     }
   }
 }

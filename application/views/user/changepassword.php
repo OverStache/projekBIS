@@ -9,6 +9,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-6">
+          <?= $this->session->flashdata('message'); ?>
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">

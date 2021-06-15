@@ -16,19 +16,19 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="<?= base_url('admin/menuAdd'); ?>" method="POST">
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="title">Menu Name</label>
-                  <input type="text" class="form-control" id="title" name="title">
-                  <?= form_error('title', '<small class="text-danger">', '</small>'); ?>
-                </div>
+            <?= form_open_multipart('admin/menuUpdate'); ?>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="title">Menu Name</label>
+                <input type="text" class="form-control" id="title" name="title">
+                <?= form_error('title', '<small class="text-danger">', '</small>'); ?>
               </div>
-              <!-- /.card-body -->
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Add New Menu</button>
-                <a href="<?= base_url('admin/menu'); ?>" class="btn btn-danger">Cancel</a>
-              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Add New Menu</button>
+              <a href="<?= base_url('admin/menu'); ?>" class="btn btn-danger">Cancel</a>
+            </div>
             </form>
           </div>
           <!-- /.card -->

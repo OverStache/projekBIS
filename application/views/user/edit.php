@@ -22,9 +22,9 @@
                 <input type="text" class="form-control" id="email" name="email" value="<?= $tbl_user['email']; ?>" readonly>
               </div>
               <div class="form-group">
-                <label for="name">Name</label>
-                <input type="name" class="form-control" id="name" name="name" value="<?= $tbl_user['username']; ?>">
-                <?php echo form_error('name', '<small class="text-danger">', '</small>'); ?>
+                <label for="username">Name</label>
+                <input type="text" class="form-control" id="username" name="username" value="<?= $tbl_user['username']; ?>">
+                <?php echo form_error('username', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
                 <label for="exampleInputFile">Picture</label>
@@ -36,19 +36,12 @@
                     <div class="input-group">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="image" name="image">
-                        <label class="custom-file-label" for="image">Choose file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text">Upload</span>
+                        <label class="custom-file-label" for="image">Choose file (.gif/.jpg/.png)</label>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-              </div> -->
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
