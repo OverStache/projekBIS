@@ -117,7 +117,6 @@ class Admin extends CI_Controller
         <span aria-hidden="true">&times;</span>
         </button>
       </div>');
-      // var_dump($data);
       redirect('admin/user');
     }
   }
@@ -156,6 +155,18 @@ class Admin extends CI_Controller
       // var_dump($data);
       redirect('admin/user');
     }
+  }
+  public function userDelete($id)
+  {
+    $this->db->delete('tbl_user', array('id' => $id));
+    $this->session->set_flashdata('message', '
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        User Deleted!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>');
+    redirect('admin/user');
   }
   //  end of menu user
 

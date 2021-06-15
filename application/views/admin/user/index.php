@@ -46,7 +46,7 @@
                       <td><?= $u['role']; ?></td>
                       <td>
                         <a href="<?= base_url('admin/userUpdate/') . $u['id']; ?>" class="badge badge-success">Edit</a>
-                        <a href="<?= base_url('admin/userDelete/') . $u['id']; ?>" class="badge badge-danger">Delete</a>
+                        <a href="#" class="badge badge-danger modalDelete" data-id="<?= $u['id']; ?>" data-user="<?= $u['username']; ?>">Delete</a>
                       </td>
                     </tr>
                   <?php endforeach ?>

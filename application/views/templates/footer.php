@@ -81,29 +81,39 @@
       }
     });
   });
-
 </script>
 
-<!-- menu/index Menu CRUD modal -->
+<!-- user/index user delete modal -->
 <script>
   $(function() {
-    $('.modalAdd').on('click', function() {
-      $('#modalLabel').html('Tambah Menu');
-      $('.modal-footer button[type=submit]').html('Tambah Menu');
-      $('.modal-body form').attr('action', "<?= base_url('menu') ?>");
-      $('.modal-body #menu').val('');
-    });
-
-
-    $('body').on('click', '.modalUpdate', function() {
-      $('#modalLabel').html('Update Menu');
-      $('.modal-footer button[type=submit]').html('Update Menu');
+    $('body').on('click', '.modalDelete', function() {
       const id = $(this).data('id');
-      $('.modal-body form').attr('action', "<?= base_url('menu/editMenu/') ?>" + id);
-      const menu = $(this).data('menu');
-      $('.modal-body #menu').val(menu);
+      const user = $(this).data('user');
+      bootbox.confirm({
+        title: "sure want to delete?",
+        message: user,
+        buttons: {
+          confirm: {
+            label: 'Yes',
+            className: 'btn-primary'
+          },
+          cancel: {
+            label: 'No',
+            className: 'btn-secondary'
+          }
+        },
+        callback: function(result) {
+          if (result) {
+            document.location.href = "<?= base_url('admin/userDelete/'); ?>" + id;
+          };
+        }
+      });
     });
-
+  });
+</script>
+<!-- menu/index Menu delete modal -->
+<script>
+  $(function() {
     $('body').on('click', '.modalDelete', function() {
       const id = $(this).data('id');
       const menu = $(this).data('menu');
@@ -130,31 +140,9 @@
   });
 </script>
 
-<!-- menu/submenu Sub Menu CRUD modal -->
+<!-- menu/submenu Sub Menu delete modal -->
 <script>
   $(function() {
-    $('.subMenuModalAdd').on('click', function() {
-      $('#subMenuModalLabel').html('Tambah Data');
-      $('.modal-body form').attr('action', "<?= base_url('menu/submenu') ?>");
-      $('.modal-body #title').val('');
-      $('.modal-body #menu_id').val('');
-      $('.modal-body #url').val('');
-      $('.modal-body #icon').val('');
-      $('.modal-body #is_active').attr('checked', false);
-      $('.modal-footer button[type=submit]').html('Tambah Data')
-    });
-
-    $('body').on('click', '.editbaten', function() {
-      const menu_id = $(this).data('menu_id');
-      const is_active = $(this).data('is_active');
-      $('.modal-body #menu_id').val(menu_id);
-      if (is_active == 1) {
-        $('.modal-body .form-check-input').attr('checked', true);
-      } else {
-        $('.modal-body .form-check-input').attr('checked', false);
-      }
-    });
-
     $('body').on('click', '.subMenuModalDelete', function() {
       const id = $(this).data('id');
       const submenu = $(this).data('submenu');
