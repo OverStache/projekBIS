@@ -9,7 +9,7 @@ class Admin extends CI_Controller
     is_logged_in();
 
     $this->load->model('Construct_model', 'construct');
-
+    $this->load->model('Alert_model', 'alert');
     $data['title'] = $this->construct->getTitle();
 
     // select * from tbl_user where email = email dari session
@@ -110,14 +110,10 @@ class Admin extends CI_Controller
       ];
       // insert user baru ke tbl_user
       $this->db->insert('tbl_user', $data);
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        User Added!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-      redirect('admin/user');
+      $alert = 'success';
+      $message = 'User Added!';
+      $redirect = 'admin/user';
+      $this->alert->alertResult($alert, $message, $redirect);
     }
   }
 
@@ -145,28 +141,19 @@ class Admin extends CI_Controller
       // insert user baru ke tbl_user_menu
       $this->db->where('id', $id);
       $this->db->update('tbl_user', $data);
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        User Data Updated!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-      // var_dump($data);
-      redirect('admin/user');
+      $alert = 'success';
+      $message = 'User Updated!';
+      $redirect = 'admin/user';
+      $this->alert->alertResult($alert, $message, $redirect);
     }
   }
   public function userDelete($id)
   {
     $this->db->delete('tbl_user', array('id' => $id));
-    $this->session->set_flashdata('message', '
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        User Deleted!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-    redirect('admin/user');
+    $alert = 'warning';
+    $message = 'User Deleted!';
+    $redirect = 'admin/user';
+    $this->alert->alertResult($alert, $message, $redirect);
   }
   //  end of menu user
 
@@ -187,14 +174,10 @@ class Admin extends CI_Controller
     } else {
       // insert menu baru ke tbl_user_menu
       $this->db->insert('tbl_user_menu', ['Menu' => $this->input->post('title')]);
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        Menu Added!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-      redirect('admin/menu');
+      $alert = 'success';
+      $message = 'Menu Added!';
+      $redirect = 'admin/menu';
+      $this->alert->alertResult($alert, $message, $redirect);
     }
   }
 
@@ -212,28 +195,20 @@ class Admin extends CI_Controller
       $this->db->set('menu', $this->input->post('title'));
       $this->db->where('id', $id);
       $this->db->update('tbl_user_menu');
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        Menu Updated!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-      redirect('admin/menu');
+      $alert = 'success';
+      $message = 'Menu Updated!';
+      $redirect = 'admin/menu';
+      $this->alert->alertResult($alert, $message, $redirect);
     }
   }
 
   public function menuDelete($id)
   {
     $this->db->delete('tbl_user_menu', array('id' => $id));
-    $this->session->set_flashdata('message', '
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        Menu Deleted!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-    redirect('admin/menu');
+    $alert = 'warning';
+    $message = 'Menu Deleted!';
+    $redirect = 'admin/user';
+    $this->alert->alertResult($alert, $message, $redirect);
   }
   // end of Menu Management
 
@@ -270,14 +245,10 @@ class Admin extends CI_Controller
       ];
       // insert menu baru ke tbl_user_menu
       $this->db->insert('tbl_user_sub_menu', $data);
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        SUb Menu Added!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-      redirect('admin/subMenu');
+      $alert = 'success';
+      $message = 'Sub Menu Added!';
+      $redirect = 'admin/subMenu';
+      $this->alert->alertResult($alert, $message, $redirect);
     }
   }
 
@@ -291,7 +262,6 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('title', 'Title', 'required');
     $this->form_validation->set_rules('menu_id', 'Menu', 'required');
     $this->form_validation->set_rules('url', 'URL', 'required');
-    $this->form_validation->set_rules('icon', 'Icon', 'required');
 
     if ($this->form_validation->run() == false) {
       $this->load->view('admin/subMenu/subMenuUpdate', $data);
@@ -307,27 +277,19 @@ class Admin extends CI_Controller
       // insert menu baru ke tbl_user_menu
       $this->db->where('id', $id);
       $this->db->update('tbl_user_sub_menu', $data);
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        Sub Menu Updated!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-      redirect('admin/subMenu');
+      $alert = 'success';
+      $message = 'Sub Menu Updated!';
+      $redirect = 'admin/subMenu';
+      $this->alert->alertResult($alert, $message, $redirect);
     }
   }
 
   public function subMenuDelete($id)
   {
     $this->db->delete('tbl_user_menu', array('id' => $id));
-    $this->session->set_flashdata('message', '
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        Sub Menu Deleted!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-    redirect('admin/subMenu');
+    $alert = 'warning';
+    $message = 'Sub Menu Deleted!';
+    $redirect = 'admin/subMenu';
+    $this->alert->alertResult($alert, $message, $redirect);
   }
 }

@@ -7,6 +7,7 @@ class Auth extends CI_Controller
   {
     parent::__construct();
     $this->load->library('form_validation');
+    $this->load->model('Alert_model', 'alert');
   }
 
   public function index()
@@ -61,20 +62,15 @@ class Auth extends CI_Controller
         }
       } else {
         // usernya belom aktif
-        $message = 'USer Not Activated';
+        $message = 'User Not Activated';
       }
     } else {
       // usernya ga ada
       $message = 'User Not Registered';
     }
-    $this->session->set_flashdata('message', '
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        ' . $message . '
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-    redirect('auth');
+    $alert = 'danger';
+    $redirect = 'auth';
+    $this->alert->alertResult($alert, $message, $redirect);
   }
 
   public function registration()
@@ -134,14 +130,10 @@ class Auth extends CI_Controller
       // kirim link aktivasi ke email
       $this->_sendEmail($token, 'verify');
 
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        Registration Successful! Please Activate Your Account!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-      redirect('auth');
+      $alert = 'success';
+      $message = 'Registration Successful! Please Activate Your Account!';
+      $redirect = 'auth';
+      $this->alert->alertResult($alert, $message, $redirect);
 
       echo 'data berhasil ditambahkan!';
       // .insertNewUser
@@ -229,14 +221,8 @@ class Auth extends CI_Controller
       $message = 'Actiovation Failed! Wrong Email';
       $alert = 'warning';
     }
-    $this->session->set_flashdata('message', '
-      <div class="alert alert-' . $alert . ' alert-dismissible fade show" role="alert">
-        ' . $message . '
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-    redirect('auth');
+    $redirect = 'auth';
+    $this->alert->alertResult($alert, $message, $redirect);
   }
 
   public function logout()
@@ -244,14 +230,10 @@ class Auth extends CI_Controller
     $this->session->unset_userdata('email');
     $this->session->unset_userdata('role_id');
 
-    $this->session->set_flashdata('message', '
-      <div class="alert alert-secondary alert-dismissible fade show" role="alert">
-        You Have Been Logged Out!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-    redirect('auth');
+    $alert = 'secondary';
+    $message = 'You have been logged out!';
+    $redirect = 'auth';
+    $this->alert->alertResult($alert, $message, $redirect);
   }
 
   public function blocked()
@@ -293,14 +275,8 @@ class Auth extends CI_Controller
         $message = 'Email is not registered or activated';
         $alert = 'danger';
       }
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-' . $alert . ' alert-dismissible fade show" role="alert">
-        ' . $message . '
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-      redirect('auth/forgotpassword');
+      $redirect = 'auth/forgotpassword';
+      $this->alert->alertResult($alert, $message, $redirect);
     }
   }
   public function resetPassword()
@@ -316,19 +292,14 @@ class Auth extends CI_Controller
         $this->session->set_userdata('reset_email', $email);
         $this->changePassword();
       } else {
-        $message = 'Wrong Token';
+        $message = ' Reset password failed! Wrong Token';
       }
     } else {
-      $message = 'Wrong Email';
+      $message = 'Reset password failed! Wrong Email';
     }
-    $this->session->set_flashdata('message', '
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        Reset Passwrod Failed! ' . $message . '
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-    redirect('auth');
+    $alert = 'danger';
+    $redirect = 'auth';
+    $this->alert->alertResult($alert, $message, $redirect);
   }
   public function changePassword()
   {
@@ -355,14 +326,10 @@ class Auth extends CI_Controller
 
       $this->session->unset_userdata('reset_email');
 
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        Password has been changed! Please Login
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-      redirect('auth');
+      $alert = 'success';
+      $message = 'Password has been changed! Please Login';
+      $redirect = 'auth';
+      $this->alert->alertResult($alert, $message, $redirect);
     }
   }
 }

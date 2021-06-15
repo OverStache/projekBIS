@@ -14,15 +14,15 @@
           <div class="card">
             <div class="card-header">
               <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-                <a href="<?= base_url('admin/subMenuAdd'); ?>" class="btn btn-primary">Add New Sub Menu</a>
-              <?php endif ?>
-              <!-- alert -->
-              <?php if (validation_errors()) : ?>
-                <div class="alert alert-danger mt-3" role="alert">
-                  <?= validation_errors(); ?>
+                <div class="row">
+                  <div class="col-2">
+                    <a href="<?= base_url('admin/subMenuAdd'); ?>" class="btn btn-primary">Add New Sub Menu</a>
+                  </div>
+                  <div class="col-10">
+                    <?= $this->session->flashdata('message'); ?>
+                  </div>
                 </div>
               <?php endif ?>
-              <?= $this->session->flashdata('message'); ?>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -48,7 +48,7 @@
                       <td><?= $sm['title']; ?></td>
                       <td><?= $sm['menu']; ?></td>
                       <td><?= $sm['url']; ?></td>
-                      <td><?= $sm['icon']; ?></td>
+                      <td><i class="<?= $sm['icon']; ?>"></i></td>
                       <td><?= $sm['is_active']; ?></td>
                       <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                         <td>

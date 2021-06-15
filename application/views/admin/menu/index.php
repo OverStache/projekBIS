@@ -13,9 +13,15 @@
           <div class="card">
             <div class="card-header">
               <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-                <a href="<?= base_url('admin/menuAdd') ?>" class="btn btn-primary modalAdd">Add New Menu</a>
+                <div class="row">
+                  <div class="col-2">
+                    <a href="<?= base_url('admin/menuAdd') ?>" class="btn btn-primary modalAdd">Add New Menu</a>
+                  </div>
+                  <div class="col-10">
+                    <?= $this->session->flashdata('message'); ?>
+                  </div>
+                </div>
               <?php endif ?>
-              <?= $this->session->flashdata('message'); ?>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

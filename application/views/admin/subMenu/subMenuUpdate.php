@@ -19,7 +19,8 @@
             <?= form_open_multipart('admin/subMenuUpdate/' . $subMenu['id']); ?>
             <div class="card-body">
               <div class="form-group">
-                <input type="text" class="form-control" id="title" name="title" value="<?= $subMenu['title']; ?>">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Sub Menu URL" value="<?= $subMenu['title']; ?>">
+                <?= form_error('title', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
                 <select class="form-control" id="menu_id" name="menu_id">
@@ -28,9 +29,11 @@
                     <option value="<?= $m['id']; ?>" <?php if ($menu['id'] == $m['id']) : ?> selected <?php endif ?>><?= $m['menu']; ?></option>
                   <?php endforeach ?>
                 </select>
+                <?= form_error('menu_id', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
                 <input type="text" class="form-control" id="url" name="url" placeholder="Sub Menu URL" value="<?= $subMenu['url']; ?>">
+                <?= form_error('url', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
                 <input type="text" class="form-control" id="icon" name="icon" placeholder="Sub Menu Icon" value="<?= $subMenu['icon']; ?>">

@@ -18,10 +18,9 @@
             <div class="card-header">
               <div class="row">
                 <div class="col-3">
-                  <a href="<?= base_url('admin/userAdd'); ?>" class="btn btn-primary mb-3">Add New User</a>
+                  <a href="<?= base_url('admin/userAdd'); ?>" class="btn btn-primary">Add New User</a>
                 </div>
                 <div class="col-9">
-                  <?= form_error('user', '<div class="alert alert-danger mt-3">', '</div>'); ?>
                   <?= $this->session->flashdata('message'); ?>
                 </div>
               </div>

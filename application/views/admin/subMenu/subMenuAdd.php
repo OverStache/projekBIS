@@ -19,18 +19,21 @@
             <?= form_open_multipart('admin/subMenuAdd'); ?>
             <div class="card-body">
               <div class="form-group">
-                <input type="text" class="form-control" id="title" name="title" placeholder="Sub Menu Title" required>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Sub Menu Title">
+                <?= form_error('title', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <select class="form-control" id="menu_id" name="menu_id" required>
+                <select class="form-control" id="menu_id" name="menu_id">
                   <option value="">Select Menus</option>
                   <?php foreach ($menu as $m) : ?>
                     <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
                   <?php endforeach ?>
                 </select>
+                <?= form_error('menu_id', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" id="url" name="url" placeholder="Sub Menu URL" required>
+                <input type="text" class="form-control" id="url" name="url" placeholder="Sub Menu URL">
+                <?= form_error('url', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
                 <input type="text" class="form-control" id="icon" name="icon" placeholder="Sub Menu Icon">
