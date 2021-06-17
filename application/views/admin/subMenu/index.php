@@ -46,7 +46,7 @@
                       <td><?= $i++; ?></td>
                       <td><?= $sm['title']; ?></td>
                       <td><?= $sm['menu']; ?></td>
-                      <td><?= $sm['url']; ?></td>
+                      <td><?= $sm['urlSubMenu']; ?></td>
                       <td><i class="<?= $sm['icon']; ?>"></i></td>
                       <td><?= $sm['is_active']; ?></td>
                       <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>

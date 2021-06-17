@@ -32,7 +32,7 @@
                 <?= form_error('menu_id', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" id="url" name="url" placeholder="Sub Menu URL" value="<?= $subMenu['url']; ?>">
+                <input type="text" class="form-control" id="url" name="url" placeholder="Sub Menu URL" value="<?= $subMenu['urlSubMenu']; ?>">
                 <?= form_error('url', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">

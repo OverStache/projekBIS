@@ -75,7 +75,7 @@ class Admin extends CI_Controller
   // end of menu role
 
   // menu user
-  public function user()
+  public function userManage()
   {
     $this->db->where('role_id!=', 1);
     $data['user'] = $this->db->get('tbl_user')->result_array();
@@ -112,7 +112,7 @@ class Admin extends CI_Controller
       $this->db->insert('tbl_user', $data);
       $alert = 'success';
       $message = 'User Added!';
-      $redirect = 'admin/user';
+      $redirect = 'admin/userManage';
       $this->alert->alertResult($alert, $message, $redirect);
     }
   }
@@ -143,7 +143,7 @@ class Admin extends CI_Controller
       $this->db->update('tbl_user', $data);
       $alert = 'success';
       $message = 'User Updated!';
-      $redirect = 'admin/user';
+      $redirect = 'admin/userManage';
       $this->alert->alertResult($alert, $message, $redirect);
     }
   }
@@ -152,7 +152,7 @@ class Admin extends CI_Controller
     $this->db->delete('tbl_user', array('id' => $id));
     $alert = 'warning';
     $message = 'User Deleted!';
-    $redirect = 'admin/user';
+    $redirect = 'admin/userManage';
     $this->alert->alertResult($alert, $message, $redirect);
   }
   //  end of menu user
@@ -172,8 +172,12 @@ class Admin extends CI_Controller
       $this->load->view('admin/menu/menuAdd');
       $this->load->view('templates/footer');
     } else {
+      $data = [
+        'menu' => $this->input->post('title'),
+        'urlMenu' => $this->input->post('url')
+      ];
       // insert menu baru ke tbl_user_menu
-      $this->db->insert('tbl_user_menu', ['Menu' => $this->input->post('title')]);
+      $this->db->insert('tbl_user_menu', $data);
       $alert = 'success';
       $message = 'Menu Added!';
       $redirect = 'admin/menu';
@@ -191,10 +195,13 @@ class Admin extends CI_Controller
       $this->load->view('admin/menu/menuUpdate', $data);
       $this->load->view('templates/footer');
     } else {
+      $data = [
+        'menu' => $this->input->post('title'),
+        'urlMenu' => $this->input->post('url')
+      ];
       // insert menu baru ke tbl_user_menu
-      $this->db->set('menu', $this->input->post('title'));
       $this->db->where('id', $id);
-      $this->db->update('tbl_user_menu');
+      $this->db->update('tbl_user_menu', $data);
       $alert = 'success';
       $message = 'Menu Updated!';
       $redirect = 'admin/menu';
@@ -207,7 +214,7 @@ class Admin extends CI_Controller
     $this->db->delete('tbl_user_menu', array('id' => $id));
     $alert = 'warning';
     $message = 'Menu Deleted!';
-    $redirect = 'admin/user';
+    $redirect = 'admin/menu';
     $this->alert->alertResult($alert, $message, $redirect);
   }
   // end of Menu Management
@@ -239,7 +246,7 @@ class Admin extends CI_Controller
       $data = [
         'title' => $this->input->post('title'),
         'menu_id' => $this->input->post('menu_id'),
-        'url' => $this->input->post('url'),
+        'urlSubMenu' => $this->input->post('url'),
         'icon' => $this->input->post('icon'),
         'is_active' => $this->input->post('is_active'),
       ];
@@ -270,7 +277,7 @@ class Admin extends CI_Controller
       $data = [
         'title' => $this->input->post('title'),
         'menu_id' => $this->input->post('menu_id'),
-        'url' => $this->input->post('url'),
+        'urlSubMenu' => $this->input->post('url'),
         'icon' => $this->input->post('icon'),
         'is_active' => $this->input->post('is_active'),
       ];
@@ -286,7 +293,7 @@ class Admin extends CI_Controller
 
   public function subMenuDelete($id)
   {
-    $this->db->delete('tbl_user_menu', array('id' => $id));
+    $this->db->delete('tbl_user_sub_menu', array('id' => $id));
     $alert = 'warning';
     $message = 'Sub Menu Deleted!';
     $redirect = 'admin/subMenu';

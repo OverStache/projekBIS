@@ -5,18 +5,6 @@
     <span class="brand-text font-weight-light">AdminLTE 3</span>
   </a>
 
-  <!-- query menu -->
-  <?php
-  $role_id = $this->session->userdata('role_id');
-  $queryMenu = "SELECT `tbl_user_menu`.`id`, `menu`
-                  FROM `tbl_user_menu` JOIN `tbl_user_access_menu`
-                    ON `tbl_user_menu`.`id` = `tbl_user_access_menu`.`menu_id`
-                 WHERE `tbl_user_access_menu`.`role_id` = $role_id
-              ORDER BY `tbl_user_access_menu`.`menu_id` ASC
-                ";
-  $menu = $this->db->query($queryMenu)->result_array();
-  ?>
-
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user (optional) -->
@@ -61,6 +49,18 @@
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
+        <!-- query menu -->
+        <?php
+        $role_id = $this->session->userdata('role_id');
+        $queryMenu = "SELECT `tbl_user_menu`.`id`, `menu`
+                  FROM `tbl_user_menu` JOIN `tbl_user_access_menu`
+                    ON `tbl_user_menu`.`id` = `tbl_user_access_menu`.`menu_id`
+                 WHERE `tbl_user_access_menu`.`role_id` = $role_id
+              ORDER BY `tbl_user_access_menu`.`menu_id` ASC
+                ";
+        $menu = $this->db->query($queryMenu)->result_array();
+        ?>
+
         <!-- Looping menu -->
         <?php foreach ($menu as $m) : ?>
           <li class="nav-header"><?= $m['menu']; ?></li>
@@ -79,7 +79,12 @@
           <!-- looping submenu -->
           <?php foreach ($subMenu as $sm) : ?>
             <li class="nav-item">
-              <a href="<?= base_url($sm['url']); ?>" <?php if ($title['title'] == $sm['title']) : ?> class="nav-link active" <?php else : ?> class="nav-link" <?php endif ?>>
+              <?php if ($sm['urlMenu'] == $sm['urlSubMenu']) {
+                $url = $sm['urlSubMenu'];
+              } else {
+                $url = $sm['urlMenu'] . '/' . $sm['urlSubMenu'];
+              } ?>
+              <a href="<?= base_url($url); ?>" <?php if ($title['title'] == $sm['title']) : ?> class="nav-link active" <?php else : ?> class="nav-link" <?php endif ?>>
                 <i class="<?= $sm['icon']; ?>"></i>
                 <p>
                   <?= $sm['title']; ?>

@@ -23,6 +23,11 @@
                 <input type="text" class="form-control" id="title" name="title">
                 <?= form_error('title', '<small class="text-danger">', '</small>'); ?>
               </div>
+              <div class="form-group">
+                <label for="url">url</label>
+                <input type="text" class="form-control" id="url" name="url">
+                <?= form_error('url', '<small class="text-danger">', '</small>'); ?>
+              </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
