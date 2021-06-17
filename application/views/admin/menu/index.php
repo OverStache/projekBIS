@@ -1,6 +1,6 @@
-<!-- index menu -->
-
+<!-- Menu Management -->
 <!-- Navbar -->
+<!-- Main Sidebar Container -->
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -44,8 +44,7 @@
                       <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                         <td>
                           <a href="<?= base_url('admin/menuUpdate/' . $m['id']) ?>" class="badge badge-success">Edit</a>
-                          <!-- <a href="" class="badge badge-success modalUpdate" data-toggle="modal" data-target="#formModal" data-id="<?= $m['id']; ?>" data-menu="<?= $m['menu']; ?>">Update</a> -->
-                          <a href="#" class="badge badge-danger modalDelete" data-id="<?= $m['id']; ?>" data-menu="<?= $m['menu']; ?>">Delete</a>
+                          <a href="#" class="badge badge-danger modalDelete menuDelete" data-id="<?= $m['id']; ?>" data-title="<?= $m['menu']; ?>">Delete</a>
                         </td>
                       <?php endif ?>
                     </tr>

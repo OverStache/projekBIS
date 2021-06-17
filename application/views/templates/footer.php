@@ -83,72 +83,26 @@
   });
 </script>
 
-<!-- user/index user delete modal -->
+<!-- modal delete -->
 <script>
   $(function() {
-    $('body').on('click', '.modalDelete', function() {
-      const id = $(this).data('id');
-      const user = $(this).data('user');
-      bootbox.confirm({
-        title: "sure want to delete?",
-        message: user,
-        buttons: {
-          confirm: {
-            label: 'Yes',
-            className: 'btn-primary'
-          },
-          cancel: {
-            label: 'No',
-            className: 'btn-secondary'
-          }
-        },
-        callback: function(result) {
-          if (result) {
-            document.location.href = "<?= base_url('admin/userDelete/'); ?>" + id;
-          };
-        }
-      });
+    let url;
+    $('body').on('click', '.userDelete', function() {
+      url = "<?= base_url('admin/userDelete/'); ?>";
     });
-  });
-</script>
-<!-- menu/index Menu delete modal -->
-<script>
-  $(function() {
-    $('body').on('click', '.modalDelete', function() {
-      const id = $(this).data('id');
-      const menu = $(this).data('menu');
-      bootbox.confirm({
-        title: "sure want to delete?",
-        message: menu,
-        buttons: {
-          confirm: {
-            label: 'Yes',
-            className: 'btn-primary'
-          },
-          cancel: {
-            label: 'No',
-            className: 'btn-secondary'
-          }
-        },
-        callback: function(result) {
-          if (result) {
-            document.location.href = "<?= base_url('admin/menuDelete/'); ?>" + id;
-          };
-        }
-      });
+    $('body').on('click', '.menuDelete', function() {
+      url = "<?= base_url('admin/menuDelete/'); ?>";
     });
-  });
-</script>
+    $('body').on('click', '.subMenuDelete', function() {
+      url = "<?= base_url('admin/subMenuDelete/'); ?>";
+    });
 
-<!-- menu/submenu Sub Menu delete modal -->
-<script>
-  $(function() {
-    $('body').on('click', '.subMenuModalDelete', function() {
+    $('body').on('click', '.modalDelete', function() {
       const id = $(this).data('id');
-      const submenu = $(this).data('submenu');
+      const title = $(this).data('title');
       bootbox.confirm({
         title: "sure want to delete?",
-        message: submenu,
+        message: title,
         buttons: {
           confirm: {
             label: 'Yes',
@@ -161,7 +115,7 @@
         },
         callback: function(result) {
           if (result) {
-            document.location.href = "<?= base_url('admin/subMenuDelete/'); ?>" + id;
+            document.location.href = url + id;
           };
         }
       });

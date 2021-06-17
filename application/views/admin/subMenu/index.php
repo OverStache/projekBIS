@@ -1,7 +1,6 @@
+<!-- Sub Menu Management -->
 <!-- Navbar -->
-
 <!-- Main Sidebar Container -->
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -52,8 +51,8 @@
                       <td><?= $sm['is_active']; ?></td>
                       <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                         <td>
-                          <a href="<?= base_url('admin/subMenuUpdate/') . $sm['id']; ?>" class="badge badge-success editbaten" data-menu_id="<?= $sm['menu_id']; ?>">Edit</a>
-                          <a href="#" class=" badge badge-danger subMenuModalDelete" data-id="<?= $sm['id']; ?>" data-submenu="<?= $sm['title']; ?>">Delete</a>
+                          <a href="<?= base_url('admin/subMenuUpdate/') . $sm['id']; ?>" class="badge badge-success" data-menu_id="<?= $sm['menu_id']; ?>">Edit</a>
+                          <a href="#" class=" badge badge-danger modalDelete subMenuDelete" data-id="<?= $sm['id']; ?>" data-title="<?= $sm['title']; ?>">Delete</a>
                         </td>
                       <?php endif ?>
                     </tr>

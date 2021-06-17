@@ -1,9 +1,6 @@
 <!-- User Management -->
-
 <!-- Navbar -->
-
 <!-- Main Sidebar Container -->
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -45,7 +42,7 @@
                       <td><?= $u['role']; ?></td>
                       <td>
                         <a href="<?= base_url('admin/userUpdate/') . $u['id']; ?>" class="badge badge-success">Edit</a>
-                        <a href="#" class="badge badge-danger modalDelete" data-id="<?= $u['id']; ?>" data-user="<?= $u['username']; ?>">Delete</a>
+                        <a href="#" class="badge badge-danger modalDelete userDelete" data-id="<?= $u['id']; ?>" data-title="<?= $u['username']; ?>">Delete</a>
                       </td>
                     </tr>
                   <?php endforeach ?>
