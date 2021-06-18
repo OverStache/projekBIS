@@ -10,17 +10,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
+          <?= $this->session->flashdata('message'); ?>
           <div class="card">
             <div class="card-header">
               <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-                <div class="row">
-                  <div class="col-2">
-                    <a href="<?= base_url('admin/menuAdd') ?>" class="btn btn-primary modalAdd">Add New Menu</a>
-                  </div>
-                  <div class="col-10">
-                    <?= $this->session->flashdata('message'); ?>
-                  </div>
-                </div>
+                <a href="<?= base_url('menu/menuAdd') ?>" class="btn btn-primary modalAdd">Add New Menu</a>
               <?php endif ?>
             </div>
             <!-- /.card-header -->
@@ -43,7 +37,7 @@
                       <td><?= $m['menu']; ?></td>
                       <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                         <td>
-                          <a href="<?= base_url('admin/menuUpdate/' . $m['id']) ?>" class="badge badge-success">Edit</a>
+                          <a href="<?= base_url('menu/menuUpdate/' . $m['id']) ?>" class="badge badge-success">Edit</a>
                           <a href="#" class="badge badge-danger modalDelete menuDelete" data-id="<?= $m['id']; ?>" data-title="<?= $m['menu']; ?>">Delete</a>
                         </td>
                       <?php endif ?>

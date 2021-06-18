@@ -16,7 +16,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <?= form_open_multipart('menu/menuAdd'); ?>
+            <?= form_open_multipart('admin/menuAdd'); ?>
             <div class="card-body">
               <div class="form-group">
                 <label for="title">Menu Name</label>

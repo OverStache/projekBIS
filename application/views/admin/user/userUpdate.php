@@ -15,7 +15,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <?= form_open_multipart('admin/userUpdate/' . $user['id']); ?>
+            <?= form_open_multipart('user/userUpdate/' . $user['id']); ?>
             <div class="card-body">
               <div class="form-group">
                 <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>">
@@ -50,7 +50,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Update</button>
             </div>
             </form>
           </div>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin extends CI_Controller
+class Test extends CI_Controller
 {
   public function __construct()
   {
@@ -19,21 +19,16 @@ class Admin extends CI_Controller
     $this->load->view('templates/navbar', $data);
     $this->load->view('templates/sidebar', $data);
   }
-
   public function index()
   {
-    $data['total_pengawas'] = $this->db->where('role_id', 3)->from("tbl_user")->count_all_results();
-    $data['total_member'] = $this->db->where('role_id', 2)->from("tbl_user")->count_all_results();
-    $data['total_pengurus'] = $this->db->where('role_id', 1)->from("tbl_user")->count_all_results();
-    $this->load->view('admin/index', $data);
+    $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
+    $this->load->view('test/index', $data);
     $this->load->view('templates/footer');
   }
-  // menu role
-
-  // menu user
-
-  // Menu Management
-
-  // sub menu management
-
+  public function add()
+  {
+    $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
+    $this->load->view('test/add', $data);
+    $this->load->view('templates/footer');
+  }
 }

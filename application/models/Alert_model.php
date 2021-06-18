@@ -12,6 +12,8 @@ class Alert_model extends CI_Model
         <span aria-hidden="true">&times;</span>
         </button>
       </div>');
-    redirect('' . $redirect . '');
+    if ($redirect) {
+      redirect('' . $redirect . '');
+    }
   }
 }

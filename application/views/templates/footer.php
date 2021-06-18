@@ -70,14 +70,14 @@
     const roleId = $(this).data('role');
 
     $.ajax({
-      url: "<?= base_url('admin/changeaccess'); ?>",
+      url: "<?= base_url('role/changeaccess'); ?>",
       type: 'post',
       data: {
         menuId: menuId,
         roleId: roleId
       },
       success: function() {
-        document.location.href = "<?= base_url('admin/roleAccess/'); ?>" + roleId;
+        document.location.href = "<?= base_url('role/index/'); ?>" + roleId;
       }
     });
   });
@@ -88,13 +88,13 @@
   $(function() {
     let url;
     $('body').on('click', '.userDelete', function() {
-      url = "<?= base_url('admin/userDelete/'); ?>";
+      url = "<?= base_url('user/userDelete/'); ?>";
     });
     $('body').on('click', '.menuDelete', function() {
-      url = "<?= base_url('admin/menuDelete/'); ?>";
+      url = "<?= base_url('menu/menuDelete/'); ?>";
     });
     $('body').on('click', '.subMenuDelete', function() {
-      url = "<?= base_url('admin/subMenuDelete/'); ?>";
+      url = "<?= base_url('subMenu/subMenuDelete/'); ?>";
     });
 
     $('body').on('click', '.modalDelete', function() {

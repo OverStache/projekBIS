@@ -6,10 +6,12 @@ function is_logged_in()
     redirect('auth');
   } else {
     $role_id = $ci->session->userdata('role_id');
-    $menu = $ci->uri->segment(1);
+    $urlmenu = $ci->uri->segment(1);
 
+    $querySubMenu = $ci->db->get_where('tbl_user_sub_menu', ['urlSubMenu' => $urlmenu])->row_array();
+    $id = $querySubMenu['menu_id'];
     // select * from tbl_user_menu where menu = $menu
-    $queryMenu = $ci->db->get_where('tbl_user_menu', ['urlMenu' => $menu])->row_array();
+    $queryMenu = $ci->db->get_where('tbl_user_menu', ['id' => $id])->row_array();
     // ambil id dari array result
     $menu_id = $queryMenu['id'];
 

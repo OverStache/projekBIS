@@ -15,7 +15,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <?= form_open_multipart('admin/userAdd'); ?>
+            <?= form_open_multipart('user/userAdd'); ?>
             <div class="card-body">
               <div class="form-group">
                 <input type="text" class="form-control" id="username" name="username" placeholder="Username">

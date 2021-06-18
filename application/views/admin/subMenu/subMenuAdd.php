@@ -16,7 +16,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <?= form_open_multipart('admin/subMenuAdd'); ?>
+            <?= form_open_multipart('subMenu/subMenuAdd'); ?>
             <div class="card-body">
               <div class="form-group">
                 <input type="text" class="form-control" id="title" name="title" placeholder="Sub Menu Title">
@@ -50,8 +50,8 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Add New Menu</button>
-              <a href="<?= base_url('admin/subMenu'); ?>" class="btn btn-danger">Cancel</a>
+              <button type="submit" class="btn btn-primary">Add New Sub Menu</button>
+              <a href="<?= base_url('subMenu/index'); ?>" class="btn btn-danger">Cancel</a>
             </div>
             </form>
           </div>

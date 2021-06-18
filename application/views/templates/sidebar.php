@@ -52,7 +52,7 @@
         <!-- query menu -->
         <?php
         $role_id = $this->session->userdata('role_id');
-        $queryMenu = "SELECT `tbl_user_menu`.`id`, `menu`
+        $queryMenu = "SELECT `tbl_user_menu`.`id`, `menu`, `urlMenu`
                   FROM `tbl_user_menu` JOIN `tbl_user_access_menu`
                     ON `tbl_user_menu`.`id` = `tbl_user_access_menu`.`menu_id`
                  WHERE `tbl_user_access_menu`.`role_id` = $role_id
@@ -63,7 +63,7 @@
 
         <!-- Looping menu -->
         <?php foreach ($menu as $m) : ?>
-          <li class="nav-header"><?= $m['menu']; ?></li>
+          <li class="nav-header"><?= $m['urlMenu']; ?></li>
           <!-- sub menu sesuai menu -->
           <?php
           $menu_id = $m['id'];
@@ -79,21 +79,20 @@
           <!-- looping submenu -->
           <?php foreach ($subMenu as $sm) : ?>
             <li class="nav-item">
-              <?php if ($sm['urlMenu'] == $sm['urlSubMenu']) {
-                $url = $sm['urlSubMenu'];
-              } else {
-                $url = $sm['urlMenu'] . '/' . $sm['urlSubMenu'];
-              } ?>
-              <a href="<?= base_url($url); ?>" <?php if ($title['title'] == $sm['title']) : ?> class="nav-link active" <?php else : ?> class="nav-link" <?php endif ?>>
+              <a href="<?= base_url($sm['urlSubMenu']); ?>" <?php if ($title['title'] == $sm['title']) : ?> class="nav-link active" <?php else : ?> class="nav-link" <?php endif ?>>
                 <i class="<?= $sm['icon']; ?>"></i>
                 <p>
-                  <?= $sm['title']; ?>
+                  <!-- <?= $sm['title']; ?> -->
+                  <?= $sm['urlSubMenu']; ?>
                 </p>
               </a>
             </li>
           <?php endforeach; ?>
         <?php endforeach; ?>
+
       </ul>
+
+
     </nav>
     <!-- /.sidebar-menu -->
   </div>

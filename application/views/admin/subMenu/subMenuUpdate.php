@@ -16,7 +16,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <?= form_open_multipart('admin/subMenuUpdate/' . $subMenu['id']); ?>
+            <?= form_open_multipart('subMenu/subMenuUpdate/' . $subMenu['id']); ?>
             <div class="card-body">
               <div class="form-group">
                 <input type="text" class="form-control" id="title" name="title" placeholder="Sub Menu URL" value="<?= $subMenu['title']; ?>">
@@ -52,7 +52,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <button type="submit" class="btn btn-primary">Update Sub Menu</button>
-              <a href="<?= base_url('admin/subMenu'); ?>" class="btn btn-danger">Cancel</a>
+              <a href="<?= base_url('subMenu/index'); ?>" class="btn btn-danger">Cancel</a>
             </div>
             </form>
           </div>

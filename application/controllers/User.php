@@ -9,9 +9,9 @@ class User extends CI_Controller
     is_logged_in();
 
     $this->load->model('Construct_model', 'construct');
-
+    $this->load->model('Alert_model', 'alert');
     $data['title'] = $this->construct->getTitle();
-
+    $data['url'] = $this->construct->getUrl();
     // select * from tbl_user where email = email dari session
     $data['tbl_user'] = $this->construct->emailSession();
 
@@ -22,105 +22,82 @@ class User extends CI_Controller
 
   public function index()
   {
-    $data['role'] = $this->db->get_where('tbl_user_role', ['id' => $this->session->userdata('role_id')])->row_array();
-    $this->load->view('user/index', $data);
+    $this->db->where('role_id!=', 1);
+    $data['user'] = $this->db->get('tbl_user')->result_array();
+
+    $this->load->model('User_model', 'user');
+    $data['user'] = $this->user->getUserRole();
+
+    $this->load->view('admin/user/index', $data);
     $this->load->view('templates/footer');
   }
 
-  public function edit()
+  public function userAdd()
   {
-    $data['tbl_user'] = $this->construct->emailSession();
     $this->form_validation->set_rules('username', 'Name', 'required');
+    $this->form_validation->set_rules('password', 'Password', 'required');
+    $this->form_validation->set_rules('email', 'Email', 'required');
+    $this->form_validation->set_rules('role_id', 'Role', 'required');
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('user/edit', $data);
+      $data['role'] = $this->db->get('tbl_user_role')->result_array();
+      $this->load->view('admin/user/userAdd', $data);
       $this->load->view('templates/footer');
     } else {
-      $name = $this->input->post('username');
-      $email = $this->input->post('email');
-
-      // cek jika ada gambar yang akan di upload
-      $upload_image = $_FILES['image']['name'];
-
-      if ($upload_image) {
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = '2048';
-        $config['upload_path'] = './assets/img/profile/';
-
-        $this->load->library('upload', $config);
-
-        if ($this->upload->do_upload('image')) {
-
-          $old_image = $data['tbl_user']['image'];
-
-          if ($old_image != 'default.png') {
-            unlink(FCPATH . 'assets/img/profile/' . $old_image);
-          }
-
-          $new_image = $this->upload->data('file_name');
-          $this->db->set('image', $new_image);
-        } else {
-          $message = $this->upload->display_errors();
-          $alert = 'danger';
-        }
-      }
-      $message = 'Profile Updated!';
+      $data = [
+        'username' => htmlspecialchars($this->input->post('username', true)),
+        'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+        'email' => htmlspecialchars($this->input->post('email', true)),
+        'image' => 'default.png',
+        'role_id' => $this->input->post('role_id'),
+        'is_active' => $this->input->post('is_active'),
+        'date_created' => time()
+      ];
+      // insert user baru ke tbl_user
+      $this->db->insert('tbl_user', $data);
       $alert = 'success';
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-' . $alert . ' alert-dismissible fade show" role="alert">
-        ' . $message . '
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-      $this->db->set('username', $name);
-      $this->db->where('email', $email);
-      $this->db->update('tbl_user');
-      redirect('user');
+      $message = 'User Added!';
+      $redirect = 'user/index';
+      $this->alert->alertResult($alert, $message, $redirect);
     }
   }
 
-  public function changepassword()
+  public function userUpdate($id)
   {
-    // select * from tbl_user where email = email dari session
-    $data['tbl_user'] = $this->construct->emailSession();
+    $data['user'] =  $this->db->get_where('tbl_user', ['id' => $id])->row_array();
+    $data['role'] = $this->db->get('tbl_user_role')->result_array();
 
-    $data['role'] = $this->db->get_where('tbl_user_role', ['id' => $this->session->userdata('role_id')])->row_array();
-
-    $this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
-    $this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[3]|matches[new_password2]');
-    $this->form_validation->set_rules('new_password2', 'Repeat Password', 'required|trim|min_length[3]|matches[new_password1]');
+    $this->form_validation->set_rules('username', 'Name', 'required');
+    $this->form_validation->set_rules('password', 'Password', 'required');
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('user/changepassword', $data);
+      $this->load->view('admin/user/userUpdate', $data);
       $this->load->view('templates/footer');
     } else {
-      $current_password = $this->input->post('current_password');
-      $new_password = $this->input->post('new_password1');
-      if (!password_verify($current_password, $data['tbl_user']['password'])) {
-        $message = 'Wrong Password!';
-        $alert = 'danger';
-      } else {
-        if ($current_password == $new_password) {
-          $message = 'Password Same!';
-          $alert = 'danger';
-        } else {
-          $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-          $this->db->set('password', $password_hash);
-          $this->db->where('email', $this->session->userdata('email'));
-          $this->db->update('tbl_user');
-          $message = 'Password Changed!';
-          $alert = 'success';
-        }
-      }
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-' . $alert . ' alert-dismissible fade show" role="alert">
-        ' . $message . '
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-      redirect('user/changepassword');
+      $data = [
+        'username' => htmlspecialchars($this->input->post('username', true)),
+        'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+        'email' => htmlspecialchars($this->input->post('email', true)),
+        'image' => 'default.png',
+        'role_id' => $this->input->post('role_id'),
+        'is_active' => $this->input->post('is_active'),
+        'date_created' => time()
+      ];
+      // insert user baru ke tbl_user_menu
+      $this->db->where('id', $id);
+      $this->db->update('tbl_user', $data);
+      $alert = 'success';
+      $message = 'User Updated!';
+      $redirect = 'user/index';
+      $this->alert->alertResult($alert, $message, $redirect);
     }
+  }
+  public function userDelete($id)
+  {
+    $this->db->delete('tbl_user', array('id' => $id));
+    $alert = 'warning';
+    $message = 'User Deleted!';
+    $redirect = 'user/index';
+    $this->alert->alertResult($alert, $message, $redirect);
   }
 }

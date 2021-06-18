@@ -16,7 +16,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <?= form_open_multipart('admin/menuUpdate/' . $menu['id']); ?>
+            <?= form_open_multipart('menu/menuUpdate/' . $menu['id']); ?>
             <div class="card-body">
               <div class="form-group">
                 <label for="title">Menu Name</label>
@@ -32,7 +32,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <button type="submit" class="btn btn-primary">Update Menu</button>
-              <a href="<?= base_url('admin/menu'); ?>" class="btn btn-danger">Cancel</a>
+              <a href="<?= base_url('menu/index'); ?>" class="btn btn-danger">Cancel</a>
             </div>
             </form>
           </div>

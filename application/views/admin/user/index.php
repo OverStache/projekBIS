@@ -11,16 +11,10 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-6">
+          <?= $this->session->flashdata('message'); ?>
           <div class="card">
             <div class="card-header">
-              <div class="row">
-                <div class="col-3">
-                  <a href="<?= base_url('admin/userAdd'); ?>" class="btn btn-primary">Add New User</a>
-                </div>
-                <div class="col-9">
-                  <?= $this->session->flashdata('message'); ?>
-                </div>
-              </div>
+              <a href="<?= base_url('user/userAdd'); ?>" class="btn btn-primary">Add New User</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -41,7 +35,7 @@
                       <td><?= $u['username']; ?></td>
                       <td><?= $u['role']; ?></td>
                       <td>
-                        <a href="<?= base_url('admin/userUpdate/') . $u['id']; ?>" class="badge badge-success">Edit</a>
+                        <a href="<?= base_url('user/userUpdate/') . $u['id']; ?>" class="badge badge-success">Edit</a>
                         <a href="#" class="badge badge-danger modalDelete userDelete" data-id="<?= $u['id']; ?>" data-title="<?= $u['username']; ?>">Delete</a>
                       </td>
                     </tr>
