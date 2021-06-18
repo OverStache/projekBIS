@@ -60,10 +60,9 @@
                 ";
         $menu = $this->db->query($queryMenu)->result_array();
         ?>
-
         <!-- Looping menu -->
         <?php foreach ($menu as $m) : ?>
-          <li class="nav-header"><?= $m['urlMenu']; ?></li>
+          <li class="nav-header"><?= $m['menu']; ?></li>
           <!-- sub menu sesuai menu -->
           <?php
           $menu_id = $m['id'];
@@ -82,8 +81,7 @@
               <a href="<?= base_url($sm['urlSubMenu']); ?>" <?php if ($title['title'] == $sm['title']) : ?> class="nav-link active" <?php else : ?> class="nav-link" <?php endif ?>>
                 <i class="<?= $sm['icon']; ?>"></i>
                 <p>
-                  <!-- <?= $sm['title']; ?> -->
-                  <?= $sm['urlSubMenu']; ?>
+                  <?= $sm['title']; ?>
                 </p>
               </a>
             </li>

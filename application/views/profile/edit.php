@@ -11,11 +11,11 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Quick Example</h3>
+              <h3 class="card-title">Edit Profile</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <?= form_open_multipart('user/edit'); ?>
+            <?= form_open_multipart('profile/edit'); ?>
             <div class="card-body">
               <div class="form-group">
                 <label for="email">Email address</label>
@@ -51,6 +51,43 @@
           </div>
           <!-- /.card -->
         </div>
+        <!-- /.col-sm-6 -->
+        <div class="col-sm-6">
+          <?= $this->session->flashdata('message'); ?>
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Change Password</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form action="<?= base_url('profile/changepassword'); ?>" method="POST">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="current_password">Current Password</label>
+                  <input type="password" class="form-control" id="current_password" name="current_password">
+                  <?= form_error('current_password', '<small class="text-danger">', '</small>'); ?>
+                </div>
+                <div class="form-group">
+                  <label for="new_password1">New Password</label>
+                  <input type="password" class="form-control" id="new_password1" name="new_password1">
+                  <?= form_error('new_password1', '<small class="text-danger">', '</small>'); ?>
+                </div>
+                <div class="form-group">
+                  <label for="new_password2">Repeat Password</label>
+                  <input type="password" class="form-control" id="new_password2" name="new_password2">
+                  <?= form_error('new_password2', '<small class="text-danger">', '</small>'); ?>
+                </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Change Password</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col-sm-6 -->
       </div>
     </div>
   </section>

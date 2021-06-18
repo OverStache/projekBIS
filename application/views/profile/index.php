@@ -31,7 +31,7 @@
                 </li>
               </ul>
 
-              <a href="<?= base_url('user/edit'); ?>" class="btn btn-primary btn-block"><b>Edit Profile</b></a>
+              <a href="<?= base_url('profile/edit'); ?>" class="btn btn-primary btn-block"><b>Edit Profile</b></a>
             </div>
             <!-- /.card-body -->
           </div>

@@ -27,7 +27,7 @@ class Role extends CI_Controller
     // get role_id
     $data['role_id'] = $this->db->get_where('tbl_user_role', ['id' => $id])->row_array();
     // tampilin tabel menu
-    $this->db->where('id!=', 1);
+    $this->db->where('id!=', 2);
     $data['menu'] = $this->db->get('tbl_user_menu')->result_array();
     $this->load->view('admin/role/index', $data);
     $this->load->view('templates/footer');

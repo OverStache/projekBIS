@@ -13,7 +13,7 @@ class Auth extends CI_Controller
   public function index()
   {
     if ($this->session->userdata('email')) {
-      redirect('user');
+      redirect('profile');
     }
     $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
     $this->form_validation->set_rules('password', 'Password', 'trim|required');
@@ -54,7 +54,7 @@ class Auth extends CI_Controller
           if ($user['role_id'] == 1) {
             redirect('admin');
           } else {
-            redirect('user');
+            redirect('profile');
           }
         } else {
           // password salah
@@ -76,7 +76,7 @@ class Auth extends CI_Controller
   public function registration()
   {
     if ($this->session->userdata('email')) {
-      redirect('user');
+      redirect('profile');
     }
     // formValidationSetRule
     $this->form_validation->set_rules('fullName', 'Name', 'required|trim');

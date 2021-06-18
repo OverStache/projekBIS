@@ -9,7 +9,7 @@ class Profile extends CI_Controller
     is_logged_in();
 
     $this->load->model('Construct_model', 'construct');
-
+    $this->load->model('ALert_model', 'alert');
     $data['title'] = $this->construct->getTitle();
     $data['url'] = $this->construct->getUrl();
     // select * from tbl_user where email = email dari session
@@ -23,7 +23,7 @@ class Profile extends CI_Controller
   public function index()
   {
     $data['role'] = $this->db->get_where('tbl_user_role', ['id' => $this->session->userdata('role_id')])->row_array();
-    $this->load->view('user/index', $data);
+    $this->load->view('profile/index', $data);
     $this->load->view('templates/footer');
   }
 
@@ -33,7 +33,7 @@ class Profile extends CI_Controller
     $this->form_validation->set_rules('username', 'Name', 'required');
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('user/edit', $data);
+      $this->load->view('profile/edit', $data);
       $this->load->view('templates/footer');
     } else {
       $name = $this->input->post('username');
@@ -66,17 +66,12 @@ class Profile extends CI_Controller
       }
       $message = 'Profile Updated!';
       $alert = 'success';
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-' . $alert . ' alert-dismissible fade show" role="alert">
-        ' . $message . '
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
+      $redirect = 'profile';
       $this->db->set('username', $name);
       $this->db->where('email', $email);
       $this->db->update('tbl_user');
-      redirect('user');
+
+      $this->alert->alertResult($alert, $message, $redirect);
     }
   }
 
@@ -92,7 +87,7 @@ class Profile extends CI_Controller
     $this->form_validation->set_rules('new_password2', 'Repeat Password', 'required|trim|min_length[3]|matches[new_password1]');
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('user/changepassword', $data);
+      $this->load->view('profile/edit', $data);
       $this->load->view('templates/footer');
     } else {
       $current_password = $this->input->post('current_password');
@@ -113,14 +108,8 @@ class Profile extends CI_Controller
           $alert = 'success';
         }
       }
-      $this->session->set_flashdata('message', '
-      <div class="alert alert-' . $alert . ' alert-dismissible fade show" role="alert">
-        ' . $message . '
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>');
-      redirect('user/changepassword');
+      $redirect = 'profile/edit';
+      $this->alert->alertResult($alert, $message, $redirect);
     }
   }
 }
