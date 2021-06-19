@@ -16,7 +16,7 @@
     <div class="error-content">
       <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oopsie! You don't have access!</h3>
       <h3 class="mt-5">
-        <a href="<?= base_url('user'); ?>">
+        <a href="<?= base_url('admin'); ?>">
           <i class="fas fa-arrow-circle-left text-primary"></i> Back
         </a>
       </h3>

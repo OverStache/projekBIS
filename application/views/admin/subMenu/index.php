@@ -45,8 +45,12 @@
                       <td><?= $sm['is_active']; ?></td>
                       <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                         <td>
-                          <a href="<?= base_url('subMenu/subMenuUpdate/') . $sm['id']; ?>" class="badge badge-success" data-menu_id="<?= $sm['menu_id']; ?>">Edit</a>
-                          <a href="#" class=" badge badge-danger modalDelete subMenuDelete" data-id="<?= $sm['id']; ?>" data-title="<?= $sm['title']; ?>">Delete</a>
+                          <a href="<?= base_url('subMenu/subMenuUpdate/') . $sm['id']; ?>" class="btn btn-xs btn-success" data-menu_id="<?= $sm['menu_id']; ?>">
+                            <i class="fas fa-fw fa-edit"></i>
+                          </a>
+                          <a href="#" class=" btn btn-xs btn-danger modalDelete subMenuDelete" data-id="<?= $sm['id']; ?>" data-title="<?= $sm['title']; ?>">
+                            <i class="fas fa-fw fa-trash"></i>
+                          </a>
                         </td>
                       <?php endif ?>
                     </tr>

@@ -12,13 +12,13 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12">
+        <div class="col-6">
           <?= $this->session->flashdata('message'); ?>
           <div class="card">
             <div class="card-header">
 
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <?= $role_id['role']; ?>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -36,7 +36,7 @@
             <div class="card-body">
               <?php $i = 1;
               if ($menu) : ?>
-                <table id="example2" class="table table-bordered table-hover">
+                <table class="table">
                   <thead>
                     <tr>
                       <th>#</th>

@@ -45,7 +45,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Update</button>
             </div>
             </form>
           </div>
@@ -86,6 +86,9 @@
             </form>
           </div>
           <!-- /.card -->
+          <a href="<?= base_url('profile'); ?>">
+            <button class="btn btn-block btn-lg btn-success">Kembali</button>
+          </a>
         </div>
         <!-- /.col-sm-6 -->
       </div>

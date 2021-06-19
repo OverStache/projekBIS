@@ -9,7 +9,7 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12">
+        <div class="col-6">
           <?= $this->session->flashdata('message'); ?>
           <div class="card">
             <div class="card-header">
@@ -19,7 +19,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-hover">
+              <table class="table">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -37,8 +37,12 @@
                       <td><?= $m['menu']; ?></td>
                       <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                         <td>
-                          <a href="<?= base_url('menu/menuUpdate/' . $m['id']) ?>" class="badge badge-success">Edit</a>
-                          <a href="#" class="badge badge-danger modalDelete menuDelete" data-id="<?= $m['id']; ?>" data-title="<?= $m['menu']; ?>">Delete</a>
+                          <a href="<?= base_url('menu/menuUpdate/' . $m['id']) ?>" class="btn btn-xs btn-success">
+                            <i class="fas fa-fw fa-edit"></i>
+                          </a>
+                          <a href="#" class="btn btn-xs btn-danger modalDelete menuDelete" data-id="<?= $m['id']; ?>" data-title="<?= $m['menu']; ?>">
+                            <i class="fas fa-fw fa-trash"></i>
+                          </a>
                         </td>
                       <?php endif ?>
                     </tr>

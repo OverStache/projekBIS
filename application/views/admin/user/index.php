@@ -35,8 +35,12 @@
                       <td><?= $u['username']; ?></td>
                       <td><?= $u['role']; ?></td>
                       <td>
-                        <a href="<?= base_url('user/userUpdate/') . $u['id']; ?>" class="badge badge-success">Edit</a>
-                        <a href="#" class="badge badge-danger modalDelete userDelete" data-id="<?= $u['id']; ?>" data-title="<?= $u['username']; ?>">Delete</a>
+                        <a href="<?= base_url('user/userUpdate/') . $u['id']; ?>" class="btn btn-xs btn-success">
+                          <i class="fas fa-fw fa-edit"></i>
+                        </a>
+                        <a href="#" class="btn btn-xs btn-danger modalDelete userDelete" data-id="<?= $u['id']; ?>" data-title="<?= $u['username']; ?>">
+                          <i class="fas fa-fw fa-trash"></i>
+                        </a>
                       </td>
                     </tr>
                   <?php endforeach ?>
