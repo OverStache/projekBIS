@@ -52,7 +52,7 @@
           <!-- /.card -->
         </div>
         <!-- /.col-sm-6 -->
-        <div class="col-sm-6">
+        <div class="col-sm-6 mb-3">
           <?= $this->session->flashdata('message'); ?>
           <!-- general form elements -->
           <div class="card card-primary">

@@ -10,7 +10,7 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-6">
+        <div class="col-12">
           <?= $this->session->flashdata('message'); ?>
           <div class="card">
             <div class="card-header">
@@ -18,7 +18,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table class="table">
+              <table id="example2" class="table">
                 <thead>
                   <tr>
                     <th>#</th>

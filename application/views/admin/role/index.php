@@ -12,7 +12,7 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-6">
+        <div class="col">
           <?= $this->session->flashdata('message'); ?>
           <div class="card">
             <div class="card-header">
@@ -52,7 +52,6 @@
                         <td>
                           <div class="form-check">
                             <input class="form-check-input" type="checkbox" <?= check_access($role_id['id'], $m['id']); ?> data-role="<?= $role_id['id']; ?>" data-menu=" <?= $m['id']; ?>">
-                            </label>
                           </div>
                         </td>
 

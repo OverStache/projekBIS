@@ -64,23 +64,42 @@
     $(this).next('.custom-file-label').addClass("selected").html(fileName);
   });
 
-  // auto change access checkbox
-  $('.form-check-input').on('click', function() {
-    const menuId = $(this).data('menu');
-    const roleId = $(this).data('role');
-
+  // auto change anggota is_active
+  $('#changeActiveAnggota').on('click', function() {
+    const id = $(this).data('id');
+    const is_active = $(this).data('is_active');
+    console.log(id);
+    console.log(is_active);
     $.ajax({
-      url: "<?= base_url('role/changeaccess'); ?>",
+      url: "<?= base_url('anggota/changeActive'); ?>",
       type: 'post',
       data: {
-        menuId: menuId,
-        roleId: roleId
+        id: id,
+        is_active: is_active
       },
       success: function() {
-        document.location.href = "<?= base_url('role/index/'); ?>" + roleId;
+        document.location.href = "<?= base_url('anggota/index'); ?>";
       }
     });
   });
+
+  // auto change access checkbox
+  // $('.form-check-input').on('click', function() {
+  //   const menuId = $(this).data('menu');
+  //   const roleId = $(this).data('role');
+
+  //   $.ajax({
+  //     url: "<?= base_url('role/changeaccess'); ?>",
+  //     type: 'post',
+  //     data: {
+  //       menuId: menuId,
+  //       roleId: roleId
+  //     },
+  //     success: function() {
+  //       document.location.href = "<?= base_url('role/index/'); ?>" + roleId;
+  //     }
+  //   });
+  // });
 </script>
 
 <!-- modal delete -->

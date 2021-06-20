@@ -39,3 +39,13 @@ function check_access($role_id, $menu_id)
     return "checked";
   }
 }
+
+function check_anggota_active()
+{
+  $ci = get_instance();
+  $result = $ci->db->get_where('tbl_anggota', ['is_active' => 1]);
+
+  if ($result->num_rows() > 0) {
+    return "checked";
+  }
+}
