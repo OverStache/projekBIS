@@ -11,22 +11,22 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">User Data</h3>
+              <h3 class="card-title">Update Data User</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
             <?= form_open_multipart('user/userUpdate/' . $user['id']); ?>
             <div class="card-body">
               <div class="form-group">
-                <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>">
+                <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>" placeholder="Username">
                 <?php echo form_error('username', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" id="password" name="password" value=".........">
+                <input type="password" class="form-control" id="password" name="password" value="........." placeholder="Password">
                 <?php echo form_error('password', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>">
+                <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" placeholder="Email">
                 <?php echo form_error('email', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
@@ -51,6 +51,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <button type="submit" class="btn btn-primary">Update</button>
+              <a href="<?= base_url('user/index'); ?>" class="btn btn-danger">Cancel</a>
             </div>
             </form>
           </div>

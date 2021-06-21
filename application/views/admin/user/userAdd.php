@@ -11,7 +11,7 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">User Data</h3>
+              <h3 class="card-title">Tambah User</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
@@ -26,12 +26,12 @@
                 <?php echo form_error('password', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" id="email" name="email" placeholder="email">
+                <input type="text" class="form-control" id="email" name="email" placeholder="Email">
                 <?php echo form_error('email', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
                 <select class="form-control" id="role_id" name="role_id">
-                  <option value="">Select Role</option>
+                  <option value="">Pilih Role</option>
                   <?php foreach ($role as $r) : ?>
                     <option value="<?= $r['id']; ?>"><?= $r['role']; ?></option>
                   <?php endforeach ?>
@@ -50,7 +50,8 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Tambah</button>
+              <a href="<?= base_url('user/index'); ?>" class="btn btn-danger">Cancel</a>
             </div>
             </form>
           </div>

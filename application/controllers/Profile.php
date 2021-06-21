@@ -64,7 +64,7 @@ class Profile extends CI_Controller
           $alert = 'danger';
         }
       }
-      $message = 'Profile Updated!';
+      $message = 'Profile Berhasil Diupdate!';
       $alert = 'success';
       $redirect = 'profile';
       $this->db->set('username', $name);
@@ -93,18 +93,18 @@ class Profile extends CI_Controller
       $current_password = $this->input->post('current_password');
       $new_password = $this->input->post('new_password1');
       if (!password_verify($current_password, $data['tbl_user']['password'])) {
-        $message = 'Wrong Password!';
+        $message = 'Password Salah!';
         $alert = 'danger';
       } else {
         if ($current_password == $new_password) {
-          $message = 'Password Same!';
+          $message = 'Password Sama!';
           $alert = 'danger';
         } else {
           $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
           $this->db->set('password', $password_hash);
           $this->db->where('email', $this->session->userdata('email'));
           $this->db->update('tbl_user');
-          $message = 'Password Changed!';
+          $message = 'Password Berhasil Diubah!';
           $alert = 'success';
         }
       }

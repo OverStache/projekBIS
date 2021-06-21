@@ -14,7 +14,7 @@
           <div class="card">
             <div class="card-header">
               <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-                <a href="<?= base_url('menu/menuAdd') ?>" class="btn btn-primary modalAdd">Add New Menu</a>
+                <a href="<?= base_url('menu/menuAdd') ?>" class="btn btn-primary modalAdd">Tambah Menu</a>
               <?php endif ?>
             </div>
             <!-- /.card-header -->

@@ -12,26 +12,24 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Quick Example</h3>
+              <h3 class="card-title">Update Menu</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
             <?= form_open_multipart('menu/menuUpdate/' . $menu['id']); ?>
             <div class="card-body">
               <div class="form-group">
-                <label for="title">Menu Name</label>
-                <input type="text" class="form-control" id="title" name="title" value="<?= $menu['menu']; ?>">
+                <input type="text" class="form-control" id="title" name="title" value="<?= $menu['menu']; ?>" placeholder="Nama Menu">
                 <?= form_error('title', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <label for="url">url</label>
-                <input type="text" class="form-control" id="url" name="url" value="<?= $menu['urlMenu']; ?>">
+                <input type="text" class="form-control" id="url" name="url" value="<?= $menu['urlMenu']; ?>" placeholder="url">
                 <?= form_error('url', '<small class="text-danger">', '</small>'); ?>
               </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Update Menu</button>
+              <button type="submit" class="btn btn-primary">Update</button>
               <a href="<?= base_url('menu/index'); ?>" class="btn btn-danger">Cancel</a>
             </div>
             </form>

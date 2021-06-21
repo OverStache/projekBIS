@@ -14,7 +14,7 @@
           <?= $this->session->flashdata('message'); ?>
           <div class="card">
             <div class="card-header">
-              <a href="<?= base_url('user/userAdd'); ?>" class="btn btn-primary">Add New User</a>
+              <a href="<?= base_url('user/userAdd'); ?>" class="btn btn-primary">Tambah User</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

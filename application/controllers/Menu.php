@@ -30,6 +30,7 @@ class Menu extends CI_Controller
   public function menuAdd()
   {
     $this->form_validation->set_rules('title', 'Title', 'required');
+    $this->form_validation->set_rules('url', 'URL', 'required');
 
     if ($this->form_validation->run() == false) {
       $this->load->view('admin/menu/menuAdd');
@@ -42,7 +43,7 @@ class Menu extends CI_Controller
       // insert menu baru ke tbl_user_menu
       $this->db->insert('tbl_user_menu', $data);
       $alert = 'success';
-      $message = 'Menu Added!';
+      $message = 'Menu Berhasil Ditambahkan!';
       $redirect = 'menu/index';
       $this->alert->alertResult($alert, $message, $redirect);
     }
@@ -53,6 +54,7 @@ class Menu extends CI_Controller
     $data['menu'] = $this->db->get_where('tbl_user_menu', ['id' => $id])->row_array();
 
     $this->form_validation->set_rules('title', 'Title', 'required');
+    $this->form_validation->set_rules('url', 'URL', 'required');
 
     if ($this->form_validation->run() == false) {
       $this->load->view('admin/menu/menuUpdate', $data);
@@ -66,7 +68,7 @@ class Menu extends CI_Controller
       $this->db->where('id', $id);
       $this->db->update('tbl_user_menu', $data);
       $alert = 'success';
-      $message = 'Menu Updated!';
+      $message = 'Menu Berhasil Diupdate!';
       $redirect = 'menu/index';
       $this->alert->alertResult($alert, $message, $redirect);
     }
@@ -76,7 +78,7 @@ class Menu extends CI_Controller
   {
     $this->db->delete('tbl_user_menu', array('id' => $id));
     $alert = 'warning';
-    $message = 'Menu Deleted!';
+    $message = 'Menu Berhasil Dihapus!';
     $redirect = 'menu/index';
     $this->alert->alertResult($alert, $message, $redirect);
   }

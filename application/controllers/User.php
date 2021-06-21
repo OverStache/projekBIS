@@ -56,7 +56,7 @@ class User extends CI_Controller
       // insert user baru ke tbl_user
       $this->db->insert('tbl_user', $data);
       $alert = 'success';
-      $message = 'User Added!';
+      $message = 'User Berhasil Ditambahkan!';
       $redirect = 'user/index';
       $this->alert->alertResult($alert, $message, $redirect);
     }
@@ -87,7 +87,7 @@ class User extends CI_Controller
       $this->db->where('id', $id);
       $this->db->update('tbl_user', $data);
       $alert = 'success';
-      $message = 'User Updated!';
+      $message = 'User Berhasil Diupdate!';
       $redirect = 'user/index';
       $this->alert->alertResult($alert, $message, $redirect);
     }
@@ -96,7 +96,7 @@ class User extends CI_Controller
   {
     $this->db->delete('tbl_user', array('id' => $id));
     $alert = 'warning';
-    $message = 'User Deleted!';
+    $message = 'User Berhasil Dihapus!';
     $redirect = 'user/index';
     $this->alert->alertResult($alert, $message, $redirect);
   }

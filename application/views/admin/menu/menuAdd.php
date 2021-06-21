@@ -12,27 +12,25 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Quick Example</h3>
+              <h3 class="card-title">Tambah Menu</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
             <?= form_open_multipart('menu/menuAdd'); ?>
             <div class="card-body">
               <div class="form-group">
-                <label for="title">Menu Name</label>
-                <input type="text" class="form-control" id="title" name="title">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Nama Menu">
                 <?= form_error('title', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <label for="url">url</label>
-                <input type="text" class="form-control" id="url" name="url">
+                <input type="text" class="form-control" id="url" name="url" placeholder="url">
                 <?= form_error('url', '<small class="text-danger">', '</small>'); ?>
               </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Add New Menu</button>
-              <a href="<?= base_url('admin/menu'); ?>" class="btn btn-danger">Cancel</a>
+              <button type="submit" class="btn btn-primary">Tambah</button>
+              <a href="<?= base_url('menu/index'); ?>" class="btn btn-danger">Cancel</a>
             </div>
             </form>
           </div>

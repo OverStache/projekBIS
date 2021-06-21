@@ -50,7 +50,46 @@ class Anggota extends CI_Controller
 
   public function anggotaAdd()
   {
-    $this->load->view('dataKeanggotaan/anggota/anggotaAdd');
-    $this->load->view('templates/footer');
+    $this->form_validation->set_rules('nama', 'Nama', 'required');
+    $this->form_validation->set_rules('status', 'Status', 'required');
+    $data['status'] = $this->db->get('tbl_status_anggota')->result_array();
+    if ($this->form_validation->run() == false) {
+      $this->load->view('dataKeanggotaan/anggota/anggotaAdd', $data);
+      $this->load->view('templates/footer');
+    } else {
+      $data = [
+        'nama' => $this->input->post('nama'),
+        'status' => $this->input->post('status')
+      ];
+      $this->db->insert('tbl_anggota', $data);
+      $alert = 'success';
+      $message = 'Anggota Berhasil Ditambahkan!';
+      $redirect = 'anggota/index';
+      $this->alert->alertResult($alert, $message, $redirect);
+    }
+  }
+
+  public function anggotaUpdate($id)
+  {
+    $data['anggota'] = $this->db->get_where('tbl_anggota', ['idAnggota' => $id])->row_array();
+    $data['status'] = $this->db->get('tbl_status_anggota')->result_array();
+    $this->form_validation->set_rules('nama', 'Nama', 'required');
+    $this->form_validation->set_rules('status', 'Status', 'required');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('dataKeanggotaan/anggota/anggotaUpdate', $data);
+      $this->load->view('templates/footer');
+    } else {
+      $data = [
+        'nama' => $this->input->post('nama'),
+        'status' => $this->input->post('status')
+      ];
+      $this->db->where('idAnggota', $id);
+      $this->db->update('tbl_anggota', $data);
+      $alert = 'success';
+      $message = 'Data Anggota Berhasil Diupdate!';
+      $redirect = 'anggota/index';
+      $this->alert->alertResult($alert, $message, $redirect);
+    }
   }
 }

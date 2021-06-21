@@ -53,7 +53,7 @@ class SubMenu extends CI_Controller
       // insert menu baru ke tbl_user_menu
       $this->db->insert('tbl_user_sub_menu', $data);
       $alert = 'success';
-      $message = 'Sub Menu Added!';
+      $message = 'Sub Menu Berhasil Ditambahkan!';
       $redirect = 'subMenu/index';
       $this->alert->alertResult($alert, $message, $redirect);
     }
@@ -85,7 +85,7 @@ class SubMenu extends CI_Controller
       $this->db->where('id', $id);
       $this->db->update('tbl_user_sub_menu', $data);
       $alert = 'success';
-      $message = 'Sub Menu Updated!';
+      $message = 'Sub Menu Berhasil Diupdate!';
       $redirect = 'subMenu/index';
       $this->alert->alertResult($alert, $message, $redirect);
     }
@@ -95,7 +95,7 @@ class SubMenu extends CI_Controller
   {
     $this->db->delete('tbl_user_sub_menu', array('id' => $id));
     $alert = 'warning';
-    $message = 'Sub Menu Deleted!';
+    $message = 'Sub Menu Berhasil Diupdate!';
     $redirect = 'subMenu/index';
     $this->alert->alertResult($alert, $message, $redirect);
   }
