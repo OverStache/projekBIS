@@ -41,6 +41,7 @@
             <div class="card-footer">
               <button type="submit" class="btn btn-primary">Update</button>
               <a href="<?= base_url('angsuran'); ?>" class="btn btn-danger">Cancel</a>
+              <a href="<?= base_url('angsuran/print/' . $angsuran['id']); ?>" class="btn btn-secondary">Print</a>
             </div>
             </form>
           </div>
