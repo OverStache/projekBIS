@@ -84,22 +84,22 @@
   });
 
   // auto change access checkbox
-  // $('.form-check-input').on('click', function() {
-  //   const menuId = $(this).data('menu');
-  //   const roleId = $(this).data('role');
+  $('.form-check-input').on('click', function() {
+    const menuId = $(this).data('menu');
+    const roleId = $(this).data('role');
 
-  //   $.ajax({
-  //     url: "<?= base_url('role/changeaccess'); ?>",
-  //     type: 'post',
-  //     data: {
-  //       menuId: menuId,
-  //       roleId: roleId
-  //     },
-  //     success: function() {
-  //       document.location.href = "<?= base_url('role/index/'); ?>" + roleId;
-  //     }
-  //   });
-  // });
+    $.ajax({
+      url: "<?= base_url('role/changeaccess'); ?>",
+      type: 'post',
+      data: {
+        menuId: menuId,
+        roleId: roleId
+      },
+      success: function() {
+        document.location.href = "<?= base_url('role/index/'); ?>" + roleId;
+      }
+    });
+  });
 </script>
 
 <!-- modal delete -->
@@ -114,6 +114,15 @@
     });
     $('body').on('click', '.subMenuDelete', function() {
       url = "<?= base_url('subMenu/subMenuDelete/'); ?>";
+    });
+    $('body').on('click', '.anggotaDelete', function() {
+      url = "<?= base_url('anggota/anggotaDelete/'); ?>";
+    });
+    $('body').on('click', '.rekeningDelete', function() {
+      url = "<?= base_url('rekening/rekeningDelete/'); ?>";
+    });
+    $('body').on('click', '.angsuranDelete', function() {
+      url = "<?= base_url('angsuran/angsuranDelete/'); ?>";
     });
 
     $('body').on('click', '.modalDelete', function() {

@@ -13,34 +13,34 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Tambah Rekening</h3>
+              <h3 class="card-title">Update Angsuran</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <?= form_open_multipart('rekening/rekeningAdd'); ?>
+            <?= form_open_multipart('angsuran/angsuranUpdate/' . $angsuran['id']); ?>
             <div class="card-body">
               <div class="form-group">
-                <select class="form-control" id="id_anggota" name="id_anggota">
-                  <option value="">Pilih Anggota</option>
-                  <?php foreach ($anggota as $a) : ?>
-                    <option value="<?= $a['idAnggota']; ?>"><?= $a['idAnggota']; ?> - <?= $a['nama']; ?></option>
+                <select class="form-control" id="id_rekening" name="id_rekening">
+                  <option value="">Pilih Rekening</option>
+                  <?php foreach ($rekening as $r) : ?>
+                    <option value="<?= $r['id']; ?>" <?php if ($angsuran['id_rekening'] == $r['id']) : ?> selected <?php endif ?>><?= $r['id']; ?></option>
                   <?php endforeach ?>
                 </select>
-                <?= form_error('id_anggota', '<small class="text-danger">', '</small>'); ?>
+                <?= form_error('id_rekening', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" id="jangka_waktu" name="jangka_waktu" placeholder="Lama Angsuran">
-                <?= form_error('jangka_waktu', '<small class="text-danger">', '</small>'); ?>
+                <input type="text" class="form-control" id="penyetor" name="penyetor" value="<?= $angsuran['penyetor']; ?>" placeholder="Nama Penyetor">
+                <?= form_error('penyetor', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah Pembiayaan">
+                <input type="text" class="form-control" id="jumlah" name="jumlah" value="<?= $angsuran['jumlah']; ?>" placeholder="Jumlah Angsuran">
                 <?= form_error('jumlah', '<small class="text-danger">', '</small>'); ?>
               </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Tambah</button>
-              <a href="<?= base_url('rekening'); ?>" class="btn btn-danger">Cancel</a>
+              <button type="submit" class="btn btn-primary">Update</button>
+              <a href="<?= base_url('angsuran'); ?>" class="btn btn-danger">Cancel</a>
             </div>
             </form>
           </div>

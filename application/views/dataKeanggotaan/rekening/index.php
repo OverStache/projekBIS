@@ -14,7 +14,7 @@
           <div class="card">
             <div class="card-header">
               <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-                <a href="<?= base_url('rekening/rekeningAdd') ?>" class="btn btn-primary modalAdd">rekening Baru</a>
+                <a href="<?= base_url('rekening/rekeningAdd') ?>" class="btn btn-primary">Rekening Baru</a>
               <?php endif ?>
             </div>
             <!-- /.card-header -->
@@ -49,10 +49,10 @@
                       </td>
                       <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                         <td>
-                          <a href="<?= base_url('menu/menuUpdate/' . $r['id']) ?>" class="btn btn-xs btn-success">
+                          <a href="<?= base_url('rekening/rekeningUpdate/' . $r['id']) ?>" class="btn btn-xs btn-success">
                             <i class="fas fa-fw fa-edit"></i>
                           </a>
-                          <a href="#" class="btn btn-xs btn-danger modalDelete menuDelete" data-id="<?= $r['id']; ?>">
+                          <a href="#" class="btn btn-xs btn-danger modalDelete rekeningDelete" data-id="<?= $r['id']; ?>" data-title="<?= $r['nama']; ?>">
                             <i class="fas fa-fw fa-trash"></i>
                           </a>
                         </td>

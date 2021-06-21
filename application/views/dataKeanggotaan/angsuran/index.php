@@ -39,10 +39,10 @@
                       <td><?= $m['tanggal']; ?></td>
                       <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                         <td>
-                          <a href="<?= base_url('menu/menuUpdate/' . $m['id']) ?>" class="btn btn-xs btn-success">
+                          <a href="<?= base_url('angsuran/angsuranUpdate/' . $m['id']) ?>" class="btn btn-xs btn-success">
                             <i class="fas fa-fw fa-edit"></i>
                           </a>
-                          <a href="#" class="btn btn-xs btn-danger modalDelete menuDelete" data-id="<?= $m['id']; ?>">
+                          <a href="#" class="btn btn-xs btn-danger modalDelete angsuranDelete" data-id="<?= $m['id']; ?>" data-title="<?= $m['penyetor']; ?>">
                             <i class="fas fa-fw fa-trash"></i>
                           </a>
                         </td>

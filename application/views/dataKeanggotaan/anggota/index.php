@@ -14,7 +14,7 @@
           <div class="card">
             <div class="card-header">
               <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-                <a href="<?= base_url('anggota/anggotaAdd') ?>" class="btn btn-primary modalAdd">Tambah Anggota Baru</a>
+                <a href="<?= base_url('anggota/anggotaAdd') ?>" class="btn btn-primary modalAdd">Tambah Anggota</a>
               <?php endif ?>
             </div>
             <!-- /.card-header -->
@@ -42,19 +42,16 @@
                       <td><?= $a['status']; ?></td>
                       <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
                         <td>
-                          <!-- <div class="form-check">
-                            <input class="form-check-input changeActive" type="checkbox" <?= check_anggota_active(); ?> data-id="<?= $a['idAnggota']; ?>" data-is_active="<?= $a['is_active']; ?>">
-                          </div> -->
                           <div class="custom-control custom-checkbox">
                             <input class="custom-control-input" type="checkbox" id="changeActiveAnggota" <?= check_anggota_active(); ?> data-id="<?= $a['idAnggota']; ?>" data-is_active="<?= $a['is_active']; ?>">
                             <label for="changeActiveAnggota" class="custom-control-label"></label>
                           </div>
                         </td>
                         <td>
-                          <a href="<?= base_url('menu/menuUpdate/' . $a['idAnggota']) ?>" class="btn btn-xs btn-success">
+                          <a href="<?= base_url('anggota/anggotaUpdate/' . $a['idAnggota']) ?>" class="btn btn-xs btn-success">
                             <i class="fas fa-fw fa-edit"></i>
                           </a>
-                          <a href="#" class="btn btn-xs btn-danger modalDelete menuDelete" data-id="<?= $a['idAnggota']; ?>">
+                          <a href="#" class="btn btn-xs btn-danger modalDelete anggotaDelete" data-id="<?= $a['idAnggota']; ?>" data-title="<?= $a['nama']; ?>">
                             <i class="fas fa-fw fa-trash"></i>
                           </a>
                         </td>

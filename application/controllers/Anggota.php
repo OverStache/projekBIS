@@ -64,7 +64,7 @@ class Anggota extends CI_Controller
       $this->db->insert('tbl_anggota', $data);
       $alert = 'success';
       $message = 'Anggota Berhasil Ditambahkan!';
-      $redirect = 'anggota/index';
+      $redirect = 'anggota';
       $this->alert->alertResult($alert, $message, $redirect);
     }
   }
@@ -88,8 +88,17 @@ class Anggota extends CI_Controller
       $this->db->update('tbl_anggota', $data);
       $alert = 'success';
       $message = 'Data Anggota Berhasil Diupdate!';
-      $redirect = 'anggota/index';
+      $redirect = 'anggota';
       $this->alert->alertResult($alert, $message, $redirect);
     }
+  }
+
+  public function anggotaDelete($id)
+  {
+    $this->db->delete('tbl_anggota', array('idAnggota' => $id));
+    $alert = 'warning';
+    $message = 'Anggota Berhasil Dihapus!';
+    $redirect = 'anggota';
+    $this->alert->alertResult($alert, $message, $redirect);
   }
 }

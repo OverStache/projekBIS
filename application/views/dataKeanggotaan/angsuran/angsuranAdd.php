@@ -13,20 +13,20 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Quick Example</h3>
+              <h3 class="card-title">Angsuran Baru</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
             <?= form_open_multipart('angsuran/angsuranAdd'); ?>
             <div class="card-body">
               <div class="form-group">
-                <select class="form-control" id="rekening_id" name="rekening_id">
-                  <option value="">Select Rekening</option>
+                <select class="form-control" id="id_rekening" name="id_rekening">
+                  <option value="">Pilih Rekening</option>
                   <?php foreach ($rekening as $r) : ?>
                     <option value="<?= $r['id']; ?>"><?= $r['id']; ?></option>
                   <?php endforeach ?>
                 </select>
-                <?= form_error('rekening_id', '<small class="text-danger">', '</small>'); ?>
+                <?= form_error('id_rekening', '<small class="text-danger">', '</small>'); ?>
               </div>
               <div class="form-group">
                 <input type="text" class="form-control" id="penyetor" name="penyetor" placeholder="Nama Penyetor">
@@ -39,8 +39,8 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Add New Sub Menu</button>
-              <a href="<?= base_url('angsuran/index'); ?>" class="btn btn-danger">Cancel</a>
+              <button type="submit" class="btn btn-primary">Tambah</button>
+              <a href="<?= base_url('angsuran'); ?>" class="btn btn-danger">Cancel</a>
             </div>
             </form>
           </div>
