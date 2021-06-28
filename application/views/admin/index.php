@@ -34,7 +34,7 @@
             <div class="inner">
               <h3><?= $total_member; ?></h3>
 
-              <p>Members</p>
+              <p>Admin</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>

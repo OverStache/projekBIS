@@ -53,10 +53,10 @@
         <?php
         $role_id = $this->session->userdata('role_id');
         $queryMenu = "SELECT `tbl_user_menu`.`id`, `menu`, `urlMenu`
-                  FROM `tbl_user_menu` JOIN `tbl_user_access_menu`
-                    ON `tbl_user_menu`.`id` = `tbl_user_access_menu`.`menu_id`
-                 WHERE `tbl_user_access_menu`.`role_id` = $role_id
-              ORDER BY `tbl_user_access_menu`.`menu_id` ASC
+                        FROM `tbl_user_menu` JOIN `tbl_user_access_menu`
+                          ON `tbl_user_menu`.`id` = `tbl_user_access_menu`.`menu_id`
+                       WHERE `tbl_user_access_menu`.`role_id` = $role_id
+                    ORDER BY `tbl_user_access_menu`.`menu_id` ASC
                 ";
         $menu = $this->db->query($queryMenu)->result_array();
         ?>

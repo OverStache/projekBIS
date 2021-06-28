@@ -40,12 +40,22 @@ function check_access($role_id, $menu_id)
   }
 }
 
-function check_anggota_active()
+function check_anggota_active($id)
 {
   $ci = get_instance();
-  $result = $ci->db->get_where('tbl_anggota', ['is_active' => 1]);
+  $result = $ci->db->get_where('tbl_anggota', ['idAnggota' => $id])->row_array();
 
-  if ($result->num_rows() > 0) {
-    return "checked";
+  if ($result['is_active'] == 0) {
+    $data = array(
+      'icon' => 'user-times',
+      'button' => 'danger'
+    );
+    return $data;
+  } else {
+    $data = array(
+      'icon' => 'user-check',
+      'button' => 'success'
+    );
+    return $data;
   }
 }

@@ -13,8 +13,8 @@
           <?= $this->session->flashdata('message'); ?>
           <div class="card">
             <div class="card-header">
-              <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-                <a href="<?= base_url('angsuran/angsuranAdd') ?>" class="btn btn-primary modalAdd">Angsuran Baru</a>
+              <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
+                <a href="<?= base_url('angsuran/angsuranAdd') ?>" class="btn btn-primary modalAdd">Tambah Rekening</a>
               <?php endif ?>
             </div>
             <!-- /.card-header -->
@@ -25,7 +25,7 @@
                     <th>#</th>
                     <th>Penyetor</th>
                     <th>Waktu Setor</th>
-                    <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+                    <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
                       <th>Action</th>
                     <?php endif ?>
                   </tr>
@@ -36,8 +36,8 @@
                     <tr>
                       <td><?= $i++; ?></td>
                       <td><?= $m['penyetor']; ?></td>
-                      <td><?= $m['tanggal']; ?></td>
-                      <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+                      <td><?= date('F d Y \- h:i:s', $m['tanggal']); ?></td>
+                      <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
                         <td>
                           <a href="<?= base_url('angsuran/angsuranUpdate/' . $m['id']) ?>" class="btn btn-xs btn-success">
                             <i class="fas fa-fw fa-edit"></i>
@@ -55,7 +55,7 @@
                     <th>#</th>
                     <th>Penyetor</th>
                     <th>Waktu Setor</th>
-                    <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+                    <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
                       <th>Action</th>
                     <?php endif ?>
                   </tr>

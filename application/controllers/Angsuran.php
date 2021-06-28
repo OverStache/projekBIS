@@ -1,8 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-use Dompdf\Dompdf;
-
 class Angsuran extends CI_Controller
 {
   public function __construct()
@@ -32,7 +30,7 @@ class Angsuran extends CI_Controller
   public function angsuranAdd()
   {
     $data['rekening'] = $this->db->get_where('tbl_rekening', ['status' => 1])->result_array();
-
+    $this->load->helper('date');
     $this->form_validation->set_rules('id_rekening', 'Rekening', 'required');
     $this->form_validation->set_rules('penyetor', 'Penyetor', 'required');
     $this->form_validation->set_rules('jumlah', 'Jumlah', 'required');
@@ -44,6 +42,7 @@ class Angsuran extends CI_Controller
       $data = [
         'id_rekening' => $this->input->post('id_rekening'),
         'penyetor' => $this->input->post('penyetor'),
+        'tanggal' => time(),
         'jumlah' => $this->input->post('jumlah')
       ];
       $this->db->insert('tbl_angsuran', $data);
@@ -73,9 +72,9 @@ class Angsuran extends CI_Controller
         'jumlah' => $this->input->post('jumlah')
       ];
       $this->db->where('id', $id);
-      $this->db->insert('tbl_angsuran', $data);
+      $this->db->update('tbl_angsuran', $data);
       $alert = 'success';
-      $message = 'Angsuran Berhasil Ditambahkan!';
+      $message = 'Angsuran Berhasil Diupdate!';
       $redirect = 'angsuran';
       $this->alert->alertResult($alert, $message, $redirect);
     }
@@ -85,24 +84,8 @@ class Angsuran extends CI_Controller
   {
     $data['rekening'] = $this->db->get_where('tbl_rekening', ['status' => 1])->result_array();
     $data['angsuran'] = $this->db->get_where('tbl_angsuran', ['id' => $id])->row_array();
-    $html = $this->load->view('print', $data, true);
-    // echo $html;
-    // die();
-    // include autoloader
-    require_once 'dompdf/autoload.inc.php';
 
-    // instantiate and use the dompdf class
-    $dompdf = new Dompdf();
-
-    $dompdf->loadHtml($html);
-
-    // (Optional) Setup the paper size and orientation
-    $dompdf->setPaper('A4', 'portrait');
-
-    // Render the HTML as PDF
-    $dompdf->render();
-
-    // Output the generated PDF to Browser
-    $dompdf->stream('result.pdf', array('Attachment' => false));
+    $this->load->library('mypdf');
+    $this->mypdf->print('print/print', $data);
   }
 }

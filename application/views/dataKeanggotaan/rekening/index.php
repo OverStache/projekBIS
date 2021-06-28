@@ -13,8 +13,8 @@
           <?= $this->session->flashdata('message'); ?>
           <div class="card">
             <div class="card-header">
-              <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-                <a href="<?= base_url('rekening/rekeningAdd') ?>" class="btn btn-primary">Rekening Baru</a>
+              <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
+                <a href="<?= base_url('rekening/rekeningAdd') ?>" class="btn btn-primary">Tambah Rekening</a>
               <?php endif ?>
             </div>
             <!-- /.card-header -->
@@ -29,7 +29,7 @@
                     <th>Jumlah Pinjaman</th>
                     <th>Sisa Angsuran</th>
                     <th>Status</th>
-                    <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+                    <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
                       <th>Action</th>
                     <?php endif ?>
                   </tr>
@@ -47,13 +47,16 @@
                       <td>
                         <span class="badge badge-<?= $r['color']; ?>"><?= $r['status']; ?></span>
                       </td>
-                      <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+                      <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
                         <td>
                           <a href="<?= base_url('rekening/rekeningUpdate/' . $r['id']) ?>" class="btn btn-xs btn-success">
                             <i class="fas fa-fw fa-edit"></i>
                           </a>
-                          <a href="#" class="btn btn-xs btn-danger modalDelete rekeningDelete" data-id="<?= $r['id']; ?>" data-title="<?= $r['nama']; ?>">
-                            <i class="fas fa-fw fa-trash"></i>
+                          <a href="<?= base_url('rekening/rekeningDetail/' . $r['id']) ?>" class="btn btn-xs btn-primary">
+                            <i class="fas fa-fw fa-search"></i>
+                          </a>
+                          <a href="#" class="btn btn-xs btn-secondary changeStatus" data-id="<?= $r['id']; ?>" data-status="<?= $r['status']; ?>">
+                            <i class="fas fa-fw fa-redo-alt"></i>
                           </a>
                         </td>
                       <?php endif ?>
@@ -69,7 +72,7 @@
                     <th>Jumlah Pinjaman</th>
                     <th>Sisa Angsuran</th>
                     <th>Status</th>
-                    <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+                    <!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
                       <th>Action</th>
                     <?php endif ?>
                   </tr>

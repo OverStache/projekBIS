@@ -33,7 +33,6 @@ class Anggota extends CI_Controller
     $id = $this->input->post('id');
     $is_active = $this->input->post('is_active');
 
-
     if ($is_active == 0) {
       $insert = 1;
       $message = 'Anggota Activated!';

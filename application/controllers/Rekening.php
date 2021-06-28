@@ -79,4 +79,38 @@ class Rekening extends CI_Controller
       $this->alert->alertResult($alert, $message, $redirect);
     }
   }
+
+  public function rekeningDetail($id)
+  {
+    // $data['rekening'] = $this->db->get_where('tbl_rekening', ['id' => $id])->row_array();
+
+    $this->load->model('Join_model', 'join');
+    $data['rekening'] = $this->join->joinRekeningAnggotaStatusById($id);
+
+    $this->load->view('dataKeanggotaan/rekening/rekeningDetail', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function changeStatus()
+  {
+    $id = $this->input->post('id');
+    $status = $this->input->post('status');
+
+    if ($status == 'Pending') {
+      $update = 1;
+      $message = 'Rekening Activated!';
+      $alert = 'success';
+    } else if ($status == 'Active') {
+      $update = 3;
+      $message = 'Rekening Rejected!';
+      $alert = 'danger';
+    } else {
+      $update = 0;
+      $message = 'Rekening Pending!';
+      $alert = 'danger';
+    }
+    $this->db->where('id', $id);
+    $this->db->update('tbl_rekening', ['status' => $update]);
+    $this->alert->alertResult($alert, $message, null);
+  }
 }
