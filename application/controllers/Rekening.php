@@ -28,7 +28,7 @@ class Rekening extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function rekeningAdd()
+	public function add()
 	{
 		$data['anggota'] = $this->db->get_where('tbl_anggota', ['is_active' => 1])->result_array();
 
@@ -37,7 +37,7 @@ class Rekening extends CI_Controller
 		$this->form_validation->set_rules('jumlah', 'Jumlah Pembiayaan', 'required');
 
 		if ($this->form_validation->run() == false) {
-			$this->load->view('dataKeanggotaan/rekening/rekeningAdd', $data);
+			$this->load->view('dataKeanggotaan/rekening/add', $data);
 			$this->load->view('templates/footer');
 		} else {
 			$data = [
@@ -53,7 +53,7 @@ class Rekening extends CI_Controller
 		}
 	}
 
-	public function rekeningUpdate($id)
+	public function update($id)
 	{
 		$data['anggota'] = $this->db->get_where('tbl_anggota', ['is_active' => 1])->result_array();
 		$data['rekening'] = $this->db->get_where('tbl_rekening', ['id' => $id])->row_array();
@@ -63,7 +63,7 @@ class Rekening extends CI_Controller
 		$this->form_validation->set_rules('jumlah', 'Jumlah Pembiayaan', 'required');
 
 		if ($this->form_validation->run() == false) {
-			$this->load->view('dataKeanggotaan/rekening/rekeningUpdate', $data);
+			$this->load->view('dataKeanggotaan/rekening/update', $data);
 			$this->load->view('templates/footer');
 		} else {
 			$data = [
@@ -80,18 +80,18 @@ class Rekening extends CI_Controller
 		}
 	}
 
-	public function rekeningDetail($id)
+	public function detail($id)
 	{
 		// $data['rekening'] = $this->db->get_where('tbl_rekening', ['id' => $id])->row_array();
 
 		$this->load->model('Join_model', 'join');
 		$data['rekening'] = $this->join->joinRekeningAnggotaStatusById($id);
 
-		$this->load->view('dataKeanggotaan/rekening/rekeningDetail', $data);
+		$this->load->view('dataKeanggotaan/rekening/detail', $data);
 		$this->load->view('templates/footer');
 	}
 
-	public function changeStatus()
+	public function changeRekeningStatus()
 	{
 		$id = $this->input->post('id');
 		$status = $this->input->post('status');

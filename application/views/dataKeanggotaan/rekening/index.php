@@ -14,7 +14,7 @@
 					<div class="card">
 						<div class="card-header">
 							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-								<a href="<?= base_url('rekening/rekeningAdd') ?>" class="btn btn-primary">Tambah Rekening</a>
+								<a href="<?= base_url('rekening/add') ?>" class="btn btn-primary">Tambah Rekening</a>
 							<?php endif ?>
 						</div>
 						<!-- /.card-header -->
@@ -49,10 +49,10 @@
 											</td>
 											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
 												<td>
-													<a href="<?= base_url('rekening/rekeningUpdate/' . $r['id']) ?>" class="btn btn-xs btn-success">
+													<a href="<?= base_url('rekening/update/' . $r['id']) ?>" class="btn btn-xs btn-success">
 														<i class="fas fa-fw fa-edit"></i>
 													</a>
-													<a href="<?= base_url('rekening/rekeningDetail/' . $r['id']) ?>" class="btn btn-xs btn-primary">
+													<a href="<?= base_url('rekening/detail/' . $r['id']) ?>" class="btn btn-xs btn-primary">
 														<i class="fas fa-fw fa-search"></i>
 													</a>
 													<?php if (check_rekening_status($r['id'])) : ?>

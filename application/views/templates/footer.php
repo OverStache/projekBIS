@@ -21,6 +21,8 @@
 <script src="<?= base_url('assets/'); ?>dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url('assets/'); ?>dist/js/demo.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="<?= base_url('assets/'); ?>plugins/number-thousand-separator/easy-number-separator.js"></script>
 
 <!-- DataTables  & Plugins -->
 <script src="<?= base_url('assets/'); ?>plugins/datatables/jquery.dataTables.min.js"></script>
@@ -76,22 +78,82 @@
 				is_active: is_active
 			},
 			success: function() {
-				document.location.href = "<?= base_url('anggota/index'); ?>";
+				document.location.href = "<?= base_url('anggota'); ?>";
 			}
 		});
 	});
 
-	// auto change access checkbox
-	$('.form-check-input').on('click', function() {
+	// auto change user is_active
+	$('.changeActiveUser').on('click', function() {
+		const id = $(this).data('id');
+		const is_active = $(this).data('is_active');
+		console.log(id);
+		console.log(is_active);
+		$.ajax({
+			url: "<?= base_url('user/changeActive'); ?>",
+			type: 'post',
+			data: {
+				id: id,
+				is_active: is_active
+			},
+			success: function() {
+				document.location.href = "<?= base_url('user'); ?>";
+			}
+		});
+	});
+
+	// auto change subMenu is_active
+	$('.changeActiveSubMenu').on('click', function() {
+		const id = $(this).data('id');
+		const is_active = $(this).data('is_active');
+		console.log(id);
+		console.log(is_active);
+		$.ajax({
+			url: "<?= base_url('subMenu/changeActive'); ?>",
+			type: 'post',
+			data: {
+				id: id,
+				is_active: is_active
+			},
+			success: function() {
+				document.location.href = "<?= base_url('subMenu'); ?>";
+			}
+		});
+	});
+
+	// auto change menu access checkbox
+	$('.menuAccess').on('click', function() {
 		const menuId = $(this).data('menu');
 		const roleId = $(this).data('role');
 
 		$.ajax({
-			url: "<?= base_url('role/changeaccess'); ?>",
+			url: "<?= base_url('role/changeMenuAccess'); ?>",
 			type: 'post',
 			data: {
 				menuId: menuId,
 				roleId: roleId
+			},
+			success: function() {
+				document.location.href = "<?= base_url('role/index/'); ?>" + roleId;
+			}
+		});
+	});
+
+	// auto change crud access checkbox
+	$('.crudAccess').on('click', function() {
+		const menuId = $(this).data('menu');
+		const roleId = $(this).data('role');
+		const crudId = $(this).data('crud');
+		console.log(menuId);
+		console.log(roleId);
+		console.log(crudId);
+		$.ajax({
+			url: "<?= base_url('role/changeCrudAccess'); ?>",
+			type: 'post',
+			data: {
+				menuId: menuId,
+				roleId: roleId,
+				crudId: crudId,
 			},
 			success: function() {
 				document.location.href = "<?= base_url('role/index/'); ?>" + roleId;
@@ -106,14 +168,14 @@
 		// console.log(id);
 		// console.log(status);
 		$.ajax({
-			url: "<?= base_url('rekening/changeStatus'); ?>",
+			url: "<?= base_url('rekening/changeRekeningStatus'); ?>",
 			type: 'post',
 			data: {
 				id: id,
 				status: status
 			},
 			success: function() {
-				document.location.href = "<?= base_url('rekening/index'); ?>";
+				document.location.href = "<?= base_url('rekening'); ?>";
 			}
 		});
 	});
@@ -126,22 +188,22 @@
 	$(function() {
 		let url;
 		$('body').on('click', '.userDelete', function() {
-			url = "<?= base_url('user/userDelete/'); ?>";
+			url = "<?= base_url('user/delete/'); ?>";
 		});
 		$('body').on('click', '.menuDelete', function() {
-			url = "<?= base_url('menu/menuDelete/'); ?>";
+			url = "<?= base_url('menu/delete/'); ?>";
 		});
 		$('body').on('click', '.subMenuDelete', function() {
-			url = "<?= base_url('subMenu/subMenuDelete/'); ?>";
+			url = "<?= base_url('subMenu/delete/'); ?>";
 		});
 		$('body').on('click', '.anggotaDelete', function() {
-			url = "<?= base_url('anggota/anggotaDelete/'); ?>";
+			url = "<?= base_url('anggota/delete/'); ?>";
 		});
 		$('body').on('click', '.rekeningDelete', function() {
-			url = "<?= base_url('rekening/rekeningDelete/'); ?>";
+			url = "<?= base_url('rekening/delete/'); ?>";
 		});
 		$('body').on('click', '.angsuranDelete', function() {
-			url = "<?= base_url('angsuran/angsuranDelete/'); ?>";
+			url = "<?= base_url('angsuran/delete/'); ?>";
 		});
 
 		$('body').on('click', '.modalDelete', function() {
@@ -167,6 +229,45 @@
 				}
 			});
 		});
+	});
+</script>
+<!-- kalkulator rekening -->
+<script>
+	$(document).ready(function() {
+		let bulan;
+		let margin;
+		let inputPinjaman;
+		$("select.jangka_waktu").change(function() {
+			bulan = $(this).children("option:selected").val();
+			console.log(bulan);
+		});
+
+		$("input.inputMargin").on("input", function() {
+			// Print entered value in a div box
+			margin = $(this).val() / 100;
+			console.log(margin);
+		});
+
+		$("input.inputPinjaman").on("input", function() {
+			// Print entered value in a div box
+			inputPinjaman = $(this).val();
+			console.log(inputPinjaman);
+		});
+
+		$('button.hitung').on('click', function() {
+			let afterMargin = inputPinjaman * margin;
+			let jumlah = parseInt(inputPinjaman) + parseInt(afterMargin);
+			let bulanan = jumlah / bulan;
+			console.log("margin : " + afterMargin);
+			console.log("jumlah : " + jumlah);
+			console.log("bulanan : " + bulanan);
+			if (bulanan) {
+				$('#margin').val(afterMargin);
+				$('#jumlah').val(jumlah);
+				$('#bulanan').val(bulanan);
+			}
+		});
+
 	});
 </script>
 </body>
