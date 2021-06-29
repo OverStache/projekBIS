@@ -47,6 +47,11 @@
 								<td class="col-4">Status Rekening</td>
 								<td class="col-8">
 									<span class="badge badge-<?= $rekening['color']; ?>"><?= $rekening['status']; ?></span>
+									<?php if (check_rekening_status($rekening['id'])) : ?>
+										<a href="#" class="btn btn-xs btn-<?= button_rekening_status($rekening['id'])['button']; ?> changeStatus" data-id="<?= $rekening['id']; ?>" data-status="<?= $rekening['status']; ?>">
+											<i class="fas fa-fw fa-<?= button_rekening_status($rekening['id'])['icon']; ?> "></i>
+										</a>
+									<?php endif ?>
 								</td>
 							</tr>
 						</table>

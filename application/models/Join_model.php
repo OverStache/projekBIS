@@ -17,7 +17,8 @@ class Join_model extends CI_Model
               JOIN tbl_anggota
                 ON tbl_rekening.id_anggota = tbl_anggota.idAnggota
               JOIN tbl_status_rekening
-                ON tbl_rekening.status = tbl_status_rekening.id";
+                ON tbl_rekening.status = tbl_status_rekening.id
+					ORDER BY tbl_rekening.id DESC";
 		return $this->db->query($query)->result_array();
 	}
 
