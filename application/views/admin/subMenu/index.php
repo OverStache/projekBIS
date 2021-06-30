@@ -49,7 +49,7 @@
 													<a href="#" class=" btn btn-xs btn-danger modalDelete subMenuDelete" data-id="<?= $sm['id']; ?>" data-title="<?= $sm['title']; ?>">
 														<i class="fas fa-fw fa-trash"></i>
 													</a>
-													<a href="#" class="changeActiveSubMenu btn btn-xs btn-<?= check_sub_menu_active($sm['id'])['button']; ?>" data-id="<?= $sm['id']; ?>" data-is_active="<?= $sm['is_active']; ?>">
+													<a href="#" class="changeActive subMenu btn btn-xs btn-<?= check_sub_menu_active($sm['id'])['button']; ?>" data-id="<?= $sm['id']; ?>" data-is_active="<?= $sm['is_active']; ?>">
 														<i class="fas fa-fw fa-<?= check_sub_menu_active($sm['id'])['icon']; ?>"></i>
 													</a>
 												</td>

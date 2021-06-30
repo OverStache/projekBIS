@@ -64,63 +64,6 @@
 		$(this).next('.custom-file-label').addClass("selected").html(fileName);
 	});
 
-	// auto change anggota is_active
-	$('.changeActiveAnggota').on('click', function() {
-		const id = $(this).data('id');
-		const is_active = $(this).data('is_active');
-		console.log(id);
-		console.log(is_active);
-		$.ajax({
-			url: "<?= base_url('anggota/changeActive'); ?>",
-			type: 'post',
-			data: {
-				id: id,
-				is_active: is_active
-			},
-			success: function() {
-				document.location.href = "<?= base_url('anggota'); ?>";
-			}
-		});
-	});
-
-	// auto change user is_active
-	$('.changeActiveUser').on('click', function() {
-		const id = $(this).data('id');
-		const is_active = $(this).data('is_active');
-		console.log(id);
-		console.log(is_active);
-		$.ajax({
-			url: "<?= base_url('user/changeActive'); ?>",
-			type: 'post',
-			data: {
-				id: id,
-				is_active: is_active
-			},
-			success: function() {
-				document.location.href = "<?= base_url('user'); ?>";
-			}
-		});
-	});
-
-	// auto change subMenu is_active
-	$('.changeActiveSubMenu').on('click', function() {
-		const id = $(this).data('id');
-		const is_active = $(this).data('is_active');
-		console.log(id);
-		console.log(is_active);
-		$.ajax({
-			url: "<?= base_url('subMenu/changeActive'); ?>",
-			type: 'post',
-			data: {
-				id: id,
-				is_active: is_active
-			},
-			success: function() {
-				document.location.href = "<?= base_url('subMenu'); ?>";
-			}
-		});
-	});
-
 	// auto change menu access checkbox
 	$('.menuAccess').on('click', function() {
 		const menuId = $(this).data('menu');
@@ -161,12 +104,10 @@
 		});
 	});
 
-	// auto change rekening status
-	$('.changeStatus').on('click', function() {
+	// auto change rekening status button
+	$('body').on('click', '.changeStatus', function() {
 		const id = $(this).data('id');
 		const status = $(this).data('status');
-		// console.log(id);
-		// console.log(status);
 		$.ajax({
 			url: "<?= base_url('rekening/changeRekeningStatus'); ?>",
 			type: 'post',
@@ -181,6 +122,48 @@
 	});
 </script>
 
+<script>
+	//auto change is_active
+	let id;
+	let is_active;
+	let url;
+
+	// anggota
+	$('body').on('click', '.anggota', function() {
+		id = $(this).data('id');
+		is_active = $(this).data('is_active');
+		url = "<?= base_url('anggota'); ?>";
+	});
+
+	// user
+	$('body').on('click', '.user', function() {
+		id = $(this).data('id');
+		is_active = $(this).data('is_active');
+		url = "<?= base_url('user'); ?>";
+	});
+
+	// subMenu
+	$('body').on('click', '.subMenu', function() {
+		id = $(this).data('id');
+		is_active = $(this).data('is_active');
+		url = "<?= base_url('subMenu'); ?>";
+	});
+
+	$('body').on('click', '.changeActive', function() {
+		$.ajax({
+			url: url + "/changeActive",
+			type: 'post',
+			data: {
+				id: id,
+				is_active: is_active
+			},
+			success: function() {
+				document.location.href = url;
+			}
+		});
+	});
+</script>
+
 <!-- bootbox -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
 <!-- bootbox modal delete -->
@@ -188,22 +171,22 @@
 	$(function() {
 		let url;
 		$('body').on('click', '.userDelete', function() {
-			url = "<?= base_url('user/delete/'); ?>";
+			url = "<?= base_url('user'); ?>";
 		});
 		$('body').on('click', '.menuDelete', function() {
-			url = "<?= base_url('menu/delete/'); ?>";
+			url = "<?= base_url('menu'); ?>";
 		});
 		$('body').on('click', '.subMenuDelete', function() {
-			url = "<?= base_url('subMenu/delete/'); ?>";
+			url = "<?= base_url('subMenu'); ?>";
 		});
 		$('body').on('click', '.anggotaDelete', function() {
-			url = "<?= base_url('anggota/delete/'); ?>";
+			url = "<?= base_url('anggota'); ?>";
 		});
 		$('body').on('click', '.rekeningDelete', function() {
-			url = "<?= base_url('rekening/delete/'); ?>";
+			url = "<?= base_url('rekening'); ?>";
 		});
 		$('body').on('click', '.angsuranDelete', function() {
-			url = "<?= base_url('angsuran/delete/'); ?>";
+			url = "<?= base_url('angsuran'); ?>";
 		});
 
 		$('body').on('click', '.modalDelete', function() {
@@ -224,7 +207,7 @@
 				},
 				callback: function(result) {
 					if (result) {
-						document.location.href = url + id;
+						document.location.href = url + '/delete/' + id;
 					};
 				}
 			});
@@ -233,40 +216,51 @@
 </script>
 <!-- kalkulator rekening -->
 <script>
-	$(document).ready(function() {
-		let bulan;
-		let margin;
-		let inputPinjaman;
-		$("select.jangka_waktu").change(function() {
-			bulan = $(this).children("option:selected").val();
-			console.log(bulan);
-		});
+	let bulan;
+	let margin;
+	let inputPinjaman;
+	const formatter = new Intl.NumberFormat('id-ID', {
+		style: 'decimal'
+	});
 
-		$("input.inputMargin").on("input", function() {
-			// Print entered value in a div box
-			margin = $(this).val() / 100;
-			console.log(margin);
-		});
+	$('select.jangka_waktu').change(function() {
+		bulan = $(this).children('option:selected').val();
+		console.log(bulan);
+	});
 
-		$("input.inputPinjaman").on("input", function() {
-			// Print entered value in a div box
-			inputPinjaman = $(this).val();
-			console.log(inputPinjaman);
-		});
+	$('input.inputMargin').on('input', function() {
+		// Print entered value in a div box
+		margin = $(this).val() / 100;
+		console.log(margin);
+	});
 
-		$('button.hitung').on('click', function() {
-			let afterMargin = inputPinjaman * margin;
-			let jumlah = parseInt(inputPinjaman) + parseInt(afterMargin);
-			let bulanan = jumlah / bulan;
-			console.log("margin : " + afterMargin);
-			console.log("jumlah : " + jumlah);
-			console.log("bulanan : " + bulanan);
-			if (bulanan) {
-				$('#margin').val(afterMargin);
-				$('#jumlah').val(jumlah);
-				$('#bulanan').val(bulanan);
-			}
-		});
+	$('input.perolehan').on('input', function() {
+		// Print entered value in a div box
+		inputPinjaman = $(this).val();
+		console.log(inputPinjaman);
+	});
+
+	$('button.hitung').on('click', function() {
+		let afterMargin = inputPinjaman * margin;
+		let jumlah = parseInt(inputPinjaman) + parseInt(afterMargin);
+		let bulanan = jumlah / bulan;
+		console.log("margin : " + afterMargin);
+		console.log("jumlah : " + jumlah);
+		console.log("bulanan : " + bulanan);
+		if (bulanan && bulan) {
+			$('#margin').val(afterMargin);
+			$('#jumlah').val(jumlah);
+
+			$('#pinjamanShow').text('Rp. ' + formatter.format(inputPinjaman));
+			$('#marginShow').text('Rp. ' + formatter.format(afterMargin));
+			$('#jumlahShow').text('Rp. ' + formatter.format(jumlah));
+			$('#bulananShow').text('Rp. ' + formatter.format(bulanan));
+		} else {
+			$('#pinjamanShow').text('');
+			$('#marginShow').text('');
+			$('#jumlahShow').text('');
+			$('#bulananShow').text('');
+		}
 
 	});
 </script>

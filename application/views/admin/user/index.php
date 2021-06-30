@@ -41,21 +41,13 @@
 												<a href="#" class="btn btn-xs btn-danger modalDelete userDelete" data-id="<?= $u['id']; ?>" data-title="<?= $u['username']; ?>">
 													<i class="fas fa-fw fa-trash"></i>
 												</a>
-												<a href="#" class="changeActiveUser btn btn-xs btn-<?= check_user_active($u['id'])['button']; ?>" data-id="<?= $u['id']; ?>" data-is_active="<?= $u['is_active']; ?>">
+												<a href="#" class="changeActive user btn btn-xs btn-<?= check_user_active($u['id'])['button']; ?>" data-id="<?= $u['id']; ?>" data-is_active="<?= $u['is_active']; ?>">
 													<i class="fas fa-fw fa-<?= check_user_active($u['id'])['icon']; ?>"></i>
 												</a>
 											</td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
-								<tfoot>
-									<tr>
-										<th>#</th>
-										<th>User</th>
-										<th>Role</th>
-										<th>Action</th>
-									</tr>
-								</tfoot>
 							</table>
 						</div>
 						<!-- /.card-body -->

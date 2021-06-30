@@ -34,6 +34,7 @@ class Rekening extends CI_Controller
 
 		$this->form_validation->set_rules('id_anggota', 'Anggota', 'required');
 		$this->form_validation->set_rules('jangka_waktu', 'Lama Angsuran', 'required');
+		$this->form_validation->set_rules('%', 'Margin', 'required');
 		$this->form_validation->set_rules('jumlah', 'Jumlah Pembiayaan', 'required');
 
 		if ($this->form_validation->run() == false) {
@@ -41,8 +42,12 @@ class Rekening extends CI_Controller
 			$this->load->view('templates/footer');
 		} else {
 			$data = [
+				'tanggal' => date('Y-m-d'),
 				'id_anggota' => $this->input->post('id_anggota'),
 				'jangka_waktu' => $this->input->post('jangka_waktu'),
+				'%' => $this->input->post('%'),
+				'perolehan' => $this->input->post('perolehan'),
+				'margin' => $this->input->post('margin'),
 				'jumlah' => $this->input->post('jumlah')
 			];
 			$this->db->insert('tbl_rekening', $data);
@@ -82,8 +87,6 @@ class Rekening extends CI_Controller
 
 	public function detail($id)
 	{
-		// $data['rekening'] = $this->db->get_where('tbl_rekening', ['id' => $id])->row_array();
-
 		$this->load->model('Join_model', 'join');
 		$data['rekening'] = $this->join->joinRekeningAnggotaStatusById($id);
 
@@ -95,20 +98,6 @@ class Rekening extends CI_Controller
 	{
 		$id = $this->input->post('id');
 		$status = $this->input->post('status');
-
-		// if ($status == 'Pending') {
-		// 	$update = 1;
-		// 	$message = 'Rekening Activated!';
-		// 	$alert = 'success';
-		// } else if ($status == 'Active') {
-		// 	$update = 3;
-		// 	$message = 'Rekening Rejected!';
-		// 	$alert = 'danger';
-		// } else {
-		// 	$update = 0;
-		// 	$message = 'Rekening Pending!';
-		// 	$alert = 'danger';
-		// }
 
 		switch ($status) {
 			case 'Pending':

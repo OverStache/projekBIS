@@ -15,7 +15,7 @@ class Join_model extends CI_Model
                 tbl_status_rekening.color
               FROM tbl_rekening
               JOIN tbl_anggota
-                ON tbl_rekening.id_anggota = tbl_anggota.idAnggota
+                ON tbl_rekening.id_anggota = tbl_anggota.id
               JOIN tbl_status_rekening
                 ON tbl_rekening.status = tbl_status_rekening.id
 					ORDER BY tbl_rekening.id DESC";
@@ -35,7 +35,7 @@ class Join_model extends CI_Model
                 tbl_status_rekening.color
               FROM tbl_rekening
               JOIN tbl_anggota
-                ON tbl_rekening.id_anggota = tbl_anggota.idAnggota
+                ON tbl_rekening.id_anggota = tbl_anggota.id
               JOIN tbl_status_rekening
                 ON tbl_rekening.status = tbl_status_rekening.id
              WHERE tbl_rekening.id = $id";
@@ -45,7 +45,7 @@ class Join_model extends CI_Model
 	public function joinAnggotaStatus()
 	{
 		$query = "SELECT 
-                tbl_anggota.idAnggota,
+                tbl_anggota.id,
                 tbl_anggota.nama,
                 tbl_anggota.is_active,
                 tbl_status_anggota.status

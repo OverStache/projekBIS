@@ -37,19 +37,19 @@
 									<?php foreach ($anggota as $a) : ?>
 										<tr>
 											<td><?= $i++; ?></td>
-											<td><?= $a['idAnggota']; ?></td>
+											<td><?= $a['id']; ?></td>
 											<td><?= $a['nama']; ?></td>
 											<td><?= $a['status']; ?></td>
 											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
 												<td>
-													<a href="<?= base_url('anggota/update/' . $a['idAnggota']) ?>" class="btn btn-xs btn-success">
+													<a href="<?= base_url('anggota/update/' . $a['id']) ?>" class="btn btn-xs btn-success">
 														<i class="fas fa-fw fa-edit"></i>
 													</a>
-													<a href="#" class="btn btn-xs btn-danger modalDelete anggotaDelete" data-id="<?= $a['idAnggota']; ?>" data-title="<?= $a['nama']; ?>">
+													<a href="#" class="btn btn-xs btn-danger modalDelete anggotaDelete" data-id="<?= $a['id']; ?>" data-title="<?= $a['nama']; ?>">
 														<i class="fas fa-fw fa-trash"></i>
 													</a>
-													<a href="#" class="changeActiveAnggota btn btn-xs btn-<?= check_anggota_active($a['idAnggota'])['button']; ?>" data-id="<?= $a['idAnggota']; ?>" data-is_active="<?= $a['is_active']; ?>">
-														<i class="fas fa-fw fa-<?= check_anggota_active($a['idAnggota'])['icon']; ?>"></i>
+													<a href="#" class="changeActive anggota btn btn-xs btn-<?= check_anggota_active($a['id'])['button']; ?>" data-id="<?= $a['id']; ?>" data-is_active="<?= $a['is_active']; ?>">
+														<i class="fas fa-fw fa-<?= check_anggota_active($a['id'])['icon']; ?>"></i>
 													</a>
 												</td>
 											<?php endif ?>

@@ -9,7 +9,7 @@
 	<section class="content">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col">
+				<div class="col-12">
 					<!-- general form elements -->
 					<div class="card card-primary">
 						<div class="card-header">
@@ -17,96 +17,88 @@
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<?= form_open_multipart('rekening/add'); ?>
 						<div class="card-body">
-							<form>
-								<div class="form-group row">
-									<label for="email" class="col-sm-2 col-form-label">Tanggal</label>
-									<div class="col-sm-10">
-										<input type="email" class="form-control" id="email" name="email" value="<?= date('Y-m-d'); ?>" disabled>
+							<?= form_open_multipart('rekening/add'); ?>
+							<div class="form-row mb-3">
+								<div class="form-group col-md-6">
+									<label for="id_anggota">Anggota</label>
+									<select class="form-control" name="id_anggota">
+										<option value="">Pilih Anggota</option>
+										<?php foreach ($anggota as $a) : ?>
+											<option value="<?= $a['id']; ?>"><?= $a['id']; ?> - <?= $a['nama']; ?></option>
+										<?php endforeach ?>
+									</select>
+									<?= form_error('id', '<small class="text-danger">', '</small>'); ?>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="tanggal">Tanggal</label>
+									<div class="input-group">
+										<input type="text" class="form-control" name="tanggal" value="<?= date('D, M d Y'); ?>" disabled>
 									</div>
 								</div>
-								<div class="form-group row">
-									<label for="jangka_waktu" class="col-sm-2 col-form-label">Anggota</label>
-									<div class="col-sm-10">
-										<select class="form-control" id="anggota" name="anggota">
-											<option value="">Pilih Anggota</option>
-											<?php foreach ($anggota as $a) : ?>
-												<option value="<?= $a['idAnggota']; ?>"><?= $a['idAnggota']; ?> - <?= $a['nama']; ?></option>
-											<?php endforeach ?>
-										</select>
+							</div>
+							<div class="form-row">
+								<!-- inline form -->
+								<div class="form-group col-md-3">
+									<label for="jangka_waktu">Lama Angsuran</label>
+									<select class="form-control jangka_waktu" name="jangka_waktu">
+										<option value="">Pilih Jangka Waktu</option>
+										<option value="3">3 Bulan</option>
+										<option value="6">6 Bulan</option>
+										<option value="12">12 Bulan</option>
+									</select>
+								</div>
+								<div class="form-group col-md-3">
+									<label for="%">Margin</label>
+									<div class="input-group">
+										<input type="text" class="form-control inputMargin text-right" name="%">
+										<div class="input-group-prepend">
+											<span class="input-group-text rounded-right">%</span>
+										</div>
 									</div>
 								</div>
-								<div class="form-row mb-4">
-									<!-- inline form -->
-									<div class="form-group col-md-3">
-										<label for="jangka_waktu">Lama Angsuran</label>
-										<select class="form-control jangka_waktu" id="jangka_waktu" name="jangka_waktu">
-											<option value="">Pilih Jangka Waktu</option>
-											<option value="3">3 Bulan</option>
-											<option value="6">6 Bulan</option>
-											<option value="12">12 Bulan</option>
-										</select>
-									</div>
-									<div class="form-group col-md-3">
-										<label for="inputMargin">Margin</label>
-										<div class="input-group">
-											<input type="text" class="form-control inputMargin" id="inputMargin">
-											<div class="input-group-prepend">
-												<span class="input-group-text rounded-right" id="inputGroupPrepend2">%</span>
-											</div>
+								<div class="form-group col-md-6">
+									<label for="perolehan">Jumlah Pinjaman</label>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">Rp.</span>
 										</div>
+										<input type="text" class="form-control perolehan text-right" name="perolehan">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-primary hitung">Hitung</button>
+										</span>
 									</div>
-									<div class="form-group col-md-6">
-										<label for="inputPinjaman">Jumlah Pinjaman</label>
-										<div class="input-group">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroupPrepend2">Rp.</span>
-											</div>
-											<input type="text" class="form-control inputPinjaman number-separator" id="inputPinjaman">
-											<span class="input-group-append">
-												<button type="button" class="btn btn-primary hitung">Hitung</button>
-											</span>
-										</div>
-									</div>
-									<!-- inline form -->
-								</div><!-- /.form-row-->
+								</div>
+								<!-- inline form -->
+							</div><!-- /.form-row-->
+
 						</div><!-- /.card-body -->
 						<div class="card-footer">
 							<div class="form-group row justify-content-end">
-								<label for="margin" class="col-sm-2 col-form-label">Jumlah Margin</label>
 								<div class="col-sm-6">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroupPrepend2">Rp.</span>
-										</div>
-										<input type="text" class="form-control number-separator" id="margin" name="margin" disabled>
-									</div>
+									<table class="table table-striped border-bottom">
+										<tr>
+											<td class="col-4">Jumlah Pinjaman</td>
+											<td class="col-8  text-right" id="pinjamanShow"></td>
+										</tr>
+										<tr>
+											<td class="col-4">Jumlah Margin</td>
+											<td class="col-8  text-right" id="marginShow"></td>
+										</tr>
+										<tr>
+											<td class="col-4">Jumlah Total</td>
+											<td class="col-8  text-right" id="jumlahShow"></td>
+										</tr>
+										<tr>
+											<td class="col-4">Jumlah Angsuran</td>
+											<td class="col-8  text-right" id="bulananShow"></td>
+										</tr>
+									</table>
 								</div>
 							</div>
-							<div class="form-group row justify-content-end">
-								<label for="jumlah" class="col-sm-2 col-form-label">Jumlah Total</label>
-								<div class="col-sm-6">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroupPrepend2">Rp.</span>
-										</div>
-										<input type="text" class="form-control number-separator" id="jumlah" name="jumlah" disabled>
-									</div>
-								</div>
-							</div>
-							<div class="form-group row justify-content-end">
-								<label for="bulanan" class="col-sm-2 col-form-label">Jumlah Bulanan</label>
-								<div class="col-sm-6">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroupPrepend2">Rp.</span>
-										</div>
-										<input type="text" class="form-control number-separator" id="bulanan" name="bulanan" disabled>
-									</div>
-								</div>
-							</div>
-							<button type="submit" class="btn btn-primary float-right">Tambah</button>
+							<input type="hidden" id="margin" name="margin">
+							<input type="hidden" id="jumlah" name="jumlah">
+							<button type="submit" class="btn btn-primary float-right tambah">Tambah</button>
 							<a href="<?= base_url('rekening'); ?>" class="btn btn-danger">Cancel</a>
 						</div>
 						</form>

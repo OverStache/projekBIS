@@ -69,7 +69,7 @@ function crud_access($role_id, $menu_id, $crud_id)
 function check_anggota_active($id)
 {
 	$ci = get_instance();
-	$result = $ci->db->get_where('tbl_anggota', ['idAnggota' => $id])->row_array();
+	$result = $ci->db->get_where('tbl_anggota', ['id' => $id])->row_array();
 
 	if ($result['is_active'] == 0) {
 		$data = array(
