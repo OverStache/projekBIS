@@ -56,7 +56,7 @@
 													<td class="col-4">Status Rekening</td>
 													<td class="col-8">
 														<span class="badge badge-<?= $rekening['color']; ?>"><?= $rekening['status']; ?></span>
-														<?php if (check_rekening_status($rekening['id'])) : ?>
+														<?php if ($rekening['status'] != 'Lunas') : ?>
 															<a href="#" class="badge badge-<?= button_rekening_status($rekening['id'])['button']; ?> changeStatus" data-id="<?= $rekening['id']; ?>" data-status="<?= $rekening['status']; ?>">
 																<i class="fas fa-<?= button_rekening_status($rekening['id'])['icon']; ?> fa-xs"></i>
 															</a>
