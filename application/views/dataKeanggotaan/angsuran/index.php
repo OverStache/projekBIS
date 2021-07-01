@@ -14,7 +14,7 @@
 					<div class="card">
 						<div class="card-header">
 							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
-								<a href="<?= base_url('angsuran/angsuranAdd') ?>" class="btn btn-primary modalAdd">Tambah Rekening</a>
+								<a href="<?= base_url('angsuran/add') ?>" class="btn btn-primary modalAdd">Tambah Rekening</a>
 							<?php endif ?>
 						</div>
 						<!-- /.card-header -->
@@ -39,7 +39,7 @@
 											<td><?= $m['tanggal']; ?></td>
 											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
 												<td>
-													<a href="<?= base_url('angsuran/angsuranUpdate/' . $m['id']) ?>" class="btn btn-xs btn-success">
+													<a href="<?= base_url('angsuran/update/' . $m['id']) ?>" class="btn btn-xs btn-success">
 														<i class="fas fa-fw fa-edit"></i>
 													</a>
 													<a href="#" class="btn btn-xs btn-danger modalDelete angsuranDelete" data-id="<?= $m['id']; ?>" data-title="<?= $m['penyetor']; ?>">

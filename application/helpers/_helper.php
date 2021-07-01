@@ -126,18 +126,6 @@ function check_sub_menu_active($id)
 	}
 }
 
-function check_rekening_status($id)
-{
-	$ci = get_instance();
-	$result = $ci->db->get_where('tbl_rekening', ['id' => $id])->row_array();
-
-	if ($result['status'] == 2) {
-		return false;
-	} else {
-		return true;
-	}
-}
-
 function button_rekening_status($id)
 {
 	$ci = get_instance();
@@ -153,14 +141,14 @@ function button_rekening_status($id)
 			break;
 		case 1:
 			$data = array(
-				'icon' => 'times',
+				'icon' => 'lock',
 				'button' => 'danger'
 			);
 			return $data;
 			break;
 		case 3:
 			$data = array(
-				'icon' => 'check',
+				'icon' => 'unlock',
 				'button' => 'success'
 			);
 			return $data;

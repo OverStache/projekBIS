@@ -49,15 +49,22 @@
 											</td>
 											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
 												<td>
-													<a href="<?= base_url('rekening/update/' . $r['id']) ?>" class="btn btn-xs btn-success">
-														<i class="fas fa-fw fa-edit"></i>
-													</a>
 													<a href="<?= base_url('rekening/detail/' . $r['id']) ?>" class="btn btn-xs btn-primary">
 														<i class="fas fa-fw fa-search"></i>
 													</a>
-													<?php if (check_rekening_status($r['id'])) : ?>
+													<?php if ($r['status'] != 'Lunas') : ?>
 														<a href="#" class="btn btn-xs btn-<?= button_rekening_status($r['id'])['button']; ?> changeStatus" data-id="<?= $r['id']; ?>" data-status="<?= $r['status']; ?>">
 															<i class="fas fa-fw fa-<?= button_rekening_status($r['id'])['icon']; ?> "></i>
+														</a>
+													<?php endif ?>
+													<?php if ($r['status'] == 'Active') : ?>
+														<a href="<?= base_url('angsuran/add/') . $r['id'] ?>" class="btn btn-xs btn-info">
+															<i class="fas fa-fw fa-plus"></i>
+														</a>
+													<?php endif ?>
+													<?php if ($r['status'] == 'Pending') : ?>
+														<a href="#" class="btn btn-xs btn-danger modalDelete anggotaDelete" data-id="<?= $r['id']; ?>" data-title="<?= $r['nama']; ?> - <?= $r['id']; ?>">
+															<i class="fas fa-fw fa-times"></i>
 														</a>
 													<?php endif ?>
 												</td>
@@ -88,6 +95,6 @@
 			</div>
 		</div>
 	</section>
-	<!-- /.main content -->
+	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->

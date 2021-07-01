@@ -48,7 +48,7 @@
 		$('#example2').DataTable({
 			"paging": true,
 			"lengthChange": false,
-			"searching": false,
+			"searching": true,
 			"ordering": true,
 			"info": true,
 			"autoWidth": false,
@@ -108,6 +108,8 @@
 	$('body').on('click', '.changeStatus', function() {
 		const id = $(this).data('id');
 		const status = $(this).data('status');
+		console.log(id);
+		console.log(status);
 		$.ajax({
 			url: "<?= base_url('rekening/changeRekeningStatus'); ?>",
 			type: 'post',
@@ -121,6 +123,8 @@
 		});
 	});
 </script>
+
+
 
 <script>
 	//auto change is_active

@@ -22,7 +22,7 @@ class Anggota extends CI_Controller
 
   public function index()
   {
-    $this->load->model('Join_model', 'join');
+    $this->load->model('Query_model', 'join');
     $data['anggota'] = $this->join->joinAnggotaStatus();
     $this->load->view('dataKeanggotaan/anggota/index', $data);
     $this->load->view('templates/footer');

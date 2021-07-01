@@ -22,7 +22,7 @@ class Rekening extends CI_Controller
 
 	public function index()
 	{
-		$this->load->model('Join_model', 'join');
+		$this->load->model('Query_model', 'join');
 		$data['rekening'] = $this->join->joinRekeningAnggotaStatus();
 		$this->load->view('dataKeanggotaan/rekening/index', $data);
 		$this->load->view('templates/footer');
@@ -87,9 +87,9 @@ class Rekening extends CI_Controller
 
 	public function detail($id)
 	{
-		$this->load->model('Join_model', 'join');
+		$this->load->model('Query_model', 'join');
 		$data['rekening'] = $this->join->joinRekeningAnggotaStatusById($id);
-
+		$data['jadwal'] = $this->join->joinStatusRekeningJadwalNpf($id);
 		$this->load->view('dataKeanggotaan/rekening/detail', $data);
 		$this->load->view('templates/footer');
 	}
