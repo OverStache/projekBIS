@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Angsuran extends CI_Controller
+class Transaksi extends CI_Controller
 {
 	public function __construct()
 	{
@@ -10,10 +10,11 @@ class Angsuran extends CI_Controller
 
 		$this->load->model('Construct_model', 'construct');
 		$this->load->model('Alert_model', 'alert');
+		$this->load->model('Query_model', 'query');
 		$data['title'] = $this->construct->getTitle();
 		$data['url'] = $this->construct->getUrl();
 		// select * from tbl_user where email = email dari session
-		$data['tbl_user'] = $this->construct->emailSession();
+		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/navbar', $data);
@@ -22,8 +23,8 @@ class Angsuran extends CI_Controller
 
 	public function index()
 	{
-		$data['angsuran'] = $this->db->get('tbl_angsuran')->result_array();
-		$this->load->view('dataKeanggotaan/angsuran/index', $data);
+		$data['transaksi'] = $this->query->joinTransaksiRekeningAnggota();
+		$this->load->view('dataKeanggotaan/transaksi/index', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -33,26 +34,27 @@ class Angsuran extends CI_Controller
 		$this->load->helper('date');
 
 		$data['jadwal'] = $this->query->getJadwalActive($id);
-		$data['id'] = $id;
-
+		var_dump($data['jadwal']);
+		// die;
 		$this->form_validation->set_rules('id_rekening', 'Rekening', 'required');
 		$this->form_validation->set_rules('jumlah', 'Jumlah', 'required');
 
 		if ($this->form_validation->run() == false) {
-			$this->load->view('dataKeanggotaan/angsuran/add', $data);
+			$this->load->view('dataKeanggotaan/transaksi/add', $data);
 			$this->load->view('templates/footer');
 		} else {
 			$insert = [
-				'id_rekening' => $this->input->post('id_rekening'),
-				'#' => $this->input->post('#'),
+				'id_rekening' => $id,
+				'#' => $data['jadwal']['#'],
 				'tanggal' => date('Y-m-d'),
-				'jumlah' => $this->input->post('jumlah')
+				'kredit' => $this->input->post('jumlah'),
+				'keterangan' => 'Angsuran Murobahah'
 			];
 			$this->db->insert('tbl_transaksi', $insert);
 
 			$alert = 'success';
-			$message = 'Angsuran Berhasil Ditambahkan!';
-			$redirect = 'angsuran';
+			$message = 'Transaksi Berhasil!';
+			$redirect = 'transaksi';
 			$this->alert->alertResult($alert, $message, $redirect);
 		}
 	}
@@ -76,7 +78,7 @@ class Angsuran extends CI_Controller
 				'jumlah' => $this->input->post('jumlah')
 			];
 			$this->db->where('id', $id);
-			$this->db->update('tbl_angsuran', $data);
+			$this->db->update('tbl_transaksi', $data);
 			$alert = 'success';
 			$message = 'Angsuran Berhasil Diupdate!';
 			$redirect = 'angsuran';
@@ -86,10 +88,10 @@ class Angsuran extends CI_Controller
 
 	public function delete($id)
 	{
-		$this->db->delete('tbl_rekening', array('id' => $id));
+		$this->db->delete('tbl_transaksi', array('id' => $id));
 		$alert = 'warning';
-		$message = 'Rekening Berhasil Dihapus!';
-		$redirect = 'rekening';
+		$message = 'Transaksi Berhasil Dihapus!';
+		$redirect = 'transaksi';
 		$this->alert->alertResult($alert, $message, $redirect);
 	}
 

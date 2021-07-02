@@ -9,11 +9,12 @@ class Profile extends CI_Controller
 		is_logged_in();
 
 		$this->load->model('Construct_model', 'construct');
-		$this->load->model('ALert_model', 'alert');
+		$this->load->model('Alert_model', 'alert');
+		$this->load->model('Image_model', 'image');
 		$data['title'] = $this->construct->getTitle();
 		$data['url'] = $this->construct->getUrl();
 		// select * from tbl_user where email = email dari session
-		$data['tbl_user'] = $this->construct->emailSession();
+		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/navbar', $data);
@@ -29,7 +30,7 @@ class Profile extends CI_Controller
 
 	public function update()
 	{
-		$data['tbl_user'] = $this->construct->emailSession();
+		$data['userdata'] = $this->construct->getUserdata();
 		$this->form_validation->set_rules('username', 'Name', 'required');
 
 		if ($this->form_validation->run() == false) {
@@ -43,26 +44,7 @@ class Profile extends CI_Controller
 			$upload_image = $_FILES['image']['name'];
 
 			if ($upload_image) {
-				$config['allowed_types'] = 'gif|jpg|png';
-				$config['max_size'] = '2048';
-				$config['upload_path'] = './assets/img/profile/';
-
-				$this->load->library('upload', $config);
-
-				if ($this->upload->do_upload('image')) {
-
-					$old_image = $data['tbl_user']['image'];
-
-					if ($old_image != 'default.png') {
-						unlink(FCPATH . 'assets/img/profile/' . $old_image);
-					}
-
-					$new_image = $this->upload->data('file_name');
-					$this->db->set('image', $new_image);
-				} else {
-					$message = $this->upload->display_errors();
-					$alert = 'danger';
-				}
+				$this->image->uploadImage($data['userdata']['image']);
 			}
 			$message = 'Profile Berhasil Diupdate!';
 			$alert = 'success';
@@ -78,7 +60,7 @@ class Profile extends CI_Controller
 	public function changepassword()
 	{
 		// select * from tbl_user where email = email dari session
-		$data['tbl_user'] = $this->construct->emailSession();
+		$data['userdata'] = $this->construct->getUserdata();
 
 		$data['role'] = $this->db->get_where('tbl_user_role', ['id' => $this->session->userdata('role_id')])->row_array();
 
@@ -92,7 +74,7 @@ class Profile extends CI_Controller
 		} else {
 			$current_password = $this->input->post('current_password');
 			$new_password = $this->input->post('new_password1');
-			if (!password_verify($current_password, $data['tbl_user']['password'])) {
+			if (!password_verify($current_password, $data['userdata']['password'])) {
 				$message = 'Password Salah!';
 				$alert = 'danger';
 			} else {

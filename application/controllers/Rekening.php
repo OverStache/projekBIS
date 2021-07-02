@@ -13,7 +13,7 @@ class Rekening extends CI_Controller
 		$data['title'] = $this->construct->getTitle();
 		$data['url'] = $this->construct->getUrl();
 		// select * from tbl_user where email = email dari session
-		$data['tbl_user'] = $this->construct->emailSession();
+		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/navbar', $data);
@@ -44,6 +44,7 @@ class Rekening extends CI_Controller
 			$data = [
 				'tanggal' => date('Y-m-d'),
 				'id_anggota' => $this->input->post('id_anggota'),
+				'id_user' => $this->session->userdata('tes'),
 				'jangka_waktu' => $this->input->post('jangka_waktu'),
 				'%' => $this->input->post('%'),
 				'perolehan' => $this->input->post('perolehan'),

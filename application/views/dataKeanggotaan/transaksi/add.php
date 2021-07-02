@@ -17,27 +17,22 @@
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<?= form_open_multipart('angsuran/add/' . $id); ?>
+						<?= form_open_multipart('transaksi/add/' . $jadwal['id_rekening']); ?>
 						<div class="card-body">
 							<div class="form-group">
 								<select class="form-control id_rekening" name="id_rekening">
-									<!-- <option value="">Pilih Rekening</option> -->
-									<?php foreach ($jadwal as $j) : ?>
-										<option value="<?= $j['id_rekening']; ?>"><?= $j['id']; ?> - <?= $j['nama']; ?> - <?= $j['id_rekening']; ?></option>
-									<?php endforeach ?>
+									<option value="<?= $jadwal['id_rekening']; ?>"><?= $jadwal['id']; ?> - <?= $jadwal['nama']; ?> - <?= $jadwal['id_rekening']; ?></option>
 								</select>
 								<?= form_error('id_rekening', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
 								<select class="form-control showData" id="#" name="#">
-									<?php foreach ($jadwal as $j) : ?>
-										<option value="<?= $j['#']; ?>">Tagihan ke <?= $j['#'] ?> - dedline <?= $j['tanggalTagihan']; ?></option>
-									<?php endforeach ?>
+									<option value="<?= $jadwal['#']; ?>">Tagihan ke <?= $jadwal['#'] ?> - dedline <?= $jadwal['tanggalTagihan']; ?></option>
 								</select>
 								<?= form_error('#', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah Angsuran">
+								<input type="number" class="form-control" id="jumlah" name="jumlah" max="<?= $jadwal['tagihan']; ?>" placeholder="Jumlah Angsuran (Max. Rp. <?= $jadwal['tagihan']; ?>)">
 								<?= form_error('jumlah', '<small class="text-danger">', '</small>'); ?>
 							</div>
 						</div>

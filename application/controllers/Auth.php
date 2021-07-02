@@ -239,9 +239,9 @@ class Auth extends CI_Controller
 	public function blocked()
 	{
 		$data['title'] = '403 Forbidden';
-		$data['tbl_user'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
-		$this->load->view('templates/authHeader', $data);
-		$this->load->view('auth/blocked', $data);
+		$data['userdata'] = $this->db->get_where('tbl_user', ['email' => $this->session->userdata('email')])->row_array();
+		$this->load->view('templates/authHeader');
+		$this->load->view('auth/blocked');
 		$this->load->view('templates/authFooter');
 	}
 

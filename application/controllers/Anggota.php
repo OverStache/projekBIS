@@ -13,7 +13,7 @@ class Anggota extends CI_Controller
     $data['title'] = $this->construct->getTitle();
     $data['url'] = $this->construct->getUrl();
     // select * from tbl_user where email = email dari session
-    $data['tbl_user'] = $this->construct->emailSession();
+    $data['userdata'] = $this->construct->getUserdata();
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/navbar', $data);

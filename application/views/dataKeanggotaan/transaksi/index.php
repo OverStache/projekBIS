@@ -13,9 +13,7 @@
 					<?= $this->session->flashdata('message'); ?>
 					<div class="card">
 						<div class="card-header">
-							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
-								<a href="<?= base_url('angsuran/add') ?>" class="btn btn-primary modalAdd">Tambah Rekening</a>
-							<?php endif ?>
+							<h3>Tabel Transaksi</h3>
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
@@ -24,42 +22,38 @@
 									<tr>
 										<th>#</th>
 										<th>Penyetor</th>
-										<th>Waktu Setor</th>
+										<th>Waktu Transaksi</th>
+										<th>Debit</th>
+										<th>Kredit</th>
+										<th>Keterangan</th>
 										<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
-											<th>Action</th>
+											<!-- <th>Action</th> -->
 										<?php endif ?>
 									</tr>
 								</thead>
 								<tbody>
 									<?php $i = 1; ?>
-									<?php foreach ($angsuran as $m) : ?>
+									<?php foreach ($transaksi as $t) : ?>
 										<tr>
 											<td><?= $i++; ?></td>
-											<td><?= $m['penyetor']; ?></td>
-											<td><?= $m['tanggal']; ?></td>
+											<td><?= $t['nama']; ?></td>
+											<td><?= $t['tanggal']; ?></td>
+											<td><?= 'Rp. ' . number_format($t['debit']); ?></td>
+											<td><?= 'Rp. ' . number_format($t['kredit']); ?></td>
+											<td><?= $t['keterangan']; ?></td>
 											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
-												<td>
-													<a href="<?= base_url('angsuran/update/' . $m['id']) ?>" class="btn btn-xs btn-success">
+												<!-- <td>
+													<a href="<?= base_url('angsuran/update/' . $t['id']) ?>" class="btn btn-xs btn-success">
 														<i class="fas fa-fw fa-edit"></i>
 													</a>
-													<a href="#" class="btn btn-xs btn-danger modalDelete angsuranDelete" data-id="<?= $m['id']; ?>" data-title="<?= $m['penyetor']; ?>">
+													<a href="#" class="btn btn-xs btn-danger modalDelete angsuranDelete" data-id="<?= $t['id']; ?>" data-title="<?= $t['nama']; ?>">
 														<i class="fas fa-fw fa-trash"></i>
 													</a>
-												</td>
+												</td> -->
 											<?php endif ?>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
-								<tfoot>
-									<tr>
-										<th>#</th>
-										<th>Penyetor</th>
-										<th>Waktu Setor</th>
-										<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
-											<th>Action</th>
-										<?php endif ?>
-									</tr>
-								</tfoot>
 							</table>
 						</div>
 						<!-- /.card-body -->

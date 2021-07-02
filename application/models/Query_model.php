@@ -26,6 +26,7 @@ class Query_model extends CI_Model
 	{
 		$query = "SELECT
                 tbl_rekening.id,
+                tbl_rekening.id_user,
                 tbl_rekening.tanggal,
                 tbl_rekening.jangka_waktu,
                 tbl_rekening.perolehan,
@@ -68,7 +69,7 @@ class Query_model extends CI_Model
                 	ON tbl_rekening.id_anggota = tbl_anggota.id
 							 WHERE tbl_angsuran.id_rekening = $id AND tbl_angsuran.status = 1
 					  ORDER BY tbl_angsuran.tanggalTagihan LIMIT 1";
-		return $this->db->query($query)->result_array();
+		return $this->db->query($query)->row_array();
 	}
 
 	public function joinStatusRekeningJadwalNpf($id)
@@ -88,6 +89,18 @@ class Query_model extends CI_Model
               	JOIN tbl_npf
                 	ON tbl_angsuran.npf = tbl_npf.id
 							 WHERE tbl_angsuran.id_rekening = $id";
+		return $this->db->query($query)->result_array();
+	}
+
+	public function joinTransaksiRekeningAnggota()
+	{
+		$query = "SELECT tbl_transaksi.*,
+										 tbl_anggota.nama
+								FROM tbl_transaksi
+								JOIN tbl_rekening
+									ON tbl_transaksi.id_rekening = tbl_rekening.id 
+								JOIN tbl_anggota
+									ON tbl_rekening.id_anggota = tbl_anggota.id";
 		return $this->db->query($query)->result_array();
 	}
 }

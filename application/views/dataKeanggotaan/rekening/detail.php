@@ -46,7 +46,7 @@
 											<table class="table table-striped border-bottom">
 												<tr>
 													<td class="col-4">Teller ID</td>
-													<td class="col-8"></td>
+													<td class="col-8"><?= $rekening['id_user']; ?></td>
 												</tr>
 												<tr>
 													<td class="col-4">Tanggal Registrasi</td>

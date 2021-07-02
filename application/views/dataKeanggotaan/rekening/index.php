@@ -58,8 +58,9 @@
 														</a>
 													<?php endif ?>
 													<?php if ($r['status'] == 'Active') : ?>
-														<a href="<?= base_url('angsuran/add/') . $r['id'] ?>" class="btn btn-xs btn-info">
+														<a href="<?= base_url('transaksi/add/') . $r['id'] ?>" class="btn btn-xs btn-info">
 															<i class="fas fa-fw fa-plus"></i>
+															<span><b>Bayar</b></span>
 														</a>
 													<?php endif ?>
 													<?php if ($r['status'] == 'Pending') : ?>
