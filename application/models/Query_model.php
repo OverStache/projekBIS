@@ -75,6 +75,7 @@ class Query_model extends CI_Model
 	public function joinStatusRekeningJadwalNpf($id)
 	{
 		$query = "SELECT tbl_angsuran.`#`,
+										 tbl_angsuran.id_rekening, 
 										 tbl_angsuran.tanggalTagihan, 
 										 tbl_angsuran.tanggalSetor, 
 										 tbl_angsuran.tagihan, 

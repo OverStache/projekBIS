@@ -14,6 +14,7 @@
 					<div class="card card-primary">
 						<div class="card-header">
 							<h3 class="card-title">Tambah Rekening</h3>
+							<h3 class="card-title float-right"><?= date("D, M d Y"); ?></h3>
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
@@ -28,18 +29,19 @@
 											<option value="<?= $a['id']; ?>"><?= $a['id']; ?> - <?= $a['nama']; ?></option>
 										<?php endforeach ?>
 									</select>
-									<?= form_error('id', '<small class="text-danger">', '</small>'); ?>
+									<?= form_error('id_anggota', '<small class="text-danger">', '</small>'); ?>
 								</div>
 								<div class="form-group col-md-6">
-									<label for="tanggal">Tanggal</label>
+									<label for="jaminan">Jaminan</label>
 									<div class="input-group">
-										<input type="text" class="form-control" name="tanggal" value="<?= date('D, M d Y'); ?>" disabled>
+										<input type="text" class="form-control" name="jaminan" placeholder="Jaminan">
 									</div>
+									<?= form_error('jaminan', '<small class="text-danger">', '</small>'); ?>
 								</div>
 							</div>
 							<div class="form-row">
 								<!-- inline form -->
-								<div class="form-group col-md-3">
+								<div class="form-group col-md-4">
 									<label for="jangka_waktu">Lama Angsuran</label>
 									<select class="form-control jangka_waktu" name="jangka_waktu">
 										<option value="">Pilih Jangka Waktu</option>
@@ -47,8 +49,9 @@
 										<option value="6">6 Bulan</option>
 										<option value="12">12 Bulan</option>
 									</select>
+									<?= form_error('jangka_waktu', '<small class="text-danger">', '</small>'); ?>
 								</div>
-								<div class="form-group col-md-3">
+								<div class="form-group col-md-2">
 									<label for="%">Margin</label>
 									<div class="input-group">
 										<input type="text" class="form-control inputMargin text-right" name="%">
@@ -56,6 +59,7 @@
 											<span class="input-group-text rounded-right">%</span>
 										</div>
 									</div>
+									<?= form_error('%', '<small class="text-danger">', '</small>'); ?>
 								</div>
 								<div class="form-group col-md-6">
 									<label for="perolehan">Jumlah Pinjaman</label>
@@ -68,6 +72,7 @@
 											<button type="button" class="btn btn-primary hitung">Hitung</button>
 										</span>
 									</div>
+									<?= form_error('perolehan', '<small class="text-danger">', '</small>'); ?>
 								</div>
 								<!-- inline form -->
 							</div><!-- /.form-row-->

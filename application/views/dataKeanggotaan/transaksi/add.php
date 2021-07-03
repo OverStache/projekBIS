@@ -32,7 +32,7 @@
 								<?= form_error('#', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
-								<input type="number" class="form-control" id="jumlah" name="jumlah" max="<?= $jadwal['tagihan']; ?>" placeholder="Jumlah Angsuran (Max. Rp. <?= $jadwal['tagihan']; ?>)">
+								<input type="number" class="form-control" id="jumlah" name="jumlah" max="<?= ($jadwal['tagihan'] - $jadwal['angsuran']); ?>" placeholder="Jumlah Angsuran (Max. Rp. <?= number_format($jadwal['tagihan'] - $jadwal['angsuran']); ?>)">
 								<?= form_error('jumlah', '<small class="text-danger">', '</small>'); ?>
 							</div>
 						</div>

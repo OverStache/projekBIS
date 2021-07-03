@@ -76,14 +76,13 @@ function check_anggota_active($id)
 			'icon' => 'user-times',
 			'button' => 'danger'
 		);
-		return $data;
 	} else {
 		$data = array(
 			'icon' => 'user-check',
 			'button' => 'success'
 		);
-		return $data;
 	}
+	return $data;
 }
 
 function check_user_active($id)
@@ -96,14 +95,13 @@ function check_user_active($id)
 			'icon' => 'user-times',
 			'button' => 'danger'
 		);
-		return $data;
 	} else {
 		$data = array(
 			'icon' => 'user-check',
 			'button' => 'success'
 		);
-		return $data;
 	}
+	return $data;
 }
 
 function check_sub_menu_active($id)
@@ -116,14 +114,13 @@ function check_sub_menu_active($id)
 			'icon' => 'user-times',
 			'button' => 'danger'
 		);
-		return $data;
 	} else {
 		$data = array(
 			'icon' => 'user-check',
 			'button' => 'success'
 		);
-		return $data;
 	}
+	return $data;
 }
 
 function button_rekening_status($id)
@@ -137,21 +134,49 @@ function button_rekening_status($id)
 				'icon' => 'check',
 				'button' => 'success'
 			);
-			return $data;
 			break;
 		case 1:
 			$data = array(
 				'icon' => 'lock',
 				'button' => 'danger'
 			);
-			return $data;
 			break;
 		case 3:
 			$data = array(
 				'icon' => 'unlock',
 				'button' => 'success'
 			);
-			return $data;
 			break;
 	}
+	return $data;
+}
+
+function check_npf($tanggalTagihan, $status)
+{
+	if ($status == 'Active') { //belom lunas
+		if (date("Y-m-d") <= $tanggalTagihan) { //belom jatuh tempo
+			$data = array(
+				'text' => 'Lancar',
+				'color' => 'primary'
+			);
+		} else if (date("Y-m-d") > $tanggalTagihan) {
+			$data = array(
+				'text' => 'Macet',
+				'color' => 'danger'
+			);
+		}
+	} else if ($status == 'Lunas') { //lunas
+		if (date("Y-m-d") <= $tanggalTagihan) { //belom jatuh tempo
+			$data = array(
+				'text' => 'Lancar',
+				'color' => 'primary'
+			);
+		} else if (date("Y-m-d") > $tanggalTagihan) {
+			$data = array(
+				'text' => 'Kurang Lancar',
+				'color' => 'warning'
+			);
+		}
+	}
+	return $data;
 }

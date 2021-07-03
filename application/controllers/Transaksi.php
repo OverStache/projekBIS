@@ -34,8 +34,7 @@ class Transaksi extends CI_Controller
 		$this->load->helper('date');
 
 		$data['jadwal'] = $this->query->getJadwalActive($id);
-		var_dump($data['jadwal']);
-		// die;
+
 		$this->form_validation->set_rules('id_rekening', 'Rekening', 'required');
 		$this->form_validation->set_rules('jumlah', 'Jumlah', 'required');
 

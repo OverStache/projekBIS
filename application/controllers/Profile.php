@@ -62,8 +62,6 @@ class Profile extends CI_Controller
 		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
-		$data['role'] = $this->db->get_where('tbl_user_role', ['id' => $this->session->userdata('role_id')])->row_array();
-
 		$this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
 		$this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[3]|matches[new_password2]');
 		$this->form_validation->set_rules('new_password2', 'Repeat Password', 'required|trim|min_length[3]|matches[new_password1]');

@@ -36,7 +36,7 @@
 									<?php foreach ($transaksi as $t) : ?>
 										<tr>
 											<td><?= $i++; ?></td>
-											<td><?= $t['nama']; ?></td>
+											<td><?= $t['nama']; ?> - <?= $t['id_rekening']; ?></td>
 											<td><?= $t['tanggal']; ?></td>
 											<td><?= 'Rp. ' . number_format($t['debit']); ?></td>
 											<td><?= 'Rp. ' . number_format($t['kredit']); ?></td>
