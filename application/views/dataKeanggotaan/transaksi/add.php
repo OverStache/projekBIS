@@ -39,7 +39,7 @@
 						<!-- /.card-body -->
 						<div class="card-footer">
 							<button type="submit" class="btn btn-primary">Tambah</button>
-							<a href="<?= base_url('angsuran'); ?>" class="btn btn-danger">Cancel</a>
+							<a href="<?= base_url('rekening'); ?>" class="btn btn-danger">Cancel</a>
 						</div>
 						</form>
 					</div>

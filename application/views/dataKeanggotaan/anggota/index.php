@@ -11,14 +11,11 @@
 			<div class="row">
 				<div class="col-12">
 					<?= $this->session->flashdata('message'); ?>
-					<div class="card">
-						<div class="card-header">
+					<div class="card card-primary card-outline">
+						<div class="card-body">
 							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
 								<a href="<?= base_url('anggota/add') ?>" class="btn btn-primary modalAdd">Tambah Anggota</a>
 							<?php endif ?>
-						</div>
-						<!-- /.card-header -->
-						<div class="card-body">
 							<table id="example2" class="table">
 								<thead>
 									<tr>

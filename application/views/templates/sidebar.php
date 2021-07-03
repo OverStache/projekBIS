@@ -17,10 +17,14 @@
 			</div>
 		</div>
 		<div class="user-panel">
-			<a href="<?= base_url('auth/logout'); ?>" class="nav-link">
-				<i class="fas fa-sign-out-alt nav-icon"></i>
-				<span>Logout</span>
-			</a>
+			<ul class="nav nav-pills nav-sidebar flex-column">
+				<li class="nav-item">
+					<a href="<?= base_url('auth/logout'); ?>" class="nav-item nav-link">
+						<i class="fas fa-sign-out-alt nav-icon"></i>
+						<p>Logout</p>
+					</a>
+				</li>
+			</ul>
 		</div>
 
 		<!-- Sidebar Menu -->

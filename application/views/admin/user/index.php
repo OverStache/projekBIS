@@ -12,12 +12,10 @@
 			<div class="row">
 				<div class="col-12">
 					<?= $this->session->flashdata('message'); ?>
-					<div class="card">
-						<div class="card-header">
-							<a href="<?= base_url('user/add'); ?>" class="btn btn-primary">Tambah User</a>
-						</div>
+					<div class="card card-primary card-outline">
 						<!-- /.card-header -->
 						<div class="card-body">
+							<a href="<?= base_url('user/add'); ?>" class="btn btn-primary">Tambah User</a>
 							<table id="example2" class="table">
 								<thead>
 									<tr>

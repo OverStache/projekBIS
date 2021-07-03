@@ -11,14 +11,11 @@
 			<div class="row">
 				<div class="col">
 					<?= $this->session->flashdata('message'); ?>
-					<div class="card">
-						<div class="card-header">
+					<div class="card card-primary card-outline">
+						<div class="card-body">
 							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
 								<a href="<?= base_url('rekening/add') ?>" class="btn btn-primary">Tambah Rekening</a>
 							<?php endif ?>
-						</div>
-						<!-- /.card-header -->
-						<div class="card-body">
 							<table id="example2" class="table">
 								<thead>
 									<tr>
@@ -64,7 +61,7 @@
 														</a>
 													<?php endif ?>
 													<?php if ($r['status'] == 'Pending') : ?>
-														<a href="#" class="btn btn-xs btn-danger modalDelete anggotaDelete" data-id="<?= $r['id']; ?>" data-title="<?= $r['nama']; ?> - <?= $r['id']; ?>">
+														<a href="#" class="btn btn-xs btn-danger modalDelete rekeningDelete" data-id="<?= $r['id']; ?>" data-title="<?= $r['nama']; ?> - <?= $r['id']; ?>">
 															<i class="fas fa-fw fa-times"></i>
 														</a>
 													<?php endif ?>

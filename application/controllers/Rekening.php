@@ -64,28 +64,34 @@ class Rekening extends CI_Controller
 	public function update($id)
 	{
 		$data['anggota'] = $this->db->get_where('tbl_anggota', ['is_active' => 1])->result_array();
-		$data['rekening'] = $this->db->get_where('tbl_rekening', ['id' => $id])->row_array();
+		$data['userdata'] = $this->construct->getUserdata();
 
-		$this->form_validation->set_rules('id_anggota', 'Anggota', 'required');
+		$this->form_validation->set_rules('jaminan', 'Jaminan', 'required');
 		$this->form_validation->set_rules('jangka_waktu', 'Lama Angsuran', 'required');
-		$this->form_validation->set_rules('jumlah', 'Jumlah Pembiayaan', 'required');
+		$this->form_validation->set_rules('%', 'Margin', 'required');
+		$this->form_validation->set_rules('perolehan', 'Jumlah Pembiayaan', 'required');
 
 		if ($this->form_validation->run() == false) {
-			$this->load->view('dataKeanggotaan/rekening/update', $data);
-			$this->load->view('templates/footer');
+			$alert = 'danger';
+			$message = 'Rekening Gagal Diupdate!';
+			$redirect = 'rekening/detail/' . $id;
 		} else {
 			$data = [
-				'id_anggota' => $this->input->post('id_anggota'),
+				'tanggal' => date('Y-m-d'),
+				'id_user' => $data['userdata']['id'],
 				'jangka_waktu' => $this->input->post('jangka_waktu'),
+				'%' => $this->input->post('%'),
+				'perolehan' => $this->input->post('perolehan'),
+				'margin' => $this->input->post('margin'),
 				'jumlah' => $this->input->post('jumlah')
 			];
 			$this->db->where('id', $id);
 			$this->db->update('tbl_rekening', $data);
 			$alert = 'success';
 			$message = 'Rekening Berhasil Diupdate!';
-			$redirect = 'rekening';
-			$this->alert->alertResult($alert, $message, $redirect);
+			$redirect = 'rekening/detail/' . $id;
 		}
+		$this->alert->alertResult($alert, $message, $redirect);
 	}
 
 	public function detail($id)

@@ -220,12 +220,11 @@
 </script>
 <!-- kalkulator rekening -->
 <script>
-	let bulan;
-	let margin;
-	let inputPinjaman;
-	const formatter = new Intl.NumberFormat('id-ID', {
-		style: 'decimal'
-	});
+	const formatter = new Intl.NumberFormat();
+	let bulan = $('select.jangka_waktu').children('option:selected').val();
+	let margin = $('input.inputMargin').val() / 100;
+	let inputPinjaman = $('input.perolehan').val();
+
 
 	$('select.jangka_waktu').change(function() {
 		bulan = $(this).children('option:selected').val();
@@ -244,7 +243,7 @@
 		console.log(inputPinjaman);
 	});
 
-	$('button.hitung').on('click', function() {
+	$('body').on('click', 'button.hitung', function() {
 		let afterMargin = inputPinjaman * margin;
 		let jumlah = parseInt(inputPinjaman) + parseInt(afterMargin);
 		let bulanan = jumlah / bulan;

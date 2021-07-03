@@ -30,6 +30,7 @@ class Query_model extends CI_Model
                 tbl_rekening.tanggal,
                 tbl_rekening.jangka_waktu,
                 tbl_rekening.perolehan,
+                tbl_rekening.`%`,
                 tbl_rekening.margin,
                 tbl_rekening.jumlah,
                 tbl_rekening.saldo,
@@ -96,6 +97,7 @@ class Query_model extends CI_Model
 	public function joinTransaksiRekeningAnggota()
 	{
 		$query = "SELECT tbl_transaksi.*,
+										 tbl_anggota.id,
 										 tbl_anggota.nama
 								FROM tbl_transaksi
 								JOIN tbl_rekening

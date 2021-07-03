@@ -11,7 +11,7 @@
 			<div class="row">
 				<div class="col">
 					<?= $this->session->flashdata('message'); ?>
-					<div class="card">
+					<div class="card card-primary card-outline">
 						<div class="card-header">
 							<h3>Tabel Transaksi</h3>
 						</div>
@@ -21,7 +21,7 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Penyetor</th>
+										<th>Anggota - Rekening</th>
 										<th>Waktu Transaksi</th>
 										<th>Debit</th>
 										<th>Kredit</th>
@@ -36,7 +36,7 @@
 									<?php foreach ($transaksi as $t) : ?>
 										<tr>
 											<td><?= $i++; ?></td>
-											<td><?= $t['nama']; ?> - <?= $t['id_rekening']; ?></td>
+											<td><?= $t['id']; ?><?= $t['id_rekening']; ?></td>
 											<td><?= $t['tanggal']; ?></td>
 											<td><?= 'Rp. ' . number_format($t['debit']); ?></td>
 											<td><?= 'Rp. ' . number_format($t['kredit']); ?></td>

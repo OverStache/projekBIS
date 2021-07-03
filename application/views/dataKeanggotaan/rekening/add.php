@@ -38,7 +38,7 @@
 									</div>
 									<?= form_error('jaminan', '<small class="text-danger">', '</small>'); ?>
 								</div>
-							</div>
+							</div><!-- /.form-row-->
 							<div class="form-row">
 								<!-- inline form -->
 								<div class="form-group col-md-4">
