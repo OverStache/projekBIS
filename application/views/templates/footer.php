@@ -267,6 +267,30 @@
 
 	});
 </script>
+<script>
+	$(document).ready(function() {
+		$('#id_rekening').change(function() {
+			let id_rekening = $('#id_rekening').val();
+			if (id_rekening) {
+				$.ajax({
+					url: "<?= base_url('simpanan/update'); ?>",
+					method: "POST",
+					dataType: 'json',
+					data: {
+						id_rekening: id_rekening
+					},
+					success: function(data) {
+						console.log(data);
+						// console.log(data.tanggalTagihan);
+						// console.log('sisa tagihan ' + (parseInt(data.tagihan) - parseInt(data.angsuran)));
+						$('input#cicilan').val('');
+						$('input#cicilan').attr('placeholder', data.tagihan);
+					}
+				});
+			}
+		});
+	});
+</script>
 </body>
 
 </html>

@@ -16,7 +16,7 @@
 							<ul class="nav nav-pills mr-auto">
 								<li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Detail</a></li>
 								<li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Jadwal Pembayaran</a></li>
-								<?php if ($rekening['status'] == 'Pending') : ?>
+								<?php if ($rekening['statusRekening'] == 'Pending') : ?>
 									<li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Update Rekening</a></li>
 								<?php endif ?>
 							</ul>
@@ -60,7 +60,7 @@
 												<tr>
 													<td class="col-4">Status Rekening</td>
 													<td class="col-8">
-														<span class="badge badge-<?= $rekening['color']; ?>"><?= $rekening['status']; ?></span>
+														<span class="badge badge-<?= $rekening['color']; ?>"><?= $rekening['statusRekening']; ?></span>
 														<?php if ($rekening['status'] != 'Lunas') : ?>
 															<a href="#" class="badge badge-<?= button_rekening_status($rekening['id'])['button']; ?> changeStatus" data-id="<?= $rekening['id']; ?>" data-status="<?= $rekening['status']; ?>">
 																<i class="fas fa-<?= button_rekening_status($rekening['id'])['icon']; ?> fa-xs"></i>
@@ -133,7 +133,7 @@
 								</div>
 								<!-- /.tab-pane -->
 								<!-- tab update -->
-								<?php if ($rekening['status'] == 'Pending') : ?>
+								<?php if ($rekening['statusRekening'] == 'Pending') : ?>
 									<div class="tab-pane" id="tab_3">
 										<div class="row">
 											<div class="col-sm-12">
@@ -142,7 +142,7 @@
 													<div class="form-group col-md-6">
 														<label for="id_anggota">Anggota</label>
 														<div class="input-group">
-															<input type="text" class="form-control" name="id_anggota" placeholder="<?= $rekening['id'] . ' - ' . $rekening['nama'] ?>" disabled>
+															<input type="text" class="form-control" name="id_anggota" placeholder="<?= $rekening['id_anggota'] . ' - ' . $rekening['nama'] ?>" disabled>
 														</div>
 														<?= form_error('id_anggota', '<small class="text-danger">', '</small>'); ?>
 													</div>

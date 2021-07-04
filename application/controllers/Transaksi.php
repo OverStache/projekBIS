@@ -23,7 +23,7 @@ class Transaksi extends CI_Controller
 
 	public function index()
 	{
-		$data['transaksi'] = $this->query->joinTransaksiRekeningAnggota();
+		$data['transaksi'] = $this->query->joinTransaksiAnggota();
 		$this->load->view('dataKeanggotaan/transaksi/index', $data);
 		$this->load->view('templates/footer');
 	}

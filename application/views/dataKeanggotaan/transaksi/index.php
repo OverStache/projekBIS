@@ -21,8 +21,10 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Anggota - Rekening</th>
-										<th>Waktu Transaksi</th>
+										<th>id transaksi</th>
+										<th>id Rekening</th>
+										<th>nama</th>
+										<th>Tanggal</th>
 										<th>Debit</th>
 										<th>Kredit</th>
 										<th>Keterangan</th>
@@ -36,7 +38,9 @@
 									<?php foreach ($transaksi as $t) : ?>
 										<tr>
 											<td><?= $i++; ?></td>
-											<td><?= $t['id']; ?><?= $t['id_rekening']; ?></td>
+											<td><?= $t['idTransaksi']; ?></td>
+											<td><?= $t['id_anggota']; ?><?= $t['id_rekening']; ?></td>
+											<td><?= $t['nama']; ?></td>
 											<td><?= $t['tanggal']; ?></td>
 											<td><?= 'Rp. ' . number_format($t['debit']); ?></td>
 											<td><?= 'Rp. ' . number_format($t['kredit']); ?></td>
