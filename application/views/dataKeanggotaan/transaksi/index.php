@@ -12,18 +12,16 @@
 				<div class="col">
 					<?= $this->session->flashdata('message'); ?>
 					<div class="card card-primary card-outline">
-						<div class="card-header">
-							<h3>Tabel Transaksi</h3>
-						</div>
-						<!-- /.card-header -->
 						<div class="card-body">
+							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+								<a href="<?= base_url('transaksi/add') ?>" class="btn btn-primary">Tambah Transaksi</a>
+							<?php endif ?>
 							<table id="example2" class="table">
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>id transaksi</th>
-										<th>id Rekening</th>
-										<th>nama</th>
+										<th>ID Transaksi</th>
+										<th>Nama</th>
 										<th>Tanggal</th>
 										<th>Debit</th>
 										<th>Kredit</th>
@@ -39,12 +37,11 @@
 										<tr>
 											<td><?= $i++; ?></td>
 											<td><?= $t['idTransaksi']; ?></td>
-											<td><?= $t['id_anggota']; ?><?= $t['id_rekening']; ?></td>
 											<td><?= $t['nama']; ?></td>
 											<td><?= $t['tanggal']; ?></td>
 											<td><?= 'Rp. ' . number_format($t['debit']); ?></td>
 											<td><?= 'Rp. ' . number_format($t['kredit']); ?></td>
-											<td><?= $t['keterangan']; ?></td>
+											<td><?= $t['jenisTransaksi']; ?></td>
 											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
 												<!-- <td>
 													<a href="<?= base_url('angsuran/update/' . $t['id']) ?>" class="btn btn-xs btn-success">

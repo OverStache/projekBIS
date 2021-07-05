@@ -106,9 +106,10 @@
 													</tr>
 												</thead>
 												<tbody>
-													<?php foreach ($jadwal as $j) : ?>
+													<?php $i = 1;
+													foreach ($jadwal as $j) : ?>
 														<tr>
-															<td><?= $j['id_rekening']; ?></td>
+															<td><?= $i++; ?></td>
 															<td><?= $j['tanggalTagihan']; ?></td>
 															<td><?= 'Rp. ' . number_format($j['tagihan']); ?></td>
 															<td><?= 'Rp. ' . number_format($j['angsuran']); ?></td>

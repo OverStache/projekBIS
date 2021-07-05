@@ -14,7 +14,7 @@
 					<div class="card card-primary card-outline">
 						<div class="card-body">
 							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-								<a href="<?= base_url('rekening/add') ?>" class="btn btn-primary">Tambah Rekening</a>
+								<a href="<?= base_url('simpanan/add') ?>" class="btn btn-primary">Tambah Rekening</a>
 							<?php endif ?>
 							<table id="example2" class="table">
 								<thead>
@@ -37,7 +37,7 @@
 											<td><?= $i++; ?></td>
 											<td><?= $s['nama']; ?></td>
 											<td><?= $s['id']; ?><?= $s['id_anggota']; ?></td>
-											<td><?= $s['produk']; ?></td>
+											<td><?= $s['jenis']; ?></td>
 											<td><?= 'Rp. ' . number_format($s['saldo']); ?></td>
 											<td>
 												<span class="badge badge-<?= $s['color']; ?>"><?= $s['statusRekening']; ?></span>

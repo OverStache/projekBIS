@@ -17,6 +17,8 @@
 <script src="<?= base_url('assets/'); ?>plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="<?= base_url('assets/'); ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Select2 -->
+<script src="<?= base_url('assets/'); ?>plugins/select2/js/select2.full.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url('assets/'); ?>dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -123,8 +125,6 @@
 		});
 	});
 </script>
-
-
 
 <script>
 	//auto change is_active
@@ -267,28 +267,65 @@
 
 	});
 </script>
+<!-- ajax transaksi/add -->
 <script>
 	$(document).ready(function() {
+		let transaksi;
+		// pilih transaksi dropdown
+		$('#jenis').change(function() {
+			$('p#cicilan').text('');
+			$('input#cicilan').val(null);
+			$('p#tagihan').text('');
+			transaksi = $('#jenis').val();
+			console.log(transaksi);
+			$.ajax({
+				url: "<?= base_url('transaksi/add'); ?>",
+				method: "POST",
+				dataType: 'json',
+				data: {
+					transaksi: transaksi
+				},
+				success: function(data) {
+					$('#id_rekening').html(data);
+					console.log(data);
+				}
+			});
+		});
+		// pilih rekening / anggota dropdown
 		$('#id_rekening').change(function() {
 			let id_rekening = $('#id_rekening').val();
-			if (id_rekening) {
-				$.ajax({
-					url: "<?= base_url('simpanan/update'); ?>",
-					method: "POST",
-					dataType: 'json',
-					data: {
-						id_rekening: id_rekening
-					},
-					success: function(data) {
-						console.log(data);
-						// console.log(data.tanggalTagihan);
-						// console.log('sisa tagihan ' + (parseInt(data.tagihan) - parseInt(data.angsuran)));
+			console.log(id_rekening);
+			$.ajax({
+				url: "<?= base_url('transaksi/add'); ?>",
+				method: "POST",
+				dataType: 'json',
+				data: {
+					trans: transaksi,
+					id_rekening: id_rekening
+				},
+				success: function(data) {
+					console.log(data);
+					if (transaksi == 2) {
+						$('p#cicilan').text('Cicilan Ke : ' + data.cicilan);
+						$('p#tagihan').text('Sisa Tagihan : ' + (data.tagihan - data.angsuran));
+						$('input#cicilan').val(data.cicilan);
+						$('input#id_anggota').val(data.id_anggota);
+					} else {
+						$('p#cicilan').text('ID simpanan : ' + data.id);
+						$('p#tagihan').text('ID anggota : ' + data.id_anggota);
 						$('input#cicilan').val('');
-						$('input#cicilan').attr('placeholder', data.tagihan);
+						$('input#id_anggota').val(data.id_anggota);
 					}
-				});
-			}
+					// $('#id_rekening').html(data);
+				}
+			});
 		});
+	});
+</script>
+
+<script>
+	$(function() {
+		$('.select2').select2()
 	});
 </script>
 </body>

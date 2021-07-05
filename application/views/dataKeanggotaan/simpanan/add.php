@@ -1,4 +1,4 @@
-<!-- Tambah Angsuran -->
+<!-- Tambah Transaksi -->
 <!-- Navbar -->
 <!-- Main Sidebar Container -->
 <!-- Content Wrapper. Contains page content -->
@@ -13,37 +13,30 @@
 					<!-- general form elements -->
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title">Angsuran Baru</h3>
+							<h3 class="card-title">Simpanan Pokok Anggota</h3>
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<?= form_open_multipart('transaksi/add'); ?>
+						<?= form_open_multipart('simpanan/add'); ?>
 						<div class="card-body">
 							<div class="form-group">
-								<select class="form-control id_rekening" id="id_rekening" name="id_rekening">
-									<option value="">Select Rekening</option>
-									<?php foreach ($rekening as $r) : ?>
-										<option value="<?= $r['id']; ?>"><?= $r['id_anggota']; ?> - <?= $r['id']; ?></option>
+								<select class="form-control id_anggota select2" style="width: 100%;" id="id_anggota" name="id_anggota">
+									<option value="">Select Anggota</option>
+									<?php foreach ($anggota as $a) : ?>
+										<option value="<?= $a['id']; ?>"><?= $a['nama']; ?></option>
 									<?php endforeach ?>
 								</select>
-								<?= form_error('id_rekening', '<small class="text-danger">', '</small>'); ?>
+								<?= form_error('id_anggota', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
-								<!-- <select class="form-control showData" id="cicilan" name="cicilan">
-									<option value="">tes</option>
-								</select> -->
-								<input type="text" class="form-control" id="cicilan">
-								<?= form_error('cicilan', '<small class="text-danger">', '</small>'); ?>
-							</div>
-							<div class="form-group">
-								<input type="number" class="form-control" id="jumlah" name="jumlah">
-								<?= form_error('jumlah', '<small class="text-danger">', '</small>'); ?>
+								<input type="text" class="form-control" id="kredit" name="kredit">
+								<?= form_error('kredit', '<small class="text-danger">', '</small>'); ?>
 							</div>
 						</div>
 						<!-- /.card-body -->
 						<div class="card-footer">
 							<button type="submit" class="btn btn-primary">Tambah</button>
-							<a href="<?= base_url('rekening'); ?>" class="btn btn-danger">Cancel</a>
+							<a href="<?= base_url('simpanan'); ?>" class="btn btn-danger">Cancel</a>
 						</div>
 						</form>
 					</div>

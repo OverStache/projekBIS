@@ -23,7 +23,7 @@
 							<div class="form-row mb-3">
 								<div class="form-group col-md-6">
 									<label for="id_anggota">Anggota</label>
-									<select class="form-control" name="id_anggota">
+									<select class="form-control select2" name="id_anggota">
 										<option value="">Pilih Anggota</option>
 										<?php foreach ($anggota as $a) : ?>
 											<option value="<?= $a['id']; ?>"><?= $a['id']; ?> - <?= $a['nama']; ?></option>

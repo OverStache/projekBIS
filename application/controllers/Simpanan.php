@@ -30,20 +30,27 @@ class Simpanan extends CI_Controller
 
 	public function add()
 	{
-		$this->db->where('status', 1);
-		$this->db->order_by('id_anggota', 'ASC');
-		$data['rekening'] = $this->db->get('tbl_rekening')->result_array();
-		$this->load->view('dataKeanggotaan/simpanan/add', $data);
-		$this->load->view('templates/footer');
-	}
+		$data['anggota'] = $this->db->get_where('tbl_anggota', ['is_active' => 0])->result_array();
+		$this->load->helper('date');
+		// $this->form_validation->set_rules('id_anggota', 'Anggota', 'required');
+		$this->form_validation->set_rules('kredit', 'Jumlah', 'required');
 
-	public function update()
-	{
-		$input = $this->input->post('id_rekening');
-		if ($input) {
-			$result = $this->join->fetch($input)->row_array();
-			echo json_encode($result);
-			die;
+		if ($this->form_validation->run() == false) {
+			$this->load->view('dataKeanggotaan/simpanan/add', $data);
+			$this->load->view('templates/footer');
+		} else {
+			$insert = [
+				'id_anggota' => $this->input->post('id_anggota'),
+				'tanggal' => date('Y-m-d'),
+				'kredit' => $this->input->post('kredit'),
+				'jenis' => 3
+			];
+			$this->db->insert('tbl_transaksi', $insert);
+
+			$alert = 'success';
+			$message = 'Transaksi Berhasil!';
+			$redirect = 'simpanan';
+			$this->alert->alertResult($alert, $message, $redirect);
 		}
 	}
 }
