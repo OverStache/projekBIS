@@ -51,7 +51,8 @@ class Rekening extends CI_Controller
 				'%' => $this->input->post('%'),
 				'perolehan' => $this->input->post('perolehan'),
 				'margin' => $this->input->post('margin'),
-				'jumlah' => $this->input->post('jumlah')
+				'jumlah' => $this->input->post('jumlah'),
+				'jaminan' => $this->input->post('jaminan')
 			];
 			$this->db->insert('tbl_rekening', $data);
 			$alert = 'success';
@@ -83,7 +84,8 @@ class Rekening extends CI_Controller
 				'%' => $this->input->post('%'),
 				'perolehan' => $this->input->post('perolehan'),
 				'margin' => $this->input->post('margin'),
-				'jumlah' => $this->input->post('jumlah')
+				'jumlah' => $this->input->post('jumlah'),
+				'jaminan' => $this->input->post('jaminan')
 			];
 			$this->db->where('id', $id);
 			$this->db->update('tbl_rekening', $data);
@@ -98,9 +100,26 @@ class Rekening extends CI_Controller
 	{
 		$this->load->model('Query_model', 'join');
 		$data['rekening'] = $this->join->joinRekeningAnggotaStatusById($id);
+		$data['user'] = $this->join->joinRekeningUserById($id);
 		$data['jadwal'] = $this->join->joinStatusRekeningJadwalNpf($id);
 		$this->load->view('dataKeanggotaan/rekening/detail', $data);
 		$this->load->view('templates/footer');
+	}
+
+	public function delete($id)
+	{
+		$this->db->delete('tbl_rekening', array('id' => $id, 'status' => 0));
+
+		if ($this->db->affected_rows() > 0) {
+			$alert = 'warning';
+			$message = 'Rekening Berhasil Dihapus!';
+			$redirect = 'rekening';
+		} else {
+			$alert = 'danger';
+			$message = 'Unauthorized!';
+			$redirect = 'rekening';
+		}
+		$this->alert->alertResult($alert, $message, $redirect);
 	}
 
 	public function changeRekeningStatus()
@@ -116,10 +135,10 @@ class Rekening extends CI_Controller
 				break;
 			case 'Active':
 				$update = 3;
-				$message = 'Rekening Rejected!';
+				$message = 'Rekening Inactive!';
 				$alert = 'danger';
 				break;
-			case 'Rejected':
+			case 'Inactive':
 				$update = 1;
 				$message = 'Rekening Activated!';
 				$alert = 'success';

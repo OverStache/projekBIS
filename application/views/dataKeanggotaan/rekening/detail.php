@@ -31,7 +31,7 @@
 											<table class="table table-striped border-bottom">
 												<tr>
 													<td class="col-4">No. Rekening</td>
-													<td class="col-8"><?= $rekening['id']; ?></td>
+													<td class="col-8"><?= $rekening['id'] . '' . $rekening['id_anggota']; ?></td>
 												</tr>
 												<tr>
 													<td class="col-4">Nama Anggota</td>
@@ -43,7 +43,7 @@
 												</tr>
 												<tr>
 													<td>Lama Angsuran</td>
-													<td class=""><?= $rekening['jangka_waktu']; ?></td>
+													<td class=""><?= $rekening['jangka_waktu']; ?> Bulan</td>
 												</tr>
 											</table>
 										</div>
@@ -51,7 +51,7 @@
 											<table class="table table-striped border-bottom">
 												<tr>
 													<td class="col-4">Teller ID</td>
-													<td class="col-8"><?= $rekening['id_user']; ?></td>
+													<td class="col-8"><?= $user['username'] . ' - ' . $user['role']; ?></td>
 												</tr>
 												<tr>
 													<td class="col-4">Tanggal Registrasi</td>
@@ -141,16 +141,16 @@
 												<?= form_open_multipart('rekening/update/' . $rekening['id']); ?>
 												<div class="form-row">
 													<div class="form-group col-md-6">
-														<label for="id_anggota">Anggota</label>
+														<label for="id_anggota">ID Rekening</label>
 														<div class="input-group">
-															<input type="text" class="form-control" name="id_anggota" placeholder="<?= $rekening['id_anggota'] . ' - ' . $rekening['nama'] ?>" disabled>
+															<input type="text" class="form-control" name="id_anggota" placeholder="<?= $rekening['nama'] . ' - ' . $rekening['id'] . '' . $rekening['id_anggota'] ?>" disabled>
 														</div>
 														<?= form_error('id_anggota', '<small class="text-danger">', '</small>'); ?>
 													</div>
 													<div class="form-group col-md-6">
 														<label for="jaminan">Jaminan</label>
 														<div class="input-group">
-															<input type="text" class="form-control" name="jaminan" placeholder="Jaminan">
+															<input type="text" class="form-control" name="jaminan" value="<?= $rekening['jaminan']; ?>">
 														</div>
 														<?= form_error('jaminan', '<small class="text-danger">', '</small>'); ?>
 													</div>
@@ -160,9 +160,9 @@
 													<div class="form-group col-md-4">
 														<label for="jangka_waktu">Lama Angsuran</label>
 														<select class="form-control jangka_waktu" name="jangka_waktu" value="<?= $rekening['jangka_waktu']; ?>">
-															<option value="3">3 Bulan</option>
-															<option value="6">6 Bulan</option>
-															<option value="12">12 Bulan</option>
+															<option value="3" <?php if ($rekening['jangka_waktu'] == 3) : ?> selected <?php endif; ?>>3 Bulan</option>
+															<option value="6" <?php if ($rekening['jangka_waktu'] == 6) : ?> selected <?php endif; ?>>6 Bulan</option>
+															<option value="12" <?php if ($rekening['jangka_waktu'] == 12) : ?> selected <?php endif; ?>>12 Bulan</option>
 														</select>
 														<?= form_error('jangka_waktu', '<small class="text-danger">', '</small>'); ?>
 													</div>
@@ -215,8 +215,8 @@
 												</div><!-- /.form-row-->
 											</div>
 										</div>
-										<input type="hidden" id="margin" name="margin">
-										<input type="hidden" id="jumlah" name="jumlah">
+										<input type="hidden" id="margin" name="margin" value="<?= $rekening['margin']; ?>">
+										<input type="hidden" id="jumlah" name="jumlah" value="<?= $rekening['jumlah']; ?>">
 										<button type="submit" class="btn btn-primary float-right">Update Rekening</button>
 										</form>
 									</div>

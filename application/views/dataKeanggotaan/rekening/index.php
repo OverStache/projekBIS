@@ -67,7 +67,7 @@
 														<?php endif ?>
 													<?php endif ?>
 													<?php if ($r['statusRekening'] == 'Pending') : ?>
-														<a href="#" class="btn btn-xs btn-danger modalDelete rekeningDelete" data-id="<?= $r['id']; ?>" data-title="<?= $r['nama']; ?> - <?= $r['id']; ?>">
+														<a href="#" class="btn btn-xs btn-danger modalDelete rekeningDelete" data-id="<?= $r['id']; ?>" data-title="<?= $r['nama']; ?> - <?= $r['id']; ?><?= $r['id_anggota']; ?>">
 															<i class="fas fa-fw fa-times"></i>
 														</a>
 													<?php endif ?>

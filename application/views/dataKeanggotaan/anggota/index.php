@@ -36,11 +36,11 @@
 											<td><?= $i++; ?></td>
 											<td><?= $a['id']; ?></td>
 											<td><?= $a['nama']; ?></td>
-											<td><?= $a['status']; ?></td>
+											<td><?= $a['statusAnggota']; ?></td>
 											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
 												<td>
-													<a href="<?= base_url('anggota/update/' . $a['id']) ?>" class="btn btn-xs btn-success">
-														<i class="fas fa-fw fa-edit"></i>
+													<a href="<?= base_url('anggota/detail/' . $a['id']) ?>" class="btn btn-xs btn-primary">
+														<i class="fas fa-fw fa-search"></i>
 													</a>
 													<a href="#" class="btn btn-xs btn-danger modalDelete anggotaDelete" data-id="<?= $a['id']; ?>" data-title="<?= $a['nama']; ?>">
 														<i class="fas fa-fw fa-trash"></i>

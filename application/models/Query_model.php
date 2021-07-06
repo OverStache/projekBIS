@@ -54,19 +54,43 @@ class Query_model extends CI_Model
              WHERE tbl_rekening.id = $id";
 		return $this->db->query($query)->row_array();
 	}
+	public function joinRekeningUserById($id)
+	{
+		$query = "SELECT
+                tbl_user.username,
+								tbl_user_role.role
+              FROM tbl_rekening
+              JOIN tbl_user
+                ON tbl_rekening.id_user = tbl_user.id
+              JOIN tbl_user_role
+                ON tbl_user.role_id = tbl_user_role.id
+             WHERE tbl_rekening.id = $id";
+		return $this->db->query($query)->row_array();
+	}
 
 	public function joinAnggotaStatus()
 	{
 		$query = "SELECT 
-                tbl_anggota.id,
-                tbl_anggota.nama,
-                tbl_anggota.is_active,
-                tbl_status_anggota.status
+                tbl_anggota.*,
+                tbl_status_anggota.status as statusAnggota
               FROM tbl_anggota
               JOIN tbl_status_anggota
                 ON tbl_anggota.status = tbl_status_anggota.id
             ";
 		return $this->db->query($query)->result_array();
+	}
+
+	public function joinAnggotaStatusbyId($id)
+	{
+		$query = "SELECT 
+                tbl_anggota.*,
+                tbl_status_anggota.status as statusAnggota
+              FROM tbl_anggota
+              JOIN tbl_status_anggota
+                ON tbl_anggota.status = tbl_status_anggota.id
+						 WHERE tbl_anggota.id = $id
+            ";
+		return $this->db->query($query)->row_array();
 	}
 
 	public function getJadwalActive($id)
@@ -84,21 +108,12 @@ class Query_model extends CI_Model
 
 	public function joinStatusRekeningJadwalNpf($id)
 	{
-		$query = "SELECT tbl_angsuran.cicilan,
-										 tbl_angsuran.id_rekening, 
-										 tbl_angsuran.tanggalTagihan, 
-										 tbl_angsuran.tanggalSetor, 
-										 tbl_angsuran.tagihan, 
-										 tbl_angsuran.angsuran, 
+		$query = "SELECT tbl_angsuran.*, 
 										 tbl_status_rekening_jadwal.status,
-										 tbl_status_rekening_jadwal.color as statusColor,
-										 tbl_npf.npf,
-										 tbl_npf.color as npfColor
+										 tbl_status_rekening_jadwal.color as statusColor
 								FROM tbl_angsuran
 								JOIN tbl_status_rekening_jadwal
                 	ON tbl_angsuran.status = tbl_status_rekening_jadwal.id
-              	JOIN tbl_npf
-                	ON tbl_angsuran.npf = tbl_npf.id
 							 WHERE tbl_angsuran.id_rekening = $id";
 		return $this->db->query($query)->result_array();
 	}
