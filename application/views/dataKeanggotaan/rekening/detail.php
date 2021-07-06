@@ -115,7 +115,7 @@
 															<td><?= 'Rp. ' . number_format($j['angsuran']); ?></td>
 															<td><span class="badge badge-<?= $j['statusColor']; ?>"><?= $j['status']; ?></span></td>
 															<td><?= $j['tanggalSetor']; ?></td>
-															<td><span class="badge badge-<?= check_npf($j['tanggalTagihan'], $j['status'])['color'] ?>"><?= check_npf($j['tanggalTagihan'], $j['status'])['text'] ?></span></td>
+															<td><span class="badge badge-<?= check_npf($j['tanggalTagihan'], $j['tanggalSetor'], $j['status'])['color'] ?>"><?= check_npf($j['tanggalTagihan'], $j['tanggalSetor'], $j['status'])['text'] ?></span></td>
 														</tr>
 													<?php endforeach ?>
 												</tbody>

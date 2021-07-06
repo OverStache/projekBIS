@@ -33,7 +33,7 @@
 											<td><?= $u['username']; ?></td>
 											<td><?= $u['role']; ?></td>
 											<td>
-												<a href="<?= base_url('user/update/') . $u['id']; ?>" class="btn btn-xs btn-success">
+												<a href="<?= base_url('user/update/') . $u['id']; ?>" class="btn btn-xs btn-primary">
 													<i class="fas fa-fw fa-edit"></i>
 												</a>
 												<a href="#" class="btn btn-xs btn-danger modalDelete userDelete" data-id="<?= $u['id']; ?>" data-title="<?= $u['username']; ?>">

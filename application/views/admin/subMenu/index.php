@@ -40,7 +40,7 @@
 											<td><i class="<?= $sm['icon']; ?>"></i></td>
 											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
 												<td>
-													<a href="<?= base_url('subMenu/update/') . $sm['id']; ?>" class="btn btn-xs btn-success" data-menu_id="<?= $sm['menu_id']; ?>">
+													<a href="<?= base_url('subMenu/update/') . $sm['id']; ?>" class="btn btn-xs btn-primary" data-menu_id="<?= $sm['menu_id']; ?>">
 														<i class="fas fa-fw fa-edit"></i>
 													</a>
 													<a href="#" class=" btn btn-xs btn-danger modalDelete subMenuDelete" data-id="<?= $sm['id']; ?>" data-title="<?= $sm['title']; ?>">

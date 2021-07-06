@@ -13,7 +13,7 @@
 					<?= $this->session->flashdata('message'); ?>
 					<div class="card card-primary card-outline">
 						<div class="card-body">
-							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
 								<a href="<?= base_url('transaksi/add') ?>" class="btn btn-primary">Tambah Transaksi</a>
 							<?php endif ?>
 							<table id="example2" class="table">

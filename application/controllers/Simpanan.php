@@ -32,7 +32,7 @@ class Simpanan extends CI_Controller
 	{
 		$data['anggota'] = $this->db->get_where('tbl_anggota', ['is_active' => 0])->result_array();
 		$this->load->helper('date');
-		// $this->form_validation->set_rules('id_anggota', 'Anggota', 'required');
+		$this->form_validation->set_rules('id_anggota', 'Anggota', 'required');
 		$this->form_validation->set_rules('kredit', 'Jumlah', 'required');
 
 		if ($this->form_validation->run() == false) {

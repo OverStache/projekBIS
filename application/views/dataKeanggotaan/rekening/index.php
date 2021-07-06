@@ -13,7 +13,7 @@
 					<?= $this->session->flashdata('message'); ?>
 					<div class="card card-primary card-outline">
 						<div class="card-body">
-							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
 								<a href="<?= base_url('rekening/add') ?>" class="btn btn-primary">Tambah Rekening</a>
 							<?php endif ?>
 							<table id="example2" class="table">
@@ -26,9 +26,7 @@
 										<th>Jumlah Pinjaman</th>
 										<!-- <th>Sisa Angsuran</th> -->
 										<th>Status</th>
-										<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-											<th>Action</th>
-										<?php endif ?>
+										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -48,21 +46,15 @@
 													<span class="badge badge-danger">Anggota Tidak Aktif</span>
 												<?php endif ?>
 											</td>
-											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-												<td>
-													<a href="<?= base_url('rekening/detail/' . $r['id']) ?>" class="btn btn-xs btn-primary">
-														<i class="fas fa-fw fa-search"></i>
-													</a>
+											<td>
+												<a href="<?= base_url('rekening/detail/' . $r['id']) ?>" class="btn btn-xs btn-primary">
+													<i class="fas fa-fw fa-search"></i>
+												</a>
+												<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
 													<?php if ($r['is_active'] == 1) : ?>
 														<?php if ($r['statusRekening'] != 'Lunas') : ?>
 															<a href="#" class="btn btn-xs btn-<?= button_rekening_status($r['id'])['button']; ?> changeStatus" data-id="<?= $r['id']; ?>" data-status="<?= $r['statusRekening']; ?>">
 																<i class="fas fa-fw fa-<?= button_rekening_status($r['id'])['icon']; ?> "></i>
-															</a>
-														<?php endif ?>
-														<?php if ($r['statusRekening'] == 'Active') : ?>
-															<a href="<?= base_url('transaksi/add/') . $r['id'] ?>" class="btn btn-xs btn-info">
-																<i class="fas fa-fw fa-plus"></i>
-																<span><b>Bayar</b></span>
 															</a>
 														<?php endif ?>
 													<?php endif ?>
@@ -71,8 +63,8 @@
 															<i class="fas fa-fw fa-times"></i>
 														</a>
 													<?php endif ?>
-												</td>
-											<?php endif ?>
+												<?php endif ?>
+											</td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>

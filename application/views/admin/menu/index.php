@@ -34,7 +34,7 @@
 											<td><?= $m['menu']; ?></td>
 											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
 												<td>
-													<a href="<?= base_url('menu/update/' . $m['id']) ?>" class="btn btn-xs btn-success">
+													<a href="<?= base_url('menu/update/' . $m['id']) ?>" class="btn btn-xs btn-primary">
 														<i class="fas fa-fw fa-edit"></i>
 													</a>
 													<a href="#" class="btn btn-xs btn-danger modalDelete menuDelete" data-id="<?= $m['id']; ?>" data-title="<?= $m['menu']; ?>">

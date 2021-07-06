@@ -23,10 +23,7 @@
 										<th>Kode Anggota</th>
 										<th>Nama Lengkap</th>
 										<th>Status</th>
-										<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
-											<!-- <th>Is Active</th> -->
-											<th>Action</th>
-										<?php endif ?>
+										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -37,19 +34,19 @@
 											<td><?= $a['id']; ?></td>
 											<td><?= $a['nama']; ?></td>
 											<td><?= $a['statusAnggota']; ?></td>
-											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
-												<td>
-													<a href="<?= base_url('anggota/detail/' . $a['id']) ?>" class="btn btn-xs btn-primary">
-														<i class="fas fa-fw fa-search"></i>
-													</a>
+											<td>
+												<a href="<?= base_url('anggota/detail/' . $a['id']) ?>" class="btn btn-xs btn-primary">
+													<i class="fas fa-fw fa-search"></i>
+												</a>
+												<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
 													<a href="#" class="btn btn-xs btn-danger modalDelete anggotaDelete" data-id="<?= $a['id']; ?>" data-title="<?= $a['nama']; ?>">
 														<i class="fas fa-fw fa-trash"></i>
 													</a>
 													<a href="#" class="changeActive anggota btn btn-xs btn-<?= check_anggota_active($a['id'])['button']; ?>" data-id="<?= $a['id']; ?>" data-is_active="<?= $a['is_active']; ?>">
 														<i class="fas fa-fw fa-<?= check_anggota_active($a['id'])['icon']; ?>"></i>
 													</a>
-												</td>
-											<?php endif ?>
+												<?php endif ?>
+											</td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>

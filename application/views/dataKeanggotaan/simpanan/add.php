@@ -20,8 +20,9 @@
 						<?= form_open_multipart('simpanan/add'); ?>
 						<div class="card-body">
 							<div class="form-group">
+								<label for="id_anggota">Anggota</label>
 								<select class="form-control id_anggota select2" style="width: 100%;" id="id_anggota" name="id_anggota">
-									<option value="">Select Anggota</option>
+									<option value="">Pilih Anggota</option>
 									<?php foreach ($anggota as $a) : ?>
 										<option value="<?= $a['id']; ?>"><?= $a['nama']; ?></option>
 									<?php endforeach ?>
@@ -29,7 +30,12 @@
 								<?= form_error('id_anggota', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="kredit" name="kredit">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Rp.</span>
+									</div>
+									<input type="text" class="form-control" id="kredit" name="kredit">
+								</div>
 								<?= form_error('kredit', '<small class="text-danger">', '</small>'); ?>
 							</div>
 						</div>
