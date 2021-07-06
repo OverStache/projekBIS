@@ -114,8 +114,7 @@
 															<td><?= 'Rp. ' . number_format($j['tagihan']); ?></td>
 															<td><?= 'Rp. ' . number_format($j['angsuran']); ?></td>
 															<td><span class="badge badge-<?= $j['statusColor']; ?>"><?= $j['status']; ?></span></td>
-															<td><?php date_default_timezone_set("Asia/Jakarta");
-																	echo date("Y-m-d"); ?></td>
+															<td><?= $j['tanggalSetor']; ?></td>
 															<td><span class="badge badge-<?= check_npf($j['tanggalTagihan'], $j['status'])['color'] ?>"><?= check_npf($j['tanggalTagihan'], $j['status'])['text'] ?></span></td>
 														</tr>
 													<?php endforeach ?>
@@ -125,7 +124,8 @@
 														<th colspan="2" class="text-center">Total</th>
 														<th><?= 'Rp. ' . number_format($rekening['jumlah']); ?></th>
 														<th><?= 'Rp. ' . number_format($rekening['saldo']); ?></th>
-														<th colspan="2"></th>
+														<th colspan="2" class="text-center">Sisa Tagihan</th>
+														<th><?= 'Rp. ' . number_format($rekening['jumlah'] - $rekening['saldo']); ?></th>
 													</tr>
 												</tfoot>
 											</table>
