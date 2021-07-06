@@ -7,13 +7,9 @@ function is_logged_in()
 	} else {
 		$urlmenu = $ci->uri->segment(1);
 		$querySubMenu = $ci->db->get_where('tbl_user_sub_menu', ['urlSubMenu' => $urlmenu])->row_array();
-		$id = $querySubMenu['menu_id'];
+		$menu_id = $querySubMenu['menu_id'];
 
 		$role_id = $ci->session->userdata('role_id');
-		// select * from tbl_user_menu where menu = $menu
-		$queryMenu = $ci->db->get_where('tbl_user_menu', ['id' => $id])->row_array();
-		// ambil id dari array result
-		$menu_id = $queryMenu['id'];
 
 		if ($ci->uri->segment(2)) {
 			$crud = $ci->uri->segment(2);
@@ -32,7 +28,6 @@ function is_logged_in()
 				'menu_id' => $menu_id
 			]);
 		}
-
 
 		// ada ga hasilnya
 		if ($queryUserAccess->num_rows() < 1) {
@@ -111,12 +106,12 @@ function check_sub_menu_active($id)
 
 	if ($result['is_active'] == 0) {
 		$data = array(
-			'icon' => 'user-times',
+			'icon' => 'times',
 			'button' => 'danger'
 		);
 	} else {
 		$data = array(
-			'icon' => 'user-check',
+			'icon' => 'check',
 			'button' => 'success'
 		);
 	}
@@ -151,27 +146,27 @@ function button_rekening_status($id)
 	return $data;
 }
 
-function check_npf($tanggalTagihan, $status)
+function check_npf($tanggalTagihan, $tanggalSetor, $status)
 {
 	if ($status == 'Active') { //belom lunas
-		if (date("Y-m-d") <= $tanggalTagihan) { //belom jatuh tempo
+		if (date("2021-10-03") <= $tanggalTagihan) { //belom jatuh tempo
 			$data = array(
 				'text' => 'Lancar',
 				'color' => 'primary'
 			);
-		} else if (date("Y-m-d") > $tanggalTagihan) {
+		} else if (date("2021-10-03") > $tanggalTagihan) {
 			$data = array(
 				'text' => 'Macet',
 				'color' => 'danger'
 			);
 		}
 	} else if ($status == 'Lunas') { //lunas
-		if (date("Y-m-d") <= $tanggalTagihan) { //belom jatuh tempo
+		if ($tanggalSetor <= $tanggalTagihan) { //belom jatuh tempo
 			$data = array(
 				'text' => 'Lancar',
 				'color' => 'primary'
 			);
-		} else if (date("Y-m-d") > $tanggalTagihan) {
+		} else if ($tanggalSetor > $tanggalTagihan) {
 			$data = array(
 				'text' => 'Kurang Lancar',
 				'color' => 'warning'
