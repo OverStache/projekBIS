@@ -24,9 +24,10 @@
 										<th>No. Rekening</th>
 										<th>Jangka Waktu</th>
 										<th>Jumlah Pinjaman</th>
-										<!-- <th>Sisa Angsuran</th> -->
 										<th>Status</th>
-										<th>Action</th>
+										<?php if ($this->session->userdata('role_id') != 2) : ?>
+											<th>Action</th>
+										<?php endif ?>
 									</tr>
 								</thead>
 								<tbody>
@@ -46,25 +47,27 @@
 													<span class="badge badge-danger">Anggota Tidak Aktif</span>
 												<?php endif ?>
 											</td>
-											<td>
-												<a href="<?= base_url('rekening/detail/' . $r['id']) ?>" class="btn btn-xs btn-primary">
-													<i class="fas fa-fw fa-search"></i>
-												</a>
-												<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
-													<?php if ($r['is_active'] == 1) : ?>
-														<?php if ($r['statusRekening'] != 'Lunas') : ?>
-															<a href="#" class="btn btn-xs btn-<?= button_rekening_status($r['id'])['button']; ?> changeStatus" data-id="<?= $r['id']; ?>" data-status="<?= $r['statusRekening']; ?>">
-																<i class="fas fa-fw fa-<?= button_rekening_status($r['id'])['icon']; ?> "></i>
+											<?php if ($this->session->userdata('role_id') != 2) : ?>
+												<td>
+													<a href="<?= base_url('rekening/detail/' . $r['id']) ?>" class="btn btn-xs btn-primary">
+														<i class="fas fa-fw fa-search"></i>
+													</a>
+													<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+														<?php if ($r['is_active'] == 1) : ?>
+															<?php if ($r['statusRekening'] != 'Lunas') : ?>
+																<a href="#" class="btn btn-xs btn-<?= button_rekening_status($r['id'])['button']; ?> changeStatus" data-id="<?= $r['id']; ?>" data-status="<?= $r['statusRekening']; ?>">
+																	<i class="fas fa-fw fa-<?= button_rekening_status($r['id'])['icon']; ?> "></i>
+																</a>
+															<?php endif ?>
+														<?php endif ?>
+														<?php if ($r['statusRekening'] == 'Pending') : ?>
+															<a href="#" class="btn btn-xs btn-danger modalDelete rekeningDelete" data-id="<?= $r['id']; ?>" data-title="<?= $r['nama']; ?> - <?= $r['id']; ?><?= $r['id_anggota']; ?>">
+																<i class="fas fa-fw fa-times"></i>
 															</a>
 														<?php endif ?>
 													<?php endif ?>
-													<?php if ($r['statusRekening'] == 'Pending') : ?>
-														<a href="#" class="btn btn-xs btn-danger modalDelete rekeningDelete" data-id="<?= $r['id']; ?>" data-title="<?= $r['nama']; ?> - <?= $r['id']; ?><?= $r['id_anggota']; ?>">
-															<i class="fas fa-fw fa-times"></i>
-														</a>
-													<?php endif ?>
-												<?php endif ?>
-											</td>
+												</td>
+											<?php endif ?>
 										</tr>
 									<?php endforeach ?>
 								</tbody>
@@ -75,9 +78,8 @@
 										<th>No. Rekening</th>
 										<th>Jangka Waktu</th>
 										<th>Jumlah Pinjaman</th>
-										<!-- <th>Sisa Angsuran</th> -->
 										<th>Status</th>
-										<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+										<?php if ($this->session->userdata('role_id') != 2) : ?>
 											<th>Action</th>
 										<?php endif ?>
 									</tr>

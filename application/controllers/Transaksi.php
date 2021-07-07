@@ -31,6 +31,7 @@ class Transaksi extends CI_Controller
 	public function add()
 	{
 		$this->load->helper('date');
+		$this->form_validation->set_rules('jenis', 'Jenis Transaksi', 'required');
 		$this->form_validation->set_rules('id_rekening', 'Rekening', 'required');
 		$this->form_validation->set_rules('kredit', 'Jumlah', 'required');
 

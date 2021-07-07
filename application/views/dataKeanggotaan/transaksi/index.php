@@ -36,7 +36,7 @@
 									<?php foreach ($transaksi as $t) : ?>
 										<tr>
 											<td><?= $i++; ?></td>
-											<td><?= $t['idTransaksi']; ?></td>
+											<td><?= 'TR - ' . $t['id_anggota'] . $t['idRek'] ?></td>
 											<td><?= $t['nama']; ?></td>
 											<td><?= $t['tanggal']; ?></td>
 											<td><?= 'Rp. ' . number_format($t['debit']); ?></td>

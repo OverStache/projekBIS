@@ -20,26 +20,35 @@
 						<?= form_open_multipart('transaksi/add'); ?>
 						<div class="card-body">
 							<div class="form-group">
+								<label for="jenis">Jenis Transaksi</label>
 								<select class="form-control transaksi" id="jenis" name="jenis">
-									<option selected="selected">Select Transaksi</option>
+									<option value="" selected="selected">Pilih Transaksi</option>
 									<option value="2">Angsuran Murobahah</option>
-									<option value="4">Simpanan Bulanan</option>
+									<option value="4">Simpanan Bulanan Anggota</option>
 								</select>
+								<?= form_error('jenis', '<small class="text-danger">', '</small>'); ?>
 							</div>
-							<div class="form-group">
+							<div class="form-group invisible id_rekeningSelect">
+								<label for="id_rekening" class="id_rekeningSelect"></label>
 								<select class="form-control id_rekening select2" style="width: 100%;" id="id_rekening" name="id_rekening">
 									<!-- ajax result -->
 								</select>
 								<?= form_error('id_rekening', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
-								<p id="cicilan"></p>
-								<p id="tagihan"></p>
-								<input type="hidden" class="form-control" id="id_anggota" name="id_anggota">
+								<p id="show1"></p>
+								<p id="show2"></p>
 								<input type="hidden" class="form-control" id="cicilan" name="cicilan">
+								<input type="hidden" class="form-control" id="id_anggota" name="id_anggota">
 							</div>
 							<div class="form-group">
-								<input type="number" class="form-control" id="kredit" name="kredit">
+								<label for="kredit">Jumlah</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Rp.</span>
+									</div>
+									<input type="number" class="form-control" id="kredit" name="kredit">
+								</div>
 								<?= form_error('kredit', '<small class="text-danger">', '</small>'); ?>
 							</div>
 						</div>

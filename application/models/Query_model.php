@@ -22,6 +22,27 @@ class Query_model extends CI_Model
 					ORDER BY tbl_simpanan.id DESC";
 		return $this->db->query($query)->result_array();
 	}
+
+	public function joinSimpananAnggotaStatusById($id)
+	{
+		$query = "SELECT
+                tbl_simpanan.*,
+                tbl_anggota.id as id_anggota,
+                tbl_anggota.nama,
+                tbl_status_rekening_jadwal.status AS statusRekening,
+                tbl_status_rekening_jadwal.color,
+								tbl_jenis_transaksi.jenis
+              FROM tbl_simpanan
+              JOIN tbl_anggota
+                ON tbl_simpanan.id_anggota = tbl_anggota.id
+              JOIN tbl_status_rekening_jadwal
+                ON tbl_simpanan.status = tbl_status_rekening_jadwal.id
+							JOIN tbl_jenis_transaksi
+								ON tbl_simpanan.produk = tbl_jenis_transaksi.id
+					   WHERE tbl_simpanan.id = $id";
+		return $this->db->query($query)->row_array();
+	}
+
 	public function joinRekeningAnggotaStatus()
 	{
 		$query = "SELECT
@@ -39,11 +60,24 @@ class Query_model extends CI_Model
 		return $this->db->query($query)->result_array();
 	}
 
+	public function joinAnggotaStatus()
+	{
+		$query = "SELECT 
+								tbl_anggota.*,
+								tbl_status_anggota.status as statusAnggota
+							FROM tbl_anggota
+							JOIN tbl_status_anggota
+								ON tbl_anggota.status = tbl_status_anggota.id
+						";
+		return $this->db->query($query)->result_array();
+	}
+
 	public function joinRekeningAnggotaStatusById($id)
 	{
 		$query = "SELECT
                 tbl_rekening.*,
                 tbl_anggota.nama,
+                tbl_anggota.is_active,
                 tbl_status_rekening_jadwal.status as statusRekening,
                 tbl_status_rekening_jadwal.color
               FROM tbl_rekening
@@ -68,17 +102,6 @@ class Query_model extends CI_Model
 		return $this->db->query($query)->row_array();
 	}
 
-	public function joinAnggotaStatus()
-	{
-		$query = "SELECT 
-                tbl_anggota.*,
-                tbl_status_anggota.status as statusAnggota
-              FROM tbl_anggota
-              JOIN tbl_status_anggota
-                ON tbl_anggota.status = tbl_status_anggota.id
-            ";
-		return $this->db->query($query)->result_array();
-	}
 
 	public function joinAnggotaStatusbyId($id)
 	{
@@ -121,7 +144,7 @@ class Query_model extends CI_Model
 	public function joinTransaksiAnggota()
 	{
 		$query = "SELECT tbl_transaksi.*,
-										 CONCAT('TR - ', LPAD(tbl_transaksi.id, 4, 0)) as idTransaksi,
+										 LPAD(tbl_transaksi.id_rekening, 6, 0) as idRek,
 										 tbl_anggota.nama,
 										 tbl_jenis_transaksi.jenis as jenisTransaksi
 								FROM tbl_transaksi
@@ -129,7 +152,7 @@ class Query_model extends CI_Model
 									ON tbl_transaksi.id_anggota = tbl_anggota.id
 								JOIN tbl_jenis_transaksi
 									ON tbl_transaksi.jenis = tbl_jenis_transaksi.id
-						ORDER BY idTransaksi DESC";
+						ORDER BY tbl_transaksi.id DESC";
 		return $this->db->query($query)->result_array();
 	}
 

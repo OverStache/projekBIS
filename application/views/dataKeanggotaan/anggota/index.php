@@ -14,7 +14,7 @@
 					<div class="card card-primary card-outline">
 						<div class="card-body">
 							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
-								<a href="<?= base_url('anggota/add') ?>" class="btn btn-primary modalAdd">Tambah Anggota</a>
+								<a href="<?= base_url('anggota/add') ?>" class="btn btn-primary modalAdd">Daftar Anggota Baru</a>
 							<?php endif ?>
 							<table id="example2" class="table">
 								<thead>
@@ -23,7 +23,9 @@
 										<th>Kode Anggota</th>
 										<th>Nama Lengkap</th>
 										<th>Status</th>
-										<th>Action</th>
+										<?php if ($this->session->userdata('role_id') != 2) : ?>
+											<th>Action</th>
+										<?php endif ?>
 									</tr>
 								</thead>
 								<tbody>
@@ -34,19 +36,21 @@
 											<td><?= $a['id']; ?></td>
 											<td><?= $a['nama']; ?></td>
 											<td><?= $a['statusAnggota']; ?></td>
-											<td>
-												<a href="<?= base_url('anggota/detail/' . $a['id']) ?>" class="btn btn-xs btn-primary">
-													<i class="fas fa-fw fa-search"></i>
-												</a>
-												<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
-													<a href="#" class="btn btn-xs btn-danger modalDelete anggotaDelete" data-id="<?= $a['id']; ?>" data-title="<?= $a['nama']; ?>">
-														<i class="fas fa-fw fa-trash"></i>
+											<?php if ($this->session->userdata('role_id') != 2) : ?>
+												<td>
+													<a href="<?= base_url('anggota/detail/' . $a['id']) ?>" class="btn btn-xs btn-primary">
+														<i class="fas fa-fw fa-search"></i>
 													</a>
-													<a href="#" class="changeActive anggota btn btn-xs btn-<?= check_anggota_active($a['id'])['button']; ?>" data-id="<?= $a['id']; ?>" data-is_active="<?= $a['is_active']; ?>">
-														<i class="fas fa-fw fa-<?= check_anggota_active($a['id'])['icon']; ?>"></i>
-													</a>
-												<?php endif ?>
-											</td>
+													<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+														<a href="#" class="btn btn-xs btn-danger modalDelete anggotaDelete" data-id="<?= $a['id']; ?>" data-title="<?= $a['nama']; ?>">
+															<i class="fas fa-fw fa-trash"></i>
+														</a>
+														<a href="#" class="changeActive anggota btn btn-xs btn-<?= check_anggota_active($a['id'])['button']; ?>" data-id="<?= $a['id']; ?>" data-is_active="<?= $a['is_active']; ?>">
+															<i class="fas fa-fw fa-<?= check_anggota_active($a['id'])['icon']; ?>"></i>
+														</a>
+													<?php endif ?>
+												</td>
+											<?php endif ?>
 										</tr>
 									<?php endforeach ?>
 								</tbody>

@@ -1,4 +1,4 @@
-<!-- Tambah Transaksi -->
+<!-- Tambah Simpanan Pokok -->
 <!-- Navbar -->
 <!-- Main Sidebar Container -->
 <!-- Content Wrapper. Contains page content -->
@@ -30,11 +30,12 @@
 								<?= form_error('id_anggota', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
+								<label for="kredit">Jumlah</label>
 								<div class="input-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text">Rp.</span>
 									</div>
-									<input type="text" class="form-control" id="kredit" name="kredit">
+									<input type="text" class="form-control" id="kredit" name="kredit" placeholder="(minimal Rp. 500.000)">
 								</div>
 								<?= form_error('kredit', '<small class="text-danger">', '</small>'); ?>
 							</div>

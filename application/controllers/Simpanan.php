@@ -53,4 +53,11 @@ class Simpanan extends CI_Controller
 			$this->alert->alertResult($alert, $message, $redirect);
 		}
 	}
+
+	public function detail($id)
+	{
+		$data['simpanan'] = $this->join->joinSimpananAnggotaStatusById($id);
+		$this->load->view('dataKeanggotaan/simpanan/detail', $data);
+		$this->load->view('templates/footer');
+	}
 }

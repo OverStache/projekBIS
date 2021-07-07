@@ -1,4 +1,4 @@
-<!-- rekening -->
+<!-- simpanan -->
 <!-- Navbar -->
 <!-- Main Sidebar Container -->
 <!-- Content Wrapper. Contains page content -->
@@ -14,7 +14,7 @@
 					<div class="card card-primary card-outline">
 						<div class="card-body">
 							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
-								<a href="<?= base_url('simpanan/add') ?>" class="btn btn-primary">Tambah Rekening</a>
+								<a href="<?= base_url('simpanan/add') ?>" class="btn btn-primary">Bayar Simpanan Pokok</a>
 							<?php endif ?>
 							<table id="example2" class="table">
 								<thead>

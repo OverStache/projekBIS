@@ -62,7 +62,7 @@
 		});
 	});
 </script>
-
+<!-- campur -->
 <script>
 	// change to image file name
 	$('.custom-file-input').on('change', function() {
@@ -129,9 +129,8 @@
 		});
 	});
 </script>
-
+<!-- auto change is_active -->
 <script>
-	//auto change is_active
 	let id;
 	let is_active;
 	let url;
@@ -171,7 +170,6 @@
 		});
 	});
 </script>
-
 <!-- bootbox -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
 <!-- bootbox modal delete -->
@@ -275,13 +273,27 @@
 <script>
 	$(document).ready(function() {
 		let transaksi;
+		$('div.id_rekeningSelect').hide();
 		// pilih transaksi dropdown
 		$('#jenis').change(function() {
-			$('p#cicilan').text('');
+			if ($('#jenis').val() == '') {
+				$('div.id_rekeningSelect').hide();
+			} else {
+				if ($('#jenis').val() == 2) {
+					$('label.id_rekeningSelect').text('ID Rekening');
+				} else {
+					$('label.id_rekeningSelect').text('ID Anggota');
+				}
+				$('div.id_rekeningSelect').show();
+				$('div.id_rekeningSelect').removeClass('invisible');
+			}
+			$('p#show1').text('');
+			$('p#show2').text('');
+			$('input#kredit').removeAttr('placeholder');
+			$('input#kredit').removeAttr('max');
+			$('input#kredit').removeAttr('min');
 			$('input#cicilan').val(null);
-			$('p#tagihan').text('');
 			transaksi = $('#jenis').val();
-			console.log(transaksi);
 			$.ajax({
 				url: "<?= base_url('transaksi/add'); ?>",
 				method: "POST",
@@ -291,14 +303,12 @@
 				},
 				success: function(data) {
 					$('#id_rekening').html(data);
-					console.log(data);
 				}
 			});
 		});
 		// pilih rekening / anggota dropdown
 		$('#id_rekening').change(function() {
 			let id_rekening = $('#id_rekening').val();
-			console.log(id_rekening);
 			$.ajax({
 				url: "<?= base_url('transaksi/add'); ?>",
 				method: "POST",
@@ -308,25 +318,29 @@
 					id_rekening: id_rekening
 				},
 				success: function(data) {
-					console.log(data);
 					if (transaksi == 2) {
-						$('p#cicilan').text('Cicilan Ke : ' + data.cicilan);
-						$('p#tagihan').text('Sisa Tagihan : ' + (data.tagihan - data.angsuran));
+						$('p#show1').text('Cicilan Ke : ' + data.cicilan);
+						$('p#show2').text('Jatuh Tempo : ' + (data.tanggalTagihan));
+						$('input#kredit').attr({
+							'max': (data.tagihan - data.angsuran),
+							'placeholder': formatter.format(data.tagihan - data.angsuran) + ' (maximal)'
+						});
 						$('input#cicilan').val(data.cicilan);
 						$('input#id_anggota').val(data.id_anggota);
 					} else {
-						$('p#cicilan').text('ID simpanan : ' + data.id);
-						$('p#tagihan').text('ID anggota : ' + data.id_anggota);
+						$('input#kredit').attr({
+							'min': 50000,
+							'placeholder': formatter.format(50000) + ' (minimal)'
+						});
 						$('input#cicilan').val('');
 						$('input#id_anggota').val(data.id_anggota);
 					}
-					// $('#id_rekening').html(data);
 				}
 			});
 		});
 	});
 </script>
-
+<!-- select2 & datetimepicker -->
 <script>
 	$(function() {
 		$('.select2').select2()
