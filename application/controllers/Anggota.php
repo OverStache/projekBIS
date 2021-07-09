@@ -38,7 +38,9 @@ class Anggota extends CI_Controller
 		$this->form_validation->set_rules('tanggalLahir', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('namaIbuKandung', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('jenisID', 'Jenis Kelamin', 'required');
-		$this->form_validation->set_rules('nomerID', 'Jenis Kelamin', 'required');
+		$this->form_validation->set_rules('nomerID', 'Jenis Kelamin', 'required|is_unique[tbl_anggota.nomerID]', [
+			'is_unique' => 'Nomor Identitas sudah terdaftar'
+		]);
 		$this->form_validation->set_rules('statusMarital', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('agama', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('kewarganegaraan', 'Jenis Kelamin', 'required');

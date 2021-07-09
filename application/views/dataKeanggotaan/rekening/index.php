@@ -14,9 +14,9 @@
 					<div class="card card-primary card-outline">
 						<div class="card-body">
 							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
-								<a href="<?= base_url('rekening/add') ?>" class="btn btn-primary">Tambah Rekening</a>
+								<a href="<?= base_url('rekening/add') ?>" class="btn btn-primary mb-4">Tambah Rekening</a>
 							<?php endif ?>
-							<table id="example2" class="table">
+							<table id="example1" class="table">
 								<thead>
 									<tr>
 										<th>#</th>
