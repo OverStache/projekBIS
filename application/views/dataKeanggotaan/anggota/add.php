@@ -17,44 +17,45 @@
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<?= form_open_multipart('anggota/add'); ?>
 						<div class="card-body">
+							<?= form_open_multipart('anggota/add'); ?>
 							<div class="row mb-3">
 								<div class="col-6">
 									<div class="form-group">
 										<label for="nama">Nama Lengkap</label>
-										<input type="text" class="form-control" id="nama" name="nama">
+										<input type="text" class="form-control" id="nama" name="nama" value="<?= set_value('nama'); ?>">
 										<?= form_error('nama', '<small class="text-danger">', '</small>'); ?>
 									</div>
 									<div class="form-group">
 										<label for="namaPanggilan">Nama Panggilan</label>
-										<input type="text" class="form-control" id="namaPanggilan" name="namaPanggilan">
+										<input type="text" class="form-control" id="namaPanggilan" name="namaPanggilan" value="<?= set_value('namaPanggilan'); ?>">
 										<?= form_error('namaPanggilan', '<small class="text-danger">', '</small>'); ?>
 									</div>
 									<div class="form-group">
 										<label for="jenisKelamin">Jenis Kelamin</label>
-										<select class="form-control" id="jenisKelamin" name="jenisKelamin">
-											<option value="">Pilih...</option>
-											<option value="Laki-laki">Laki-laki</option>
-											<option value="Perempuan">Perempuan</option>
-										</select>
-										<?= form_error('jenisKelamin', '<small class="text-danger">', '</small>'); ?>
+										<?php $options = array(
+											'' => 'Pilih...',
+											'Laki-laki' => 'Laki-laki',
+											'Perempuan' => 'Perempuan'
+										);
+										echo form_dropdown('jenisKelamin', $options, set_value('jenisKelamin'), 'class="form-control"');
+										echo form_error('jenisKelamin', '<small class="text-danger">', '</small>'); ?>
 									</div>
 									<div class="form-group">
 										<label for="status">Jenis Anggota</label>
-										<select class="form-control" id="status" name="status">
-											<option value="">Pilih...</option>
-											<?php foreach ($status as $s) : ?>
-												<option value="<?= $s['id']; ?>"><?= $s['status']; ?></option>
-											<?php endforeach ?>
-										</select>
-										<?= form_error('status', '<small class="text-danger">', '</small>'); ?>
+										<?php $options = array(
+											'' => 'Pilih...',
+											'1' => 'Anggota',
+											'2' => 'Anggota Luar Biasa'
+										);
+										echo form_dropdown('status', $options, set_value('status'), 'class="form-control"');
+										echo form_error('status', '<small class="text-danger">', '</small>'); ?>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<label for="tempatLahir">Tempat Lahir</label>
-										<input type="text" class="form-control" id="tempatLahir" name="tempatLahir">
+										<input type="text" class="form-control" id="tempatLahir" name="tempatLahir" value="<?= set_value('tempatLahir'); ?>">
 										<?= form_error('tempatLahir', '<small class="text-danger">', '</small>'); ?>
 									</div>
 									<!-- Date -->
@@ -64,13 +65,13 @@
 											<span class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
 												<button type="button" class="btn btn-primary rounded-left"><i class="fa fa-calendar mr-2"></i>Pilih</button>
 											</span>
-											<input type="text" id="tanggalLahir" name="tanggalLahir" class="form-control datetimepicker-input" data-target="#reservationdate" />
+											<input type="text" id="tanggalLahir" name="tanggalLahir" class="form-control datetimepicker-input" data-target="#reservationdate" value="<?= set_value('tanggalLahir'); ?>" />
 										</div>
 										<?= form_error('tanggalLahir', '<small class="text-danger">', '</small>'); ?>
 									</div>
 									<div class="form-group">
 										<label for="namaIbuKandung">Nama Ibu Kandung</label>
-										<input type="text" class="form-control" id="namaIbuKandung" name="namaIbuKandung">
+										<input type="text" class="form-control" id="namaIbuKandung" name="namaIbuKandung" value="<?= set_value('namaIbuKandung'); ?>">
 										<?= form_error('namaIbuKandung', '<small class="text-danger">', '</small>'); ?>
 									</div>
 								</div>
@@ -79,66 +80,71 @@
 								<div class="col-6">
 									<div class="form-group">
 										<label for="jenisID">Jenis Identitas</label>
-										<select class="form-control" id="jenisID" name="jenisID">
-											<option value="">Pilih...</option>
-											<option value="KTP">KTP</option>
-											<option value="KK">KK</option>
-											<option value="SIM">SIM</option>
-										</select>
-										<?= form_error('jenisID', '<small class="text-danger">', '</small>'); ?>
+										<?php $options = array(
+											'' => 'Pilih...',
+											'KTP' => 'KTP',
+											'KK' => 'KK',
+											'SIM' => 'SIM'
+										);
+										echo form_dropdown('jenisID', $options, set_value('jenisID'), 'class="form-control"');
+										echo form_error('jenisID', '<small class="text-danger">', '</small>'); ?>
 									</div>
 									<div class="form-group">
 										<label for="nomerID">Nomor Identitas</label>
-										<input type="text" class="form-control" id="nomerID" name="nomerID">
+										<input type="text" class="form-control" id="nomerID" name="nomerID" value="<?= set_value('nomerID'); ?>">
 										<?= form_error('nomerID', '<small class="text-danger">', '</small>'); ?>
 									</div>
 									<div class="form-group">
 										<label for="statusMarital">Status Marital</label>
-										<select class="form-control" id="statusMarital" name="statusMarital">
-											<option value="">Pilih...</option>
-											<option value="Menikah">Menikah</option>
-											<option value="Belum Menikah">Belum Menikah</option>
-											<option value="Cerai Hidup">Cerai Hidup</option>
-											<option value="Cerai Mati">Cerai Mati</option>
-										</select>
-										<?= form_error('statusMarital', '<small class="text-danger">', '</small>'); ?>
+										<?php $options = array(
+											'' => 'Pilih...',
+											'Menikah' => 'Menikah',
+											'Belum Menikah' => 'Belum Menikah',
+											'Cerai Hidup' => 'Cerai Hidup',
+											'Cerai Mati' => 'Cerai Mati'
+										);
+										echo form_dropdown('statusMarital', $options, set_value('statusMarital'), 'class="form-control"');
+										echo form_error('statusMarital', '<small class="text-danger">', '</small>'); ?>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<label for="agama">Agama</label>
-										<select class="form-control" id="agama" name="agama">
-											<option value="">Pilih...</option>
-											<option value="Islam">Islam</option>
-											<option value="Kristen Protestan">Kristen Protestan</option>
-											<option value="Kristen Katolik">Kristen Katolik</option>
-											<option value="Hindu">Hindu</option>
-											<option value="Budha">Budha</option>
-											<option value="Konghucu">Konghucu</option>
-										</select>
-										<?= form_error('agama', '<small class="text-danger">', '</small>'); ?>
+										<?php $options = array(
+											'' => 'Pilih...',
+											'Islam' => 'Islam',
+											'Kristen Protestan' => 'Kristen Protestan',
+											'Kristen Katolik' => 'Kristen Katolik',
+											'Hindu' => 'Hindu',
+											'Budha' => 'Budha',
+											'Konghucu' => 'Konghucu'
+										);
+										echo form_dropdown('agama', $options, set_value('agama'), 'class="form-control"');
+										echo form_error('agama', '<small class="text-danger">', '</small>'); ?>
 									</div>
 									<div class="form-group">
 										<label for="kewarganegaraan">Kewarganegaraan</label>
-										<select class="form-control" id="kewarganegaraan" name="kewarganegaraan">
-											<option value="">Pilih...</option>
-											<option value="Indonesia">Indonesia</option>
-											<option value="Asing">Asing</option>
-										</select>
-										<?= form_error('kewarganegaraan', '<small class="text-danger">', '</small>'); ?>
+										<?php $options = array(
+											'' => 'Pilih...',
+											'Indonesia' => 'Indonesia',
+											'Asing' => 'Asing'
+										);
+										echo form_dropdown('kewarganegaraan', $options, set_value('kewarganegaraan'), 'class="form-control"');
+										echo form_error('kewarganegaraan', '<small class="text-danger">', '</small>'); ?>
 									</div>
 									<div class="form-group">
 										<label for="pendidikan">Pendidikan</label>
-										<select class="form-control" id="pendidikan" name="pendidikan">
-											<option value="">Pilih...</option>
-											<option value="SD">SD</option>
-											<option value="SMP">SMP</option>
-											<option value="SMA">SMA</option>
-											<option value="D3">D3</option>
-											<option value="S1">S1</option>
-											<option value="S2">S2</option>
-										</select>
-										<?= form_error('pendidikan', '<small class="text-danger">', '</small>'); ?>
+										<?php $options = array(
+											'' => 'Pilih...',
+											'SD' => 'SD',
+											'SMP' => 'SMP',
+											'SMA' => 'SMA',
+											'D3' => 'D3',
+											'S1' => 'S1',
+											'S2' => 'S2'
+										);
+										echo form_dropdown('pendidikan', $options, set_value('pendidikan'), 'class="form-control"');
+										echo form_error('pendidikan', '<small class="text-danger">', '</small>'); ?>
 									</div>
 								</div>
 							</div>

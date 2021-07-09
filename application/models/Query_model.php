@@ -68,6 +68,7 @@ class Query_model extends CI_Model
 							FROM tbl_anggota
 							JOIN tbl_status_anggota
 								ON tbl_anggota.status = tbl_status_anggota.id
+					ORDER BY tbl_anggota.id DESC
 						";
 		return $this->db->query($query)->result_array();
 	}

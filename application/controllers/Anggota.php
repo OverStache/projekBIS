@@ -65,13 +65,11 @@ class Anggota extends CI_Controller
 				'kewarganegaraan' => $this->input->post('kewarganegaraan'),
 				'pendidikan' => $this->input->post('pendidikan')
 			];
-			var_dump($data);
-			die;
-			// $this->db->insert('tbl_anggota', $data);
-			// $alert = 'success';
-			// $message = 'Anggota Berhasil Ditambahkan!';
-			// $redirect = 'anggota';
-			// $this->alert->alertResult($alert, $message, $redirect);
+			$this->db->insert('tbl_anggota', $data);
+			$alert = 'success';
+			$message = 'Anggota Berhasil Ditambahkan!';
+			$redirect = 'anggota';
+			$this->alert->alertResult($alert, $message, $redirect);
 		}
 	}
 

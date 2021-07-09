@@ -24,9 +24,8 @@ class Admin extends CI_Controller
 
 	public function index()
 	{
-		$data['total_pengawas'] = $this->db->where('role_id', 3)->from("tbl_user")->count_all_results();
-		$data['total_member'] = $this->db->where('role_id', 2)->from("tbl_user")->count_all_results();
-		$data['total_pengurus'] = $this->db->where('role_id', 1)->from("tbl_user")->count_all_results();
+		$data['total_anggota'] = $this->db->where('is_active', 0)->from('tbl_anggota')->count_all_results();
+		$data['total_rekening'] = $this->db->where('role_id', 2)->from("tbl_user")->count_all_results();
 		$this->load->view('admin/index', $data);
 		$this->load->view('templates/footer');
 	}
