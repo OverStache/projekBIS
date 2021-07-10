@@ -127,29 +127,42 @@ class Anggota extends CI_Controller
 
 	public function delete($id)
 	{
-		$this->db->delete('tbl_anggota', array('id' => $id));
-		$alert = 'warning';
-		$message = 'Anggota Berhasil Dihapus!';
-		$redirect = 'anggota';
-		$this->alert->alertResult($alert, $message, $redirect);
+		// dapat menghapus jika anggota belum diaktivasi
+		$this->db->delete('tbl_anggota', array('id' => $id, 'is_active' => 0));
+		if ($this->db->affected_row() > 0) {
+			$alert = 'warning';
+			$message = 'Anggota Berhasil Dihapus!';
+			$redirect = 'anggota';
+			$this->alert->alertResult($alert, $message, $redirect);
+		} else {
+			$alert = 'danger';
+			$message = 'Anggota Ngga Berhasil Dihapus!';
+			$redirect = 'anggota';
+			$this->alert->alertResult($alert, $message, $redirect);
+		}
 	}
 
+	// aktivasi dan disaktivasi anggota
 	public function changeActive()
 	{
 		$id = $this->input->post('id');
 		$is_active = $this->input->post('is_active');
 
 		if ($is_active == 0) {
-			$insert = 1;
+			$update = 1;
 			$message = 'Anggota Activated!';
 			$alert = 'success';
-		} else {
-			$insert = 0;
+		} else if ($is_active == 1) {
+			$update = 3;
 			$message = 'Anggota Deactivated!';
-			$alert = 'danger';
+			$alert = 'warning';
+		} else {
+			$update = 1;
+			$message = 'Anggota Activated!';
+			$alert = 'success';
 		}
 		$this->db->where('id', $id);
-		$this->db->update('tbl_anggota', ['is_active' => $insert]);
+		$this->db->update('tbl_anggota', ['is_active' => $update]);
 		$this->alert->alertResult($alert, $message, null);
 	}
 }

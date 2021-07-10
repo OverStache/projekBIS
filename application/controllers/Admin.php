@@ -29,23 +29,4 @@ class Admin extends CI_Controller
 		$this->load->view('admin/index', $data);
 		$this->load->view('templates/footer');
 	}
-
-	public function print()
-	{
-		// include autoloader
-		require_once 'dompdf/autoload.inc.php';
-
-		// instantiate and use the dompdf class
-		$dompdf = new Dompdf();
-		$dompdf->loadHtml('tes');
-
-		// (Optional) Setup the paper size and orientation
-		$dompdf->setPaper('A6', 'portrait');
-
-		// Render the HTML as PDF
-		$dompdf->render();
-
-		// Output the generated PDF to Browser
-		$dompdf->stream('result.pdf', array('Attachment' => false));
-	}
 }

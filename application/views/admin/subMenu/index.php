@@ -13,10 +13,7 @@
 					<?= $this->session->flashdata('message'); ?>
 					<div class="card card-primary card-outline">
 						<div class="card-body">
-							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-								<a href="<?= base_url('subMenu/add'); ?>" class="btn btn-primary">Add New Sub Menu</a>
-							<?php endif ?>
-							<table id="example2" class="table table-bordered table-striped">
+							<table class="table table-striped">
 								<thead>
 									<tr>
 										<th>#</th>
@@ -42,12 +39,6 @@
 												<td>
 													<a href="<?= base_url('subMenu/update/') . $sm['id']; ?>" class="btn btn-xs btn-primary" data-menu_id="<?= $sm['menu_id']; ?>">
 														<i class="fas fa-fw fa-edit"></i>
-													</a>
-													<a href="#" class=" btn btn-xs btn-danger modalDelete subMenuDelete" data-id="<?= $sm['id']; ?>" data-title="<?= $sm['title']; ?>">
-														<i class="fas fa-fw fa-trash"></i>
-													</a>
-													<a href="#" class="changeActive subMenu btn btn-xs btn-<?= check_sub_menu_active($sm['id'])['button']; ?>" data-id="<?= $sm['id']; ?>" data-is_active="<?= $sm['is_active']; ?>">
-														<i class="fas fa-fw fa-<?= check_sub_menu_active($sm['id'])['icon']; ?>"></i>
 													</a>
 												</td>
 											<?php endif ?>

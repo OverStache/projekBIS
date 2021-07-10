@@ -45,9 +45,9 @@
 													<td class="col-8"><?= $anggota['jenisKelamin']; ?></td>
 												</tr>
 												<tr>
-													<td>Status Anggota</td>
-													<td class=""><?= $anggota['statusAnggota']; ?></td>
-													<!-- <span class="badge badge-<?= $anggota['color']; ?>"><?= $anggota['statusRekening']; ?></span>-->
+													<td class="col-4">Status Anggota</td>
+													<td class="col-8"><?= $anggota['statusAnggota']; ?> <span class="ml-3 badge badge-<?= $anggota['color']; ?>"><?= $anggota['is_activeAnggota']; ?></span></td>
+
 												</tr>
 											</table>
 										</div>

@@ -35,22 +35,16 @@ class Auth extends CI_Controller
 		}
 	}
 
+	// fungsi login
 	private function _login()
 	{
-		// ambil dari form
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
-
-		// select * from tbl_user where email = $email
 		$user = $this->db->get_where('tbl_user', ['email' => $email])->row_array();
 
 		if ($user) {
-			// usernya ada
 			if ($user['is_active'] == 1) {
-				// usernya aktif
 				if (password_verify($password, $user['password'])) {
-					// password benar
-					// memasukkan email & role_id ke dalam array $data
 					$data = [
 						'email' => $user['email'],
 						'role_id' => $user['role_id'] // menentukan menu
@@ -119,8 +113,6 @@ class Auth extends CI_Controller
 				'kewarganegaraan' => $this->input->post('kewarganegaraan'),
 				'pendidikan' => $this->input->post('pendidikan')
 			];
-			// var_dump($data);
-			// die;
 			$this->db->insert('tbl_anggota', $data);
 			$this->alert->alertRegistration();
 		}

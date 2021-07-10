@@ -108,6 +108,7 @@ class Rekening extends CI_Controller
 
 	public function delete($id)
 	{
+		// hapus rekening jika status = 0 (Pending)
 		$this->db->delete('tbl_rekening', array('id' => $id, 'status' => 0));
 
 		if ($this->db->affected_rows() > 0) {
@@ -122,6 +123,7 @@ class Rekening extends CI_Controller
 		$this->alert->alertResult($alert, $message, $redirect);
 	}
 
+	// fungsi merubah status rekening
 	public function changeRekeningStatus()
 	{
 		$id = $this->input->post('id');

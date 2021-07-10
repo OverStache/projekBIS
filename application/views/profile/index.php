@@ -27,7 +27,7 @@
 									<b>Email</b> <a class="float-right"><?= $userdata['email']; ?></a>
 								</li>
 								<li class="list-group-item">
-									<b>Member Since</b> <a class="float-right"><?= date('F d Y', $userdata['date_created']); ?></a>
+									<b>Created At</b> <a class="float-right"><?= date('F d Y', $userdata['date_created']); ?></a>
 								</li>
 							</ul>
 

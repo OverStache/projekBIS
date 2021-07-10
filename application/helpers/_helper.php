@@ -16,20 +16,20 @@ function is_logged_in()
 			$queryCrudMenu = $ci->db->get_where('tbl_user_crud_menu', ['url' => $crud])->row_array();
 			$crud_id = $queryCrudMenu['id'];
 
-			// select * from tbl_user_access_menu where role_id = $role_id  and menu_id = $menu_id
+			// cek crud
 			$queryUserAccess = $ci->db->get_where('tbl_crud_access', [
 				'role_id' => $role_id,
 				'menu_id' => $menu_id,
 				'crud_id' => $crud_id
 			]);
 		} else {
+			// cek menu saja
 			$queryUserAccess = $ci->db->get_where('tbl_user_access_menu', [
 				'role_id' => $role_id,
 				'menu_id' => $menu_id
 			]);
 		}
 
-		// ada ga hasilnya
 		if ($queryUserAccess->num_rows() < 1) {
 			redirect('auth/blocked');
 		}
@@ -68,12 +68,17 @@ function check_anggota_active($id)
 
 	if ($result['is_active'] == 0) {
 		$data = array(
-			'icon' => 'user-times',
+			'icon' => 'check',
+			'button' => 'success'
+		);
+	} else if ($result['is_active'] == 1) {
+		$data = array(
+			'icon' => 'lock',
 			'button' => 'danger'
 		);
 	} else {
 		$data = array(
-			'icon' => 'user-check',
+			'icon' => 'unlock',
 			'button' => 'success'
 		);
 	}

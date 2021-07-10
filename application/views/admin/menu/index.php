@@ -13,10 +13,7 @@
 					<?= $this->session->flashdata('message'); ?>
 					<div class="card card-primary card-outline">
 						<div class="card-body">
-							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-								<a href="<?= base_url('menu/add') ?>" class="btn btn-primary modalAdd">Tambah Menu</a>
-							<?php endif ?>
-							<table id="example2" class="table">
+							<table class="table table-striped">
 								<thead>
 									<tr>
 										<th>#</th>
@@ -36,9 +33,6 @@
 												<td>
 													<a href="<?= base_url('menu/update/' . $m['id']) ?>" class="btn btn-xs btn-primary">
 														<i class="fas fa-fw fa-edit"></i>
-													</a>
-													<a href="#" class="btn btn-xs btn-danger modalDelete menuDelete" data-id="<?= $m['id']; ?>" data-title="<?= $m['menu']; ?>">
-														<i class="fas fa-fw fa-trash"></i>
 													</a>
 												</td>
 											<?php endif ?>

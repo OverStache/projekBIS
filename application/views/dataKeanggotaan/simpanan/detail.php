@@ -42,7 +42,7 @@
 										</tr>
 										<tr>
 											<td class="col-4">Saldo</td>
-											<td class="col-8"><?= $simpanan['saldo']; ?></td>
+											<td class="col-8"><?= 'Rp. ' . number_format($simpanan['saldo']); ?></td>
 										</tr>
 									</table>
 								</div>
