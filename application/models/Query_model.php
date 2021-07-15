@@ -61,12 +61,12 @@ class Query_model extends CI_Model
 		$query = "SELECT tbl_transaksi.*,
 										 LPAD(tbl_transaksi.id_rekening, 6, 0) as idRek,
 										 tbl_anggota.nama,
-										 tbl_jenis_transaksi.jenis as jenisTransaksi
+										 tbl_jenis_transaksi.jenis 
 								FROM tbl_transaksi
 								JOIN tbl_anggota
 									ON tbl_transaksi.id_anggota = tbl_anggota.id
 								JOIN tbl_jenis_transaksi
-									ON tbl_transaksi.jenis = tbl_jenis_transaksi.id
+									ON tbl_transaksi.id_jenis = tbl_jenis_transaksi.id
 						ORDER BY tbl_transaksi.id DESC";
 		return $this->db->query($query)->result_array();
 	}
@@ -81,28 +81,27 @@ class Query_model extends CI_Model
 								  ON tbl_angsuran.id_rekening = tbl_rekening_pembiayaan.id
 								JOIN tbl_anggota
 									ON tbl_rekening_pembiayaan.id_anggota = tbl_anggota.id
-							 WHERE tbl_angsuran.id_rekening = $id_rekening AND tbl_angsuran.status = 1
+							 WHERE tbl_angsuran.id_rekening = $id_rekening AND tbl_angsuran.id_status = 1
 						ORDER BY tbl_angsuran.tanggalTagihan LIMIT 1";
 		return $this->db->query($query);
 	}
 
 	public function fetchSim($id_rekening)
 	{
-		$query = "SELECT tbl_simpanan.*
-								FROM tbl_simpanan
-							 WHERE tbl_simpanan.produk = 4 AND tbl_simpanan.id = $id_rekening";
+		$query = "SELECT tbl_rekening_simpanan.*
+								FROM tbl_rekening_simpanan
+							 WHERE tbl_rekening_simpanan.produk = 4 AND tbl_rekening_simpanan.id = $id_rekening";
 		return $this->db->query($query);
 	}
 
 	public function fetchAllRek()
 	{
 		$query = "SELECT tbl_rekening_pembiayaan.*,
-										 tbl_anggota.id as id_anggota,
 										 tbl_anggota.nama
 								FROM tbl_rekening_pembiayaan
 							 	JOIN tbl_anggota
 								  ON tbl_rekening_pembiayaan.id_anggota = tbl_anggota.id
-							 WHERE tbl_rekening_pembiayaan.status = 1";
+							 WHERE tbl_rekening_pembiayaan.id_status = 1";
 		$output = '<option value="">Pilih Rekening</option>';
 		$result = $this->db->query($query);
 		foreach ($result->result() as $row) {
@@ -113,12 +112,12 @@ class Query_model extends CI_Model
 
 	public function fetchAllSim()
 	{
-		$query = "SELECT tbl_simpanan.*,
+		$query = "SELECT tbl_rekening_simpanan.*,
 										 tbl_anggota.nama 
-								FROM tbl_simpanan
+								FROM tbl_rekening_simpanan
 								JOIN tbl_anggota
-								  ON tbl_simpanan.id_anggota = tbl_anggota.id
-							 WHERE tbl_simpanan.produk = 4";
+								  ON tbl_rekening_simpanan.id_anggota = tbl_anggota.id
+							 WHERE tbl_rekening_simpanan.produk = 4";
 		$output = '<option value="">Pilih Anggota</option>';
 		$result = $this->db->query($query);
 		foreach ($result->result() as $row) {

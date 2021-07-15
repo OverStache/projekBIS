@@ -153,9 +153,9 @@ class Rekening extends CI_Controller
 	public function changeActive()
 	{
 		$id = $this->input->post('id');
-		$status = $this->input->post('status');
+		$id_status = $this->input->post('id_status');
 
-		switch ($status) {
+		switch ($id_status) {
 			case 0:
 				$update = 1;
 				$message = 'Anggota Activated!';

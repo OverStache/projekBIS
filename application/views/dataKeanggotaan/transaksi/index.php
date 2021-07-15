@@ -41,7 +41,7 @@
 											<td><?= $t['tanggal']; ?></td>
 											<td><?= 'Rp. ' . number_format($t['debit']); ?></td>
 											<td><?= 'Rp. ' . number_format($t['kredit']); ?></td>
-											<td><?= $t['jenisTransaksi']; ?></td>
+											<td><?= $t['jenis']; ?></td>
 											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
 												<!-- <td>
 													<a href="<?= base_url('angsuran/update/' . $t['id']) ?>" class="btn btn-xs btn-success">
