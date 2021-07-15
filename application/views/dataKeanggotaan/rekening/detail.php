@@ -62,16 +62,12 @@
 												<tr>
 													<td class="col-4">Status Rekening</td>
 													<td class="col-8">
-														<?php if ($rekening['is_active'] == 1) : ?>
-															<span class="badge badge-<?= $rekening['color']; ?>"><?= $rekening['statusRekening']; ?></span>
-														<?php else : ?>
-															<span class="badge badge-danger">Anggota Tidak Aktif</span>
-														<?php endif ?>
+														<span class="badge badge-<?= $rekening['color']; ?>"><?= $rekening['statusRekening']; ?></span>
 														<?php if ($this->session->userdata('role_id') == 1) : ?>
-															<?php if ($rekening['status'] != 'Lunas') : ?>
-																<a href="#" class="badge badge-<?= button_rekening_status($rekening['id'])['button']; ?> changeStatus" data-id="<?= $rekening['id']; ?>" data-status="<?= $rekening['status']; ?>">
+															<?php if ($rekening['statusRekening'] != 'Lunas') : ?>
+																<!-- <a href="#" class="badge badge-<?= button_rekening_status($rekening['id'])['button']; ?> changeStatus" data-id="<?= $rekening['id']; ?>" data-status="<?= $rekening['statusRekening']; ?>">
 																	<i class="fas fa-<?= button_rekening_status($rekening['id'])['icon']; ?> fa-xs"></i>
-																</a>
+																</a> -->
 															<?php endif ?>
 														<?php endif ?>
 													</td>

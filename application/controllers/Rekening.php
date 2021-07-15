@@ -10,6 +10,7 @@ class Rekening extends CI_Controller
 
 		$this->load->model('Construct_model', 'construct');
 		$this->load->model('Alert_model', 'alert');
+		$this->load->model('Rekening_model', 'rekening');
 		$data['title'] = $this->construct->getTitle();
 		$data['url'] = $this->construct->getUrl();
 		// select * from tbl_user where email = email dari session
@@ -22,15 +23,14 @@ class Rekening extends CI_Controller
 
 	public function index()
 	{
-		$this->load->model('Query_model', 'join');
-		$data['rekening'] = $this->join->joinRekeningAnggotaStatus();
+		$data['rekening'] = $this->rekening->joinRekeningAnggotaStatus();
 		$this->load->view('dataKeanggotaan/rekening/index', $data);
 		$this->load->view('templates/footer');
 	}
 
 	public function add()
 	{
-		$data['anggota'] = $this->db->get_where('tbl_anggota', ['is_active' => 1])->result_array();
+		$data['anggota'] = $this->db->get_where('tbl_anggota', ['id_status' => 1])->result_array();
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->form_validation->set_rules('id_anggota', 'Anggota', 'required');
@@ -54,7 +54,7 @@ class Rekening extends CI_Controller
 				'jumlah' => $this->input->post('jumlah'),
 				'jaminan' => $this->input->post('jaminan')
 			];
-			$this->db->insert('tbl_rekening', $data);
+			$this->db->insert('tbl_rekening_pembiayaan', $data);
 			$alert = 'success';
 			$message = 'Rekening Berhasil Ditambahkan!';
 			$redirect = 'rekening';
@@ -64,7 +64,7 @@ class Rekening extends CI_Controller
 
 	public function update($id)
 	{
-		$data['anggota'] = $this->db->get_where('tbl_anggota', ['is_active' => 1])->result_array();
+		$data['anggota'] = $this->db->get_where('tbl_anggota', ['id_status' => 1])->result_array();
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->form_validation->set_rules('jaminan', 'Jaminan', 'required');
@@ -88,7 +88,7 @@ class Rekening extends CI_Controller
 				'jaminan' => $this->input->post('jaminan')
 			];
 			$this->db->where('id', $id);
-			$this->db->update('tbl_rekening', $data);
+			$this->db->update('tbl_rekening_pembiayaan', $data);
 			$alert = 'success';
 			$message = 'Rekening Berhasil Diupdate!';
 			$redirect = 'rekening/detail/' . $id;
@@ -98,10 +98,9 @@ class Rekening extends CI_Controller
 
 	public function detail($id)
 	{
-		$this->load->model('Query_model', 'join');
-		$data['rekening'] = $this->join->joinRekeningAnggotaStatusById($id);
-		$data['user'] = $this->join->joinRekeningUserById($id);
-		$data['jadwal'] = $this->join->joinStatusRekeningJadwalNpf($id);
+		$data['rekening'] = $this->rekening->joinRekeningAnggotaStatusById($id);
+		$data['user'] = $this->rekening->joinRekeningUserById($id);
+		$data['jadwal'] = $this->rekening->joinStatusAngsuran($id);
 		$this->load->view('dataKeanggotaan/rekening/detail', $data);
 		$this->load->view('templates/footer');
 	}
@@ -109,7 +108,7 @@ class Rekening extends CI_Controller
 	public function delete($id)
 	{
 		// hapus rekening jika status = 0 (Pending)
-		$this->db->delete('tbl_rekening', array('id' => $id, 'status' => 0));
+		$this->db->delete('tbl_rekening_pembiayaan', array('id' => $id, 'status' => 0));
 
 		if ($this->db->affected_rows() > 0) {
 			$alert = 'warning';
@@ -132,7 +131,7 @@ class Rekening extends CI_Controller
 		switch ($status) {
 			case 'Pending':
 				$update = 1;
-				$message = 'Rekening Activated!';
+				$message = 'Anggota Activated!';
 				$alert = 'success';
 				break;
 			case 'Active':
@@ -142,12 +141,39 @@ class Rekening extends CI_Controller
 				break;
 			case 'Inactive':
 				$update = 1;
-				$message = 'Rekening Activated!';
+				$message = 'Anggota Activated!';
 				$alert = 'success';
 				break;
 		}
 		$this->db->where('id', $id);
-		$this->db->update('tbl_rekening', ['status' => $update]);
+		$this->db->update('tbl_rekening_pembiayaan', ['id_status' => $update]);
+		$this->alert->alertResult($alert, $message, null);
+	}
+
+	public function changeActive()
+	{
+		$id = $this->input->post('id');
+		$status = $this->input->post('status');
+
+		switch ($status) {
+			case 0:
+				$update = 1;
+				$message = 'Anggota Activated!';
+				$alert = 'success';
+				break;
+			case 1:
+				$update = 3;
+				$message = 'Rekening Inactive!';
+				$alert = 'danger';
+				break;
+			case 3:
+				$update = 1;
+				$message = 'Anggota Activated!';
+				$alert = 'success';
+				break;
+		}
+		$this->db->where('id', $id);
+		$this->db->update('tbl_rekening_pembiayaan', ['id_status' => $update]);
 		$this->alert->alertResult($alert, $message, null);
 	}
 }

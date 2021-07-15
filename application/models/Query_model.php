@@ -9,14 +9,14 @@ class Query_model extends CI_Model
                 tbl_simpanan.*,
                 tbl_anggota.nama,
                 tbl_anggota.is_active,
-                tbl_is_active.status AS statusRekening,
-                tbl_is_active.color,
+                tbl_status.status AS statusRekening,
+                tbl_status.color,
 								tbl_jenis_transaksi.jenis
               FROM tbl_simpanan
               JOIN tbl_anggota
                 ON tbl_simpanan.id_anggota = tbl_anggota.id
-              JOIN tbl_is_active
-                ON tbl_simpanan.status = tbl_is_active.id
+              JOIN tbl_status
+                ON tbl_simpanan.status = tbl_status.id
 							JOIN tbl_jenis_transaksi
 								ON tbl_simpanan.produk = tbl_jenis_transaksi.id
 					ORDER BY tbl_simpanan.id DESC";
@@ -29,94 +29,17 @@ class Query_model extends CI_Model
                 tbl_simpanan.*,
                 tbl_anggota.id as id_anggota,
                 tbl_anggota.nama,
-                tbl_is_active.status AS statusRekening,
-                tbl_is_active.color,
+                tbl_status.status AS statusRekening,
+                tbl_status.color,
 								tbl_jenis_transaksi.jenis
               FROM tbl_simpanan
               JOIN tbl_anggota
                 ON tbl_simpanan.id_anggota = tbl_anggota.id
-              JOIN tbl_is_active
-                ON tbl_simpanan.status = tbl_is_active.id
+              JOIN tbl_status
+                ON tbl_simpanan.status = tbl_status.id
 							JOIN tbl_jenis_transaksi
 								ON tbl_simpanan.produk = tbl_jenis_transaksi.id
 					   WHERE tbl_simpanan.id = $id";
-		return $this->db->query($query)->row_array();
-	}
-
-	public function joinRekeningAnggotaStatus()
-	{
-		$query = "SELECT
-                tbl_rekening.*,
-                tbl_anggota.nama,
-                tbl_is_active.status AS statusRekening,
-                tbl_is_active.color
-              FROM tbl_rekening
-              JOIN tbl_anggota
-                ON tbl_rekening.id_anggota = tbl_anggota.id
-              JOIN tbl_is_active
-                ON tbl_rekening.status = tbl_is_active.id
-					ORDER BY tbl_rekening.id DESC";
-		return $this->db->query($query)->result_array();
-	}
-
-	public function joinAnggotaStatus()
-	{
-		$query = "SELECT 
-								tbl_anggota.*,
-								tbl_is_active.status as statusAnggota,
-								tbl_is_active.color
-							FROM tbl_anggota
-							JOIN tbl_is_active
-								ON tbl_anggota.is_active = tbl_is_active.id
-					ORDER BY tbl_anggota.id DESC
-						";
-		return $this->db->query($query)->result_array();
-	}
-
-	public function joinAnggotaStatusbyId($id)
-	{
-		$query = "SELECT 
-                tbl_anggota.*,
-                tbl_status_anggota.status as statusAnggota,
-								tbl_is_active.status as is_activeAnggota,
-								tbl_is_active.color
-              FROM tbl_anggota
-              JOIN tbl_status_anggota
-                ON tbl_anggota.status = tbl_status_anggota.id
-							JOIN tbl_is_active
-								ON tbl_anggota.is_active = tbl_is_active.id
-						 WHERE tbl_anggota.id = $id
-            ";
-		return $this->db->query($query)->row_array();
-	}
-
-	public function joinRekeningAnggotaStatusById($id)
-	{
-		$query = "SELECT
-                tbl_rekening.*,
-                tbl_anggota.nama,
-                tbl_anggota.is_active,
-                tbl_is_active.status as statusRekening,
-                tbl_is_active.color
-              FROM tbl_rekening
-              JOIN tbl_anggota
-                ON tbl_rekening.id_anggota = tbl_anggota.id
-              JOIN tbl_is_active
-                ON tbl_rekening.status = tbl_is_active.id
-             WHERE tbl_rekening.id = $id";
-		return $this->db->query($query)->row_array();
-	}
-	public function joinRekeningUserById($id)
-	{
-		$query = "SELECT
-                tbl_user.username,
-								tbl_user_role.role
-              FROM tbl_rekening
-              JOIN tbl_user
-                ON tbl_rekening.id_user = tbl_user.id
-              JOIN tbl_user_role
-                ON tbl_user.role_id = tbl_user_role.id
-             WHERE tbl_rekening.id = $id";
 		return $this->db->query($query)->row_array();
 	}
 
@@ -124,25 +47,13 @@ class Query_model extends CI_Model
 	{
 		$query = "SELECT tbl_angsuran.*, tbl_anggota.id, tbl_anggota.nama 
 								FROM tbl_angsuran
-								JOIN tbl_rekening
-                	ON tbl_angsuran.id_rekening = tbl_rekening.id
+								JOIN tbl_rekening_pembiayaan
+                	ON tbl_angsuran.id_rekening = tbl_rekening_pembiayaan.id
               	JOIN tbl_anggota
-                	ON tbl_rekening.id_anggota = tbl_anggota.id
+                	ON tbl_rekening_pembiayaan.id_anggota = tbl_anggota.id
 							 WHERE tbl_angsuran.id_rekening = $id AND tbl_angsuran.status = 1
 					  ORDER BY tbl_angsuran.tanggalTagihan LIMIT 1";
 		return $this->db->query($query)->row_array();
-	}
-
-	public function joinStatusRekeningJadwalNpf($id)
-	{
-		$query = "SELECT tbl_angsuran.*, 
-										 tbl_is_active.status,
-										 tbl_is_active.color as statusColor
-								FROM tbl_angsuran
-								JOIN tbl_is_active
-                	ON tbl_angsuran.status = tbl_is_active.id
-							 WHERE tbl_angsuran.id_rekening = $id";
-		return $this->db->query($query)->result_array();
 	}
 
 	public function joinTransaksiAnggota()
@@ -166,10 +77,10 @@ class Query_model extends CI_Model
 										 tbl_anggota.nama,
 										 tbl_anggota.id as id_anggota
 							  FROM tbl_angsuran 
-								JOIN tbl_rekening
-								  ON tbl_angsuran.id_rekening = tbl_rekening.id
+								JOIN tbl_rekening_pembiayaan
+								  ON tbl_angsuran.id_rekening = tbl_rekening_pembiayaan.id
 								JOIN tbl_anggota
-									ON tbl_rekening.id_anggota = tbl_anggota.id
+									ON tbl_rekening_pembiayaan.id_anggota = tbl_anggota.id
 							 WHERE tbl_angsuran.id_rekening = $id_rekening AND tbl_angsuran.status = 1
 						ORDER BY tbl_angsuran.tanggalTagihan LIMIT 1";
 		return $this->db->query($query);
@@ -185,13 +96,13 @@ class Query_model extends CI_Model
 
 	public function fetchAllRek()
 	{
-		$query = "SELECT tbl_rekening.*,
+		$query = "SELECT tbl_rekening_pembiayaan.*,
 										 tbl_anggota.id as id_anggota,
 										 tbl_anggota.nama
-								FROM tbl_rekening
+								FROM tbl_rekening_pembiayaan
 							 	JOIN tbl_anggota
-								  ON tbl_rekening.id_anggota = tbl_anggota.id
-							 WHERE tbl_rekening.status = 1";
+								  ON tbl_rekening_pembiayaan.id_anggota = tbl_anggota.id
+							 WHERE tbl_rekening_pembiayaan.status = 1";
 		$output = '<option value="">Pilih Rekening</option>';
 		$result = $this->db->query($query);
 		foreach ($result->result() as $row) {

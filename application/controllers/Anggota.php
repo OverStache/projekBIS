@@ -10,7 +10,7 @@ class Anggota extends CI_Controller
 
 		$this->load->model('Construct_model', 'construct');
 		$this->load->model('Alert_model', 'alert');
-		$this->load->model('Query_model', 'join');
+		$this->load->model('Anggota_model', 'anggota');
 		$data['title'] = $this->construct->getTitle();
 		$data['url'] = $this->construct->getUrl();
 		// select * from tbl_user where email = email dari session
@@ -23,7 +23,7 @@ class Anggota extends CI_Controller
 
 	public function index()
 	{
-		$data['anggota'] = $this->join->joinAnggotaStatus();
+		$data['anggota'] = $this->anggota->joinAnggotaStatus();
 		$this->load->view('dataKeanggotaan/anggota/index', $data);
 		$this->load->view('templates/footer');
 	}
@@ -45,16 +45,15 @@ class Anggota extends CI_Controller
 		$this->form_validation->set_rules('agama', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('kewarganegaraan', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('pendidikan', 'Jenis Kelamin', 'required');
-		$data['status'] = $this->db->get('tbl_status_anggota')->result_array();
 		if ($this->form_validation->run() == false) {
-			$this->load->view('dataKeanggotaan/anggota/add', $data);
+			$this->load->view('dataKeanggotaan/anggota/add');
 			$this->load->view('templates/footer');
 		} else {
 			$data = [
 				'nama' => $this->input->post('nama'),
 				'namaPanggilan' => $this->input->post('namaPanggilan'),
 				'jenisKelamin' => $this->input->post('jenisKelamin'),
-				'status' => $this->input->post('status'),
+				'id_jenis_anggota' => $this->input->post('id_jenis_anggota'),
 				'tempatLahir' => $this->input->post('tempatLahir'),
 				'tanggalLahir' => $this->input->post('tanggalLahir'),
 				'namaIbuKandung' => $this->input->post('namaIbuKandung'),
@@ -119,8 +118,7 @@ class Anggota extends CI_Controller
 
 	public function detail($id)
 	{
-		$data['status'] = $this->db->get('tbl_status_anggota')->result_array();
-		$data['anggota'] = $this->join->joinAnggotaStatusById($id);
+		$data['anggota'] = $this->anggota->joinAnggotaJenisStatusById($id);
 		$this->load->view('dataKeanggotaan/anggota/detail', $data);
 		$this->load->view('templates/footer');
 	}
@@ -128,7 +126,7 @@ class Anggota extends CI_Controller
 	public function delete($id)
 	{
 		// dapat menghapus jika anggota belum diaktivasi
-		$this->db->delete('tbl_anggota', array('id' => $id, 'is_active' => 0));
+		$this->db->delete('tbl_anggota', array('id' => $id, 'id_status' => 0));
 		if ($this->db->affected_row() > 0) {
 			$alert = 'warning';
 			$message = 'Anggota Berhasil Dihapus!';
@@ -146,13 +144,13 @@ class Anggota extends CI_Controller
 	public function changeActive()
 	{
 		$id = $this->input->post('id');
-		$is_active = $this->input->post('is_active');
+		$id_status = $this->input->post('id_status');
 
-		if ($is_active == 0) {
+		if ($id_status == 0) {
 			$update = 1;
 			$message = 'Anggota Activated!';
 			$alert = 'success';
-		} else if ($is_active == 1) {
+		} else if ($id_status == 1) {
 			$update = 3;
 			$message = 'Anggota Deactivated!';
 			$alert = 'warning';
@@ -162,7 +160,7 @@ class Anggota extends CI_Controller
 			$alert = 'success';
 		}
 		$this->db->where('id', $id);
-		$this->db->update('tbl_anggota', ['is_active' => $update]);
+		$this->db->update('tbl_anggota', ['id_status' => $update]);
 		$this->alert->alertResult($alert, $message, null);
 	}
 }

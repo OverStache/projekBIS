@@ -30,7 +30,7 @@
 											<table class="table table-striped border-bottom">
 												<tr>
 													<td class="col-4">No. Anggota</td>
-													<td class="col-8"><?= $anggota['id'] ?></td>
+													<td class="col-8"><?= $anggota['id_anggota'] ?></td>
 												</tr>
 												<tr>
 													<td class="col-4">Nama Anggota</td>
@@ -45,8 +45,8 @@
 													<td class="col-8"><?= $anggota['jenisKelamin']; ?></td>
 												</tr>
 												<tr>
-													<td class="col-4">Status Anggota</td>
-													<td class="col-8"><?= $anggota['statusAnggota']; ?> <span class="ml-3 badge badge-<?= $anggota['color']; ?>"><?= $anggota['is_activeAnggota']; ?></span></td>
+													<td class="col-4">Jenis & Status Anggota</td>
+													<td class="col-8"><?= $anggota['jenis']; ?> <span class="ml-3 badge badge-<?= $anggota['statusColor']; ?>"><?= $anggota['status']; ?></span></td>
 
 												</tr>
 											</table>
@@ -107,7 +107,7 @@
 								<?php if ($this->session->userdata('role_id') == 1) : ?>
 									<!-- tab update anggota -->
 									<div class="tab-pane" id="tab_2">
-										<?= form_open_multipart('anggota/update/' . $anggota['id']); ?>
+										<?= form_open_multipart('anggota/update/' . $anggota['id_anggota']); ?>
 										<div class="row mb-3">
 											<div class="col-6">
 												<div class="form-group">
@@ -122,20 +122,23 @@
 												</div>
 												<div class="form-group">
 													<label for="jenisKelamin">Jenis Kelamin</label>
-													<select class="form-control" id="jenisKelamin" name="jenisKelamin">
-														<option value="Laki-laki" <?php if ($anggota['jenisKelamin'] == 'Laki-laki') : ?> selected <?php endif ?>>Laki-laki</option>
-														<option value="Perempuan" <?php if ($anggota['jenisKelamin'] == 'Perempuan') : ?> selected <?php endif ?>>Perempuan</option>
-													</select>
-													<?= form_error('jenisKelamin', '<small class="text-danger">', '</small>'); ?>
+													<?php $options = array(
+														'' => 'Pilih...',
+														'Laki-laki' => 'Laki-laki',
+														'Perempuan' => 'Perempuan'
+													);
+													echo form_dropdown('jenisKelamin', $options, $anggota['jenisKelamin'], 'class="form-control"');
+													echo form_error('jenisKelamin', '<small class="text-danger">', '</small>'); ?>
 												</div>
 												<div class="form-group">
-													<label for="status">Jenis Anggota</label>
-													<select class="form-control" id="status" name="status" value="<?= $anggota['status']; ?>">
-														<?php foreach ($status as $s) : ?>
-															<option value="<?= $s['id']; ?>" <?php if ($anggota['status'] == $s['id']) : ?> selected <?php endif ?>><?= $s['status']; ?></option>
-														<?php endforeach ?>
-													</select>
-													<?= form_error('status', '<small class="text-danger">', '</small>'); ?>
+													<label for="id_jenis_anggota">Jenis Anggota</label>
+													<?php $options = array(
+														'' => 'Pilih...',
+														'1' => 'Anggota',
+														'2' => 'Anggota Luar Biasa'
+													);
+													echo form_dropdown('id_jenis_anggota', $options, $anggota['id_jenis_anggota'], 'class="form-control"');
+													echo form_error('id_jenis_anggota', '<small class="text-danger">', '</small>'); ?>
 												</div>
 											</div>
 											<div class="col-6">
@@ -166,12 +169,14 @@
 											<div class="col-6">
 												<div class="form-group">
 													<label for="jenisID">Jenis Identitas</label>
-													<select class="form-control" id="jenisID" name="jenisID" value="<?= $anggota['jenisID']; ?>">
-														<option value="KTP" <?php if ($anggota['jenisID'] == 'KTP') : ?> selected <?php endif ?>>KTP</option>
-														<option value="KK" <?php if ($anggota['jenisID'] == 'KK') : ?> selected <?php endif ?>>KK</option>
-														<option value="SIM" <?php if ($anggota['jenisID'] == 'SIM') : ?> selected <?php endif ?>>SIM</option>
-													</select>
-													<?= form_error('jenisID', '<small class="text-danger">', '</small>'); ?>
+													<?php $options = array(
+														'' => 'Pilih...',
+														'KTP' => 'KTP',
+														'KK' => 'KK',
+														'SIM' => 'SIM'
+													);
+													echo form_dropdown('jenisID', $options, $anggota['jenisID'], 'class="form-control"');
+													echo form_error('jenisID', '<small class="text-danger">', '</small>'); ?>
 												</div>
 												<div class="form-group">
 													<label for="nomerID">Nomor Identitas</label>
@@ -180,47 +185,55 @@
 												</div>
 												<div class="form-group">
 													<label for="statusMarital">Status Marital</label>
-													<select class="form-control" id="statusMarital" name="statusMarital" value="<?= $anggota['statusMarital']; ?>">
-														<option value="Menikah" <?php if ($anggota['statusMarital'] == 'Menikah') : ?> selected <?php endif ?>>Menikah</option>
-														<option value="Belum Menikah" <?php if ($anggota['statusMarital'] == 'Belum Menikah') : ?> selected <?php endif ?>>Belum Menikah</option>
-														<option value="Cerai Hidup" <?php if ($anggota['statusMarital'] == 'Cerai Hidup') : ?> selected <?php endif ?>>Cerai Hidup</option>
-														<option value="Cerai Mati" <?php if ($anggota['statusMarital'] == 'Cerai Mati') : ?> selected <?php endif ?>>Cerai Mati</option>
-													</select>
-													<?= form_error('statusMarital', '<small class="text-danger">', '</small>'); ?>
+													<?php $options = array(
+														'' => 'Pilih...',
+														'Menikah' => 'Menikah',
+														'Belum Menikah' => 'Belum Menikah',
+														'Cerai Hidup' => 'Cerai Hidup',
+														'Cerai Mati' => 'Cerai Mati'
+													);
+													echo form_dropdown('statusMarital', $options, $anggota['statusMarital'], 'class="form-control"');
+													echo form_error('statusMarital', '<small class="text-danger">', '</small>'); ?>
 												</div>
 											</div>
 											<div class="col-6">
 												<div class="form-group">
 													<label for="agama">Agama</label>
-													<select class="form-control" id="agama" name="agama" value="<?= $anggota['agama']; ?>">
-														<option value="Islam" <?php if ($anggota['agama'] == 'Islam') : ?> selected <?php endif ?>>Islam</option>
-														<option value="Kristen Protestan" <?php if ($anggota['agama'] == 'Kristen Protestan') : ?> selected <?php endif ?>>Kristen Protestan</option>
-														<option value="Kristen Katolik" <?php if ($anggota['agama'] == 'Kristen Katolik') : ?> selected <?php endif ?>>Kristen Katolik</option>
-														<option value="Hindu" <?php if ($anggota['agama'] == 'Hindu') : ?> selected <?php endif ?>>Hindu</option>
-														<option value="Budha" <?php if ($anggota['agama'] == 'Budha') : ?> selected <?php endif ?>>Budha</option>
-														<option value="Konghucu" <?php if ($anggota['agama'] == 'Konghucu') : ?> selected <?php endif ?>>Konghucu</option>
-													</select>
-													<?= form_error('agama', '<small class="text-danger">', '</small>'); ?>
+													<?php $options = array(
+														'' => 'Pilih...',
+														'Islam' => 'Islam',
+														'Kristen Protestan' => 'Kristen Protestan',
+														'Kristen Katolik' => 'Kristen Katolik',
+														'Hindu' => 'Hindu',
+														'Budha' => 'Budha',
+														'Konghucu' => 'Konghucu'
+													);
+													echo form_dropdown('agama', $options, $anggota['agama'], 'class="form-control"');
+													echo form_error('agama', '<small class="text-danger">', '</small>'); ?>
 												</div>
 												<div class="form-group">
 													<label for="kewarganegaraan">Kewarganegaraan</label>
-													<select class="form-control" id="kewarganegaraan" name="kewarganegaraan" value="<?= $anggota['kewarganegaraan']; ?>">
-														<option value="Indonesia">Indonesia</option>
-														<option value="Asing">Asing</option>
-													</select>
-													<?= form_error('kewarganegaraan', '<small class="text-danger">', '</small>'); ?>
+													<?php $options = array(
+														'' => 'Pilih...',
+														'Indonesia' => 'Indonesia',
+														'Asing' => 'Asing'
+													);
+													echo form_dropdown('kewarganegaraan', $options, $anggota['kewarganegaraan'], 'class="form-control"');
+													echo form_error('kewarganegaraan', '<small class="text-danger">', '</small>'); ?>
 												</div>
 												<div class="form-group">
 													<label for="pendidikan">Pendidikan</label>
-													<select class="form-control" id="pendidikan" name="pendidikan">
-														<option value="SD" <?php if ($anggota['pendidikan'] == 'SD') : ?> selected <?php endif ?>>SD</option>
-														<option value="SMP" <?php if ($anggota['pendidikan'] == 'SMP') : ?> selected <?php endif ?>>SMP</option>
-														<option value="SMA" <?php if ($anggota['pendidikan'] == 'SMA') : ?> selected <?php endif ?>>SMA</option>
-														<option value="D3" <?php if ($anggota['pendidikan'] == 'D3') : ?> selected <?php endif ?>>D3</option>
-														<option value="S1" <?php if ($anggota['pendidikan'] == 'S1') : ?> selected <?php endif ?>>S1</option>
-														<option value="S2" <?php if ($anggota['pendidikan'] == 'S2') : ?> selected <?php endif ?>>S2</option>
-													</select>
-													<?= form_error('pendidikan', '<small class="text-danger">', '</small>'); ?>
+													<?php $options = array(
+														'' => 'Pilih...',
+														'SD' => 'SD',
+														'SMP' => 'SMP',
+														'SMA' => 'SMA',
+														'D3' => 'D3',
+														'S1' => 'S1',
+														'S2' => 'S2'
+													);
+													echo form_dropdown('pendidikan', $options, $anggota['pendidikan'], 'class="form-control"');
+													echo form_error('pendidikan', '<small class="text-danger">', '</small>'); ?>
 												</div>
 											</div>
 										</div>

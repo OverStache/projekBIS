@@ -1,4 +1,4 @@
-<footer class="main-footer">
+<footer class="main-footer no-print">
 	<div class="float-right d-none d-sm-block">
 		<b>Version</b> 3.1.0
 	</div>
@@ -45,22 +45,18 @@
 <script src="<?= base_url('assets/'); ?>plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
 	$(function() {
-		$("#example1").DataTable({
+		$("#searchPrint").DataTable({
 			"responsive": true,
 			"lengthChange": false,
 			"autoWidth": false,
-			"buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-		}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-		$('#example2').DataTable({
-			"paging": true,
-			"lengthChange": false,
-			"searching": true,
-			"ordering": true,
-			"info": true,
-			"autoWidth": false,
-			"responsive": true
-		});
+			"buttons": ["pdf", "print", "colvis"]
+		}).buttons().container().appendTo('#searchPrint_wrapper .col-md-6:eq(0)');
 	});
+	$(function() {
+		$('#searchOnly').DataTable({
+			"searching": true
+		});
+	})
 </script>
 <!-- campur -->
 <script>
@@ -114,17 +110,20 @@
 	$('body').on('click', '.changeStatus', function() {
 		const id = $(this).data('id');
 		const status = $(this).data('status');
-		console.log(id);
-		console.log(status);
+		// console.log(id);
+		// console.log(status);
 		$.ajax({
-			url: "<?= base_url('rekening/changeRekeningStatus'); ?>",
+			url: "<?= base_url('rekening/changeActive'); ?>",
 			type: 'post',
 			data: {
 				id: id,
 				status: status
 			},
-			success: function() {
-				document.location.href = "<?= base_url('rekening'); ?>";
+			// success: function() {
+			// 	document.location.href = "<?= base_url('rekening'); ?>";
+			// }
+			success: function(data) {
+				console.log(data);
 			}
 		});
 	});
@@ -138,22 +137,22 @@
 	// anggota
 	$('body').on('click', '.anggota', function() {
 		id = $(this).data('id');
-		is_active = $(this).data('is_active');
+		id_status = $(this).data('id_status');
 		url = "<?= base_url('anggota'); ?>";
 	});
 
 	// user
 	$('body').on('click', '.user', function() {
 		id = $(this).data('id');
-		is_active = $(this).data('is_active');
+		id_status = $(this).data('id_status');
 		url = "<?= base_url('user'); ?>";
 	});
 
-	// subMenu
-	$('body').on('click', '.subMenu', function() {
+	// rekening
+	$('body').on('click', '.rekening', function() {
 		id = $(this).data('id');
-		is_active = $(this).data('is_active');
-		url = "<?= base_url('subMenu'); ?>";
+		id_status = $(this).data('id_status');
+		url = "<?= base_url('rekening'); ?>";
 	});
 
 	$('body').on('click', '.changeActive', function() {
@@ -162,11 +161,15 @@
 			type: 'post',
 			data: {
 				id: id,
-				is_active: is_active
+				id_status: id_status
 			},
+			// dataType: 'json',
 			success: function() {
 				document.location.href = url;
 			}
+			// success: function(data) {
+			// 	console.log(data);
+			// }
 		});
 	});
 </script>
@@ -179,27 +182,18 @@
 		$('body').on('click', '.userDelete', function() {
 			url = "<?= base_url('user'); ?>";
 		});
-		$('body').on('click', '.menuDelete', function() {
-			url = "<?= base_url('menu'); ?>";
-		});
-		$('body').on('click', '.subMenuDelete', function() {
-			url = "<?= base_url('subMenu'); ?>";
-		});
 		$('body').on('click', '.anggotaDelete', function() {
 			url = "<?= base_url('anggota'); ?>";
 		});
 		$('body').on('click', '.rekeningDelete', function() {
 			url = "<?= base_url('rekening'); ?>";
 		});
-		$('body').on('click', '.angsuranDelete', function() {
-			url = "<?= base_url('angsuran'); ?>";
-		});
 
 		$('body').on('click', '.modalDelete', function() {
 			const id = $(this).data('id');
 			const title = $(this).data('title');
 			bootbox.confirm({
-				title: "sure want to delete?",
+				title: "Yakin ingin menghapus?",
 				message: title,
 				buttons: {
 					confirm: {

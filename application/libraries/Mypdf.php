@@ -15,7 +15,7 @@ class Mypdf
 
   public function print($view, $data = array())
   {
-    // $data['rekening'] = $this->db->get_where('tbl_rekening', ['status' => 1])->result_array();
+    // $data['rekening'] = $this->db->get_where('tbl_rekening_pembiayaan', ['status' => 1])->result_array();
     // $data['angsuran'] = $this->db->get_where('tbl_angsuran', ['id' => $id])->row_array();
     // echo $html;
     // die();

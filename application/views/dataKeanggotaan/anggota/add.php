@@ -42,14 +42,14 @@
 										echo form_error('jenisKelamin', '<small class="text-danger">', '</small>'); ?>
 									</div>
 									<div class="form-group">
-										<label for="status">Jenis Anggota</label>
+										<label for="id_jenis_anggota">Jenis Anggota</label>
 										<?php $options = array(
 											'' => 'Pilih...',
 											'1' => 'Anggota',
 											'2' => 'Anggota Luar Biasa'
 										);
-										echo form_dropdown('status', $options, set_value('status'), 'class="form-control"');
-										echo form_error('status', '<small class="text-danger">', '</small>'); ?>
+										echo form_dropdown('id_jenis_anggota', $options, set_value('id_jenis_anggota'), 'class="form-control"');
+										echo form_error('id_jenis_anggota', '<small class="text-danger">', '</small>'); ?>
 									</div>
 								</div>
 								<div class="col-6">

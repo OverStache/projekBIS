@@ -51,14 +51,4 @@ class Menu extends CI_Controller
 			$this->alert->alertResult($alert, $message, $redirect);
 		}
 	}
-
-	public function delete($id)
-	{
-		// hapus anggota jika status = 0 (belum aktif)
-		$this->db->delete('tbl_user_menu', array('id' => $id, 'is_active' => 0));
-		$alert = 'warning';
-		$message = 'Menu Berhasil Dihapus!';
-		$redirect = 'menu';
-		$this->alert->alertResult($alert, $message, $redirect);
-	}
 }
