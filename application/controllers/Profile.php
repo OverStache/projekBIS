@@ -12,7 +12,6 @@ class Profile extends CI_Controller
 		$this->load->model('Alert_model', 'alert');
 		$this->load->model('Image_model', 'image');
 		$data['title'] = $this->construct->getTitle();
-		$data['url'] = $this->construct->getUrl();
 		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 

@@ -21,8 +21,8 @@
 								<div class="col-sm-12 py-3 px-4">
 									<table class="table table-striped border-bottom">
 										<tr>
-											<td class="col-4">ID Simpanan</td>
-											<td class="col-8"><?= $simpanan['id'] ?></td>
+											<td class="col-4">ID Rekening</td>
+											<td class="col-8"><?= $simpanan['id_simpanan'] ?></td>
 										</tr>
 										<tr>
 											<td class="col-4">ID Anggota</td>

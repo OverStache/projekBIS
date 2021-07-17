@@ -17,7 +17,7 @@
 								<li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Detail</a></li>
 								<li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Jadwal Pembayaran</a></li>
 								<?php if ($this->session->userdata('role_id') == 1) : ?>
-									<?php if ($rekening['statusRekening'] == 'Pending') : ?>
+									<?php if ($rekening['id_status'] == 'Pending') : ?>
 										<li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Update Rekening</a></li>
 									<?php endif ?>
 								<?php endif ?>
@@ -62,12 +62,12 @@
 												<tr>
 													<td class="col-4">Status Rekening</td>
 													<td class="col-8">
-														<span class="badge badge-<?= $rekening['color']; ?>"><?= $rekening['statusRekening']; ?></span>
+														<span class="badge badge-<?= $rekening['statusColor']; ?>"><?= $rekening['status']; ?></span>
 														<?php if ($this->session->userdata('role_id') == 1) : ?>
-															<?php if ($rekening['statusRekening'] != 'Lunas') : ?>
-																<!-- <a href="#" class="badge badge-<?= button_rekening_status($rekening['id'])['button']; ?> changeStatus" data-id="<?= $rekening['id']; ?>" data-status="<?= $rekening['statusRekening']; ?>">
-																	<i class="fas fa-<?= button_rekening_status($rekening['id'])['icon']; ?> fa-xs"></i>
-																</a> -->
+															<?php if ($rekening['id_status'] != 'Lunas') : ?>
+																<a href="#" class="badge badge-<?= $rekening['buttonColor'] ?> changeStatus" data-id="<?= $rekening['id']; ?>" data-status="<?= $rekening['id_status']; ?>">
+																	<i class="fas fa-<?= $rekening['buttonIcon'] ?> fa-xs"></i>
+																</a>
 															<?php endif ?>
 														<?php endif ?>
 													</td>
@@ -139,7 +139,7 @@
 								<!-- /.tab-pane -->
 								<?php if ($this->session->userdata('role_id') == 1) : ?>
 									<!-- tab update -->
-									<?php if ($rekening['statusRekening'] == 'Pending') : ?>
+									<?php if ($rekening['id_status'] == 'Pending') : ?>
 										<div class="tab-pane" id="tab_3">
 											<div class="row">
 												<div class="col-sm-12">

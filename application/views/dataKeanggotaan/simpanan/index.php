@@ -36,15 +36,15 @@
 										<tr>
 											<td><?= $i++; ?></td>
 											<td><?= $s['nama']; ?></td>
-											<td><?= $s['id']; ?><?= $s['id_anggota']; ?></td>
+											<td><?= $s['id_simpanan']; ?><?= $s['id_anggota']; ?></td>
 											<td><?= $s['jenis']; ?></td>
 											<td><?= 'Rp. ' . number_format($s['saldo']); ?></td>
 											<td>
-												<span class="badge badge-<?= $s['color']; ?>"><?= $s['statusRekening']; ?></span>
+												<span class="badge badge-<?= $s['statusColor']; ?>"><?= $s['status']; ?></span>
 											</td>
 											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
 												<td>
-													<a href="<?= base_url('simpanan/detail/' . $s['id']) ?>" class="btn btn-xs btn-primary">
+													<a href="<?= base_url('simpanan/detail/' . $s['id_simpanan']) ?>" class="btn btn-xs btn-primary">
 														<i class="fas fa-fw fa-search"></i>
 													</a>
 												</td>

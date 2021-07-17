@@ -269,11 +269,11 @@
 		let transaksi;
 		$('div.id_rekeningSelect').hide();
 		// pilih transaksi dropdown
-		$('#jenis').change(function() {
-			if ($('#jenis').val() == '') {
+		$('#id_jenis').change(function() {
+			if ($('#id_jenis').val() == '') {
 				$('div.id_rekeningSelect').hide();
 			} else {
-				if ($('#jenis').val() == 2) {
+				if ($('#id_jenis').val() == 2) {
 					$('label.id_rekeningSelect').text('ID Rekening');
 				} else {
 					$('label.id_rekeningSelect').text('ID Anggota');
@@ -287,7 +287,7 @@
 			$('input#kredit').removeAttr('max');
 			$('input#kredit').removeAttr('min');
 			$('input#cicilan').val(null);
-			transaksi = $('#jenis').val();
+			transaksi = $('#id_jenis').val();
 			$.ajax({
 				url: "<?= base_url('transaksi/add'); ?>",
 				method: "POST",

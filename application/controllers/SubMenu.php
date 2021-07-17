@@ -11,7 +11,6 @@ class SubMenu extends CI_Controller
 		$this->load->model('Construct_model', 'construct');
 		$this->load->model('Alert_model', 'alert');
 		$data['title'] = $this->construct->getTitle();
-		$data['url'] = $this->construct->getUrl();
 		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 

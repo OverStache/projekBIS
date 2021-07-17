@@ -20,13 +20,13 @@
 						<?= form_open_multipart('transaksi/add'); ?>
 						<div class="card-body">
 							<div class="form-group">
-								<label for="jenis">Jenis Transaksi</label>
-								<select class="form-control transaksi" id="jenis" name="jenis">
+								<label for="id_jenis">Jenis Transaksi</label>
+								<select class="form-control transaksi" id="id_jenis" name="id_jenis">
 									<option value="" selected="selected">Pilih Transaksi</option>
 									<option value="2">Angsuran Murobahah</option>
 									<option value="4">Simpanan Bulanan Anggota</option>
 								</select>
-								<?= form_error('jenis', '<small class="text-danger">', '</small>'); ?>
+								<?= form_error('id_jenis', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group invisible id_rekeningSelect">
 								<label for="id_rekening" class="id_rekeningSelect"></label>

@@ -10,9 +10,8 @@ class Simpanan extends CI_Controller
 
 		$this->load->model('Construct_model', 'construct');
 		$this->load->model('Alert_model', 'alert');
-		$this->load->model('Query_model', 'join');
+		$this->load->model('Simpanan_model', 'simpanan');
 		$data['title'] = $this->construct->getTitle();
-		$data['url'] = $this->construct->getUrl();
 		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
@@ -23,14 +22,14 @@ class Simpanan extends CI_Controller
 
 	public function index()
 	{
-		$data['simpanan'] = $this->join->joinSimpananAnggotaStatus();
+		$data['simpanan'] = $this->simpanan->joinSimpananAnggotaStatus();
 		$this->load->view('dataKeanggotaan/simpanan/index', $data);
 		$this->load->view('templates/footer');
 	}
 
 	public function add()
 	{
-		$data['anggota'] = $this->db->get_where('tbl_anggota', ['is_active' => 0])->result_array();
+		$data['anggota'] = $this->db->get_where('tbl_anggota', ['id_status' => 0])->result_array();
 		$this->load->helper('date');
 		$this->form_validation->set_rules('id_anggota', 'Anggota', 'required');
 		$this->form_validation->set_rules('kredit', 'Jumlah', 'required');
@@ -56,7 +55,7 @@ class Simpanan extends CI_Controller
 
 	public function detail($id)
 	{
-		$data['simpanan'] = $this->join->joinSimpananAnggotaStatusById($id);
+		$data['simpanan'] = $this->simpanan->joinSimpananAnggotaStatusById($id);
 		$this->load->view('dataKeanggotaan/simpanan/detail', $data);
 		$this->load->view('templates/footer');
 	}

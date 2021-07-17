@@ -10,9 +10,8 @@ class Transaksi extends CI_Controller
 
 		$this->load->model('Construct_model', 'construct');
 		$this->load->model('Alert_model', 'alert');
-		$this->load->model('Query_model', 'query');
+		$this->load->model('Transaksi_model', 'transaksi');
 		$data['title'] = $this->construct->getTitle();
-		$data['url'] = $this->construct->getUrl();
 		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
@@ -23,7 +22,7 @@ class Transaksi extends CI_Controller
 
 	public function index()
 	{
-		$data['transaksi'] = $this->query->joinTransaksiAnggota();
+		$data['transaksi'] = $this->transaksi->joinTransaksiAnggota();
 		$this->load->view('dataKeanggotaan/transaksi/index', $data);
 		$this->load->view('templates/footer');
 	}
@@ -31,7 +30,7 @@ class Transaksi extends CI_Controller
 	public function add()
 	{
 		$this->load->helper('date');
-		$this->form_validation->set_rules('jenis', 'Jenis Transaksi', 'required');
+		$this->form_validation->set_rules('id_jenis', 'Jenis Transaksi', 'required');
 		$this->form_validation->set_rules('id_rekening', 'Rekening', 'required');
 		$this->form_validation->set_rules('kredit', 'Jumlah', 'required');
 
@@ -39,11 +38,11 @@ class Transaksi extends CI_Controller
 			// ajax 
 			$transaksi = $this->input->post('transaksi'); // cek jenis transaksi
 			if ($transaksi == 2) {
-				$result = $this->query->fetchAllRek(); // loop semua rekening
+				$result = $this->transaksi->fetchAllRek(); // loop semua rekening
 				echo json_encode($result);
 				die;
 			} else if ($transaksi == 4) {
-				$result = $this->query->fetchAllSim(); // loop semua simpanan
+				$result = $this->transaksi->fetchAllSim(); // loop semua simpanan
 				echo json_encode($result);
 				die;
 			}
@@ -51,11 +50,11 @@ class Transaksi extends CI_Controller
 			$trans = $this->input->post('trans');
 			$id_rekening = $this->input->post('id_rekening'); // pilih angsuran yang aktif
 			if ($trans == 2) {
-				$result = $this->query->fetchRek($id_rekening)->row_array();
+				$result = $this->transaksi->fetchRek($id_rekening)->row_array();
 				echo json_encode($result);
 				die;
 			} else if ($trans == 4) { // pilih simpanan yang aktif
-				$result = $this->query->fetchSim($id_rekening)->row_array();
+				$result = $this->transaksi->fetchSim($id_rekening)->row_array();
 				echo json_encode($result);
 				die;
 			}
@@ -63,13 +62,15 @@ class Transaksi extends CI_Controller
 			$this->load->view('dataKeanggotaan/transaksi/add');
 			$this->load->view('templates/footer');
 		} else {
+			$data['userdata'] = $this->construct->getUserdata();
 			$insert = [
+				'id_user' => $data['userdata']['id'],
 				'id_rekening' => $this->input->post('id_rekening'),
 				'id_anggota' => $this->input->post('id_anggota'),
 				'#' => $this->input->post('cicilan'),
 				'tanggal' => date('Y-m-d'),
 				'kredit' => $this->input->post('kredit'),
-				'jenis' => $this->input->post('jenis')
+				'id_jenis' => $this->input->post('id_jenis')
 			];
 			$this->db->insert('tbl_transaksi', $insert);
 
