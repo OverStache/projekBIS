@@ -19,10 +19,12 @@
 						<?= form_open_multipart('subMenu/update/' . $subMenu['id']); ?>
 						<div class="card-body">
 							<div class="form-group">
+								<label for="title">Nama Sub Menu</label>
 								<input type="text" class="form-control" id="title" name="title" placeholder="Sub Menu URL" value="<?= $subMenu['title']; ?>">
 								<?= form_error('title', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
+								<label for="menu_id">Menu</label>
 								<select class="form-control" id="menu_id" name="menu_id">
 									<option value="">Select Menus</option>
 									<?php foreach ($menuLoop as $m) : ?>
@@ -32,10 +34,12 @@
 								<?= form_error('menu_id', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
+								<label for="url">URL Sub Menu</label>
 								<input type="text" class="form-control" id="url" name="url" placeholder="Sub Menu URL" value="<?= $subMenu['urlSubMenu']; ?>">
 								<?= form_error('url', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
+								<label for="icon">Icon Sub Menu</label>
 								<input type="text" class="form-control" id="icon" name="icon" placeholder="Sub Menu Icon" value="<?= $subMenu['icon']; ?>">
 							</div>
 							<div class="form-group">

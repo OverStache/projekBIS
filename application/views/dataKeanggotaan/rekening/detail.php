@@ -17,7 +17,7 @@
 								<li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Detail</a></li>
 								<li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Jadwal Pembayaran</a></li>
 								<?php if ($this->session->userdata('role_id') == 1) : ?>
-									<?php if ($rekening['id_status'] == 'Pending') : ?>
+									<?php if ($rekening['id_status'] == 0) : ?>
 										<li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Update Rekening</a></li>
 									<?php endif ?>
 								<?php endif ?>
@@ -53,7 +53,7 @@
 											<table class="table table-striped border-bottom">
 												<tr>
 													<td class="col-4">Teller ID</td>
-													<td class="col-8"><?= $user['username'] . ' - ' . $user['role']; ?></td>
+													<td class="col-8"><?= $rekening['id_user'] . ' - ' . $user['username'] . ' - ' . $user['role']; ?></td>
 												</tr>
 												<tr>
 													<td class="col-4">Tanggal Registrasi</td>
@@ -64,7 +64,7 @@
 													<td class="col-8">
 														<span class="badge badge-<?= $rekening['statusColor']; ?>"><?= $rekening['status']; ?></span>
 														<?php if ($this->session->userdata('role_id') == 1) : ?>
-															<?php if ($rekening['id_status'] != 'Lunas') : ?>
+															<?php if ($rekening['id_status'] != 2) : ?>
 																<a href="#" class="badge badge-<?= $rekening['buttonColor'] ?> changeStatus" data-id="<?= $rekening['id']; ?>" data-status="<?= $rekening['id_status']; ?>">
 																	<i class="fas fa-<?= $rekening['buttonIcon'] ?> fa-xs"></i>
 																</a>
@@ -139,7 +139,7 @@
 								<!-- /.tab-pane -->
 								<?php if ($this->session->userdata('role_id') == 1) : ?>
 									<!-- tab update -->
-									<?php if ($rekening['id_status'] == 'Pending') : ?>
+									<?php if ($rekening['id_status'] == 0) : ?>
 										<div class="tab-pane" id="tab_3">
 											<div class="row">
 												<div class="col-sm-12">

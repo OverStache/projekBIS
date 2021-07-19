@@ -19,10 +19,12 @@
 						<?= form_open_multipart('menu/update/' . $menu['id']); ?>
 						<div class="card-body">
 							<div class="form-group">
+								<label for="title">Nama Menu</label>
 								<input type="text" class="form-control" id="title" name="title" value="<?= $menu['menu']; ?>" placeholder="Nama Menu">
 								<?= form_error('title', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
+								<label for="url">URL Menu</label>
 								<input type="text" class="form-control" id="url" name="url" value="<?= $menu['urlMenu']; ?>" placeholder="url">
 								<?= form_error('url', '<small class="text-danger">', '</small>'); ?>
 							</div>

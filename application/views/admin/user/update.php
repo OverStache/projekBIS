@@ -41,7 +41,7 @@
 							<div class="form-group">
 								<div class="form-check">
 									<input type="hidden" id="is_active" name="is_active" value="0">
-									<input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active" <?php if ($user['is_active'] == 1) : ?> checked <?php endif ?>>
+									<input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active" <?php if ($user['id_status'] == 1) : ?> checked <?php endif ?>>
 									<label class="form-check-label" for="is_active">
 										Active
 									</label>

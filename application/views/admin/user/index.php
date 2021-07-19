@@ -35,10 +35,10 @@
 											<td><?= $u['role']; ?></td>
 											<td><span class="badge badge-<?= $u['statusColor'] ?>"><?= $u['status'] ?></span></td>
 											<td>
-												<a href="<?= base_url('user/update/') . $u['id']; ?>" class="btn btn-xs btn-primary">
+												<a href="<?= base_url('user/update/') . $u['id_user']; ?>" class="btn btn-xs btn-primary">
 													<i class="fas fa-fw fa-edit"></i>
 												</a>
-												<a href="#" class="btn btn-xs btn-danger modalDelete userDelete" data-id="<?= $u['id']; ?>" data-title="<?= $u['username']; ?>">
+												<a href="#" class="btn btn-xs btn-danger modalDelete userDelete" data-id="<?= $u['id_user']; ?>" data-title="<?= $u['username']; ?>">
 													<i class="fas fa-fw fa-trash"></i>
 												</a>
 												<a href="#" class="changeActive user btn btn-xs btn-<?= $u['buttonColor'] ?>" data-id="<?= $u['id_user']; ?>" data-id_status="<?= $u['id_status']; ?>">

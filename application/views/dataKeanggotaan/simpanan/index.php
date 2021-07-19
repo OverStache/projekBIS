@@ -25,7 +25,7 @@
 										<th>Produk</th>
 										<th>Saldo</th>
 										<th>Status</th>
-										<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+										<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 2) : ?>
 											<th>Action</th>
 										<?php endif ?>
 									</tr>
@@ -42,7 +42,7 @@
 											<td>
 												<span class="badge badge-<?= $s['statusColor']; ?>"><?= $s['status']; ?></span>
 											</td>
-											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 2) : ?>
 												<td>
 													<a href="<?= base_url('simpanan/detail/' . $s['id_simpanan']) ?>" class="btn btn-xs btn-primary">
 														<i class="fas fa-fw fa-search"></i>
