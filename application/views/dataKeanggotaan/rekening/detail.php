@@ -33,7 +33,7 @@
 											<table class="table table-striped border-bottom">
 												<tr>
 													<td class="col-4">No. Rekening</td>
-													<td class="col-8"><?= $rekening['id'] . '' . $rekening['id_anggota']; ?></td>
+													<td class="col-8"><?= $rekening['id_rekening'] . '' . $rekening['id_anggota']; ?></td>
 												</tr>
 												<tr>
 													<td class="col-4">Nama Anggota</td>
@@ -65,7 +65,7 @@
 														<span class="badge badge-<?= $rekening['statusColor']; ?>"><?= $rekening['status']; ?></span>
 														<?php if ($this->session->userdata('role_id') == 1) : ?>
 															<?php if ($rekening['id_status'] != 2) : ?>
-																<a href="#" class="badge badge-<?= $rekening['buttonColor'] ?> changeStatus" data-id="<?= $rekening['id']; ?>" data-status="<?= $rekening['id_status']; ?>">
+																<a href="#" class="rekening changeActive badge badge-<?= $rekening['buttonColor'] ?>" data-id="<?= $rekening['id_rekening']; ?>" data-status="<?= $rekening['id_status']; ?>">
 																	<i class="fas fa-<?= $rekening['buttonIcon'] ?> fa-xs"></i>
 																</a>
 															<?php endif ?>
@@ -143,12 +143,12 @@
 										<div class="tab-pane" id="tab_3">
 											<div class="row">
 												<div class="col-sm-12">
-													<?= form_open_multipart('rekening/update/' . $rekening['id']); ?>
+													<?= form_open_multipart('rekening/update/' . $rekening['id_rekening']); ?>
 													<div class="form-row">
 														<div class="form-group col-md-6">
 															<label for="id_anggota">ID Rekening</label>
 															<div class="input-group">
-																<input type="text" class="form-control" name="id_anggota" placeholder="<?= $rekening['nama'] . ' - ' . $rekening['id'] . '' . $rekening['id_anggota'] ?>" disabled>
+																<input type="text" class="form-control" name="id_anggota" placeholder="<?= $rekening['nama'] . ' - ' . $rekening['id_rekening'] . '' . $rekening['id_anggota'] ?>" disabled>
 															</div>
 															<?= form_error('id_anggota', '<small class="text-danger">', '</small>'); ?>
 														</div>

@@ -122,33 +122,6 @@ class Rekening extends CI_Controller
 	}
 
 	// fungsi merubah status rekening
-	public function changeRekeningStatus()
-	{
-		$id = $this->input->post('id');
-		$status = $this->input->post('status');
-
-		switch ($status) {
-			case 'Pending':
-				$update = 1;
-				$message = 'Anggota Activated!';
-				$alert = 'success';
-				break;
-			case 'Active':
-				$update = 3;
-				$message = 'Rekening Inactive!';
-				$alert = 'danger';
-				break;
-			case 'Inactive':
-				$update = 1;
-				$message = 'Anggota Activated!';
-				$alert = 'success';
-				break;
-		}
-		$this->db->where('id', $id);
-		$this->db->update('tbl_rekening_pembiayaan', ['id_status' => $update]);
-		$this->alert->alertResult($alert, $message, null);
-	}
-
 	public function changeActive()
 	{
 		$id = $this->input->post('id');
@@ -157,17 +130,17 @@ class Rekening extends CI_Controller
 		switch ($id_status) {
 			case 0:
 				$update = 1;
-				$message = 'Anggota Activated!';
+				$message = 'Rekening Activated!';
 				$alert = 'success';
 				break;
 			case 1:
 				$update = 3;
-				$message = 'Rekening Inactive!';
+				$message = 'Rekening Disactivated!';
 				$alert = 'danger';
 				break;
 			case 3:
 				$update = 1;
-				$message = 'Anggota Activated!';
+				$message = 'Rekening Activated!';
 				$alert = 'success';
 				break;
 		}

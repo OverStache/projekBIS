@@ -42,7 +42,7 @@ class Simpanan extends CI_Controller
 				'id_anggota' => $this->input->post('id_anggota'),
 				'tanggal' => date('Y-m-d'),
 				'kredit' => $this->input->post('kredit'),
-				'jenis' => 3
+				'id_jenis' => 3
 			];
 			$this->db->insert('tbl_transaksi', $insert);
 

@@ -118,7 +118,6 @@
 												<div class="form-group">
 													<label for="namaPanggilan">Nama Panggilan</label>
 													<input type="text" class="form-control" id="namaPanggilan" name="namaPanggilan" value="<?= $anggota['namaPanggilan']; ?>">
-													<?= form_error('namaPanggilan', '<small class="text-danger">', '</small>'); ?>
 												</div>
 												<div class="form-group">
 													<label for="jenisKelamin">Jenis Kelamin</label>
@@ -237,7 +236,7 @@
 												</div>
 											</div>
 										</div>
-										<button type="submit" class="btn btn-primary mt-3">Update Rekening</button>
+										<button type="submit" class="btn btn-primary mt-3">Simpan</button>
 										</form>
 									</div>
 									<!-- /.tab-pane -->

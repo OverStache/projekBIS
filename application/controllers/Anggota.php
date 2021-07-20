@@ -27,23 +27,22 @@ class Anggota extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-
 	public function add()
 	{
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('jenisKelamin', 'Jenis Kelamin', 'required');
-		$this->form_validation->set_rules('status', 'Status', 'required');
-		$this->form_validation->set_rules('tempatLahir', 'Jenis Kelamin', 'required');
-		$this->form_validation->set_rules('tanggalLahir', 'Jenis Kelamin', 'required');
-		$this->form_validation->set_rules('namaIbuKandung', 'Jenis Kelamin', 'required');
-		$this->form_validation->set_rules('jenisID', 'Jenis Kelamin', 'required');
-		$this->form_validation->set_rules('nomerID', 'Jenis Kelamin', 'required|is_unique[tbl_anggota.nomerID]', [
+		$this->form_validation->set_rules('id_jenis_anggota', 'Jenis Anggota', 'required');
+		$this->form_validation->set_rules('tempatLahir', 'Tempat Lahir', 'required');
+		$this->form_validation->set_rules('tanggalLahir', 'Tanggal Lahir', 'required');
+		$this->form_validation->set_rules('namaIbuKandung', 'Nama Ibu Kandung', 'required');
+		$this->form_validation->set_rules('jenisID', 'Jenis Identitas', 'required');
+		$this->form_validation->set_rules('nomerID', 'Nomer Identitas', 'required|is_unique[tbl_anggota.nomerID]', [
 			'is_unique' => 'Nomor Identitas sudah terdaftar'
 		]);
-		$this->form_validation->set_rules('statusMarital', 'Jenis Kelamin', 'required');
-		$this->form_validation->set_rules('agama', 'Jenis Kelamin', 'required');
-		$this->form_validation->set_rules('kewarganegaraan', 'Jenis Kelamin', 'required');
-		$this->form_validation->set_rules('pendidikan', 'Jenis Kelamin', 'required');
+		$this->form_validation->set_rules('statusMarital', 'Status Marital', 'required');
+		$this->form_validation->set_rules('agama', 'Agama', 'required');
+		$this->form_validation->set_rules('kewarganegaraan', 'Kewarganegaraan', 'required');
+		$this->form_validation->set_rules('pendidikan', 'Pendidikan', 'required');
 		if ($this->form_validation->run() == false) {
 			$this->load->view('dataKeanggotaan/anggota/add');
 			$this->load->view('templates/footer');
@@ -75,7 +74,7 @@ class Anggota extends CI_Controller
 	{
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('jenisKelamin', 'Jenis Kelamin', 'required');
-		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('id_jenis_anggota', 'Jenis Anggota', 'required');
 		$this->form_validation->set_rules('tempatLahir', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('tanggalLahir', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('namaIbuKandung', 'Jenis Kelamin', 'required');
@@ -87,15 +86,13 @@ class Anggota extends CI_Controller
 		$this->form_validation->set_rules('pendidikan', 'Jenis Kelamin', 'required');
 
 		if ($this->form_validation->run() == false) {
-			$alert = 'danger';
-			$message = 'Anggota Gagal Diupdate!';
-			$redirect = 'anggota/detail/' . $id;
+			$this->detail($id);
 		} else {
 			$data = [
 				'nama' => $this->input->post('nama'),
 				'namaPanggilan' => $this->input->post('namaPanggilan'),
 				'jenisKelamin' => $this->input->post('jenisKelamin'),
-				'status' => $this->input->post('status'),
+				'id_jenis_anggota' => $this->input->post('id_jenis_anggota'),
 				'tempatLahir' => $this->input->post('tempatLahir'),
 				'tanggalLahir' => $this->input->post('tanggalLahir'),
 				'namaIbuKandung' => $this->input->post('namaIbuKandung'),
@@ -111,8 +108,8 @@ class Anggota extends CI_Controller
 			$alert = 'success';
 			$message = 'Data Anggota Berhasil Diupdate!';
 			$redirect = 'anggota/detail/' . $id;
+			$this->alert->alertResult($alert, $message, $redirect);
 		}
-		$this->alert->alertResult($alert, $message, $redirect);
 	}
 
 	public function detail($id)
@@ -126,14 +123,14 @@ class Anggota extends CI_Controller
 	{
 		// dapat menghapus jika anggota belum diaktivasi
 		$this->db->delete('tbl_anggota', array('id' => $id, 'id_status' => 0));
-		if ($this->db->affected_row() > 0) {
+		if ($this->db->affected_rows() > 0) {
 			$alert = 'warning';
 			$message = 'Anggota Berhasil Dihapus!';
 			$redirect = 'anggota';
 			$this->alert->alertResult($alert, $message, $redirect);
 		} else {
 			$alert = 'danger';
-			$message = 'Anggota Ngga Berhasil Dihapus!';
+			$message = 'Anggota Gagal Dihapus!';
 			$redirect = 'anggota';
 			$this->alert->alertResult($alert, $message, $redirect);
 		}

@@ -29,7 +29,6 @@
 									<div class="form-group">
 										<label for="namaPanggilan">Nama Panggilan</label>
 										<input type="text" class="form-control" id="namaPanggilan" name="namaPanggilan" value="<?= set_value('namaPanggilan'); ?>">
-										<?= form_error('namaPanggilan', '<small class="text-danger">', '</small>'); ?>
 									</div>
 									<div class="form-group">
 										<label for="jenisKelamin">Jenis Kelamin</label>
