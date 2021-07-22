@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Transaksi_model extends CI_Model
 {
+	// menampilkan semua transaksi beserta anggota
 	public function joinTransaksiAnggota()
 	{
 		$query = "SELECT tbl_transaksi.*,
@@ -18,6 +19,7 @@ class Transaksi_model extends CI_Model
 		return $this->db->query($query)->result_array();
 	}
 
+	// menampilkan semua rekening pembiayaan untuk ajax dropdown
 	public function fetchAllRek()
 	{
 		$query = "SELECT tbl_rekening_pembiayaan.*,
@@ -34,6 +36,7 @@ class Transaksi_model extends CI_Model
 		return $output;
 	}
 
+	// menampilkan semua rekening simpanan untuk ajax dropdown
 	public function fetchAllSim()
 	{
 		$query = "SELECT tbl_rekening_simpanan.*,
@@ -50,6 +53,7 @@ class Transaksi_model extends CI_Model
 		return $output;
 	}
 
+	// menampilkan data rekening pembiayaan per id untuk ajax
 	public function fetchRek($id_rekening)
 	{
 		$query = "SELECT tbl_angsuran.*,
@@ -65,6 +69,7 @@ class Transaksi_model extends CI_Model
 		return $this->db->query($query);
 	}
 
+	// menampilkan data rekening simpanan per id untuk ajax
 	public function fetchSim($id_rekening)
 	{
 		$query = "SELECT tbl_rekening_simpanan.*

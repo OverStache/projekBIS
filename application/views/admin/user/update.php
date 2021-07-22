@@ -26,10 +26,6 @@
 								<?php echo form_error('password', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" placeholder="Email">
-								<?php echo form_error('email', '<small class="text-danger">', '</small>'); ?>
-							</div>
-							<div class="form-group">
 								<select class="form-control" id="role_id" name="role_id" value="<?= $user['role_id']; ?>">
 									<option value="">Select Role</option>
 									<?php foreach ($role as $r) : ?>

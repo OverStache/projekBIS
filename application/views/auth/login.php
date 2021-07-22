@@ -21,12 +21,12 @@
 					<div class="px-5">
 						<?= $this->session->flashdata('message'); ?>
 						<div class="text-center">
-							<h4 class="text-dark m-3">Login Admin</h4>
+							<h4 class="text-dark m-3">Login</h4>
 						</div>
 						<form class="user mb-3" action="<?php base_url('auth') ?>" method="post">
 							<div class="form-group">
-								<input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?= set_value('email'); ?>">
-								<?php echo form_error('email', '<small class="text-danger">', '</small>'); ?>
+								<input type="text" class="form-control" id="username" name="username" placeholder="Username" value="<?= set_value('username'); ?>">
+								<?php echo form_error('username', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
 								<input type="password" class="form-control" id="password" name="password" placeholder="Password">

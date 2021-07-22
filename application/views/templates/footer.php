@@ -29,7 +29,8 @@
 <script src="<?= base_url('assets/'); ?>dist/js/demo.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url('assets/'); ?>plugins/number-thousand-separator/easy-number-separator.js"></script>
-
+<!-- bootbox -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="<?= base_url('assets/'); ?>plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url('assets/'); ?>plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -43,7 +44,10 @@
 <script src="<?= base_url('assets/'); ?>plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="<?= base_url('assets/'); ?>plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?= base_url('assets/'); ?>plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+<!-- view anggota, rekening pembiayaan, rekening simpanan, transaksi -->
 <script>
+	// tabel anggota, rekening pembiayaan, rekening simpanan
 	$(function() {
 		$("#searchPrint").DataTable({
 			"responsive": true,
@@ -52,20 +56,22 @@
 			"buttons": ["pdf", "print", "colvis"]
 		}).buttons().container().appendTo('#searchPrint_wrapper .col-md-6:eq(0)');
 	});
+	// tabel transaksi
 	$(function() {
 		$('#searchOnly').DataTable({
 			"searching": true
 		});
 	})
 </script>
-<!-- campur -->
+<!-- change to image file name (view profile/edit) -->
 <script>
-	// change to image file name
 	$('.custom-file-input').on('change', function() {
 		let fileName = $(this).val().split('\\').pop();
 		$(this).next('.custom-file-label').addClass("selected").html(fileName);
 	});
-
+</script>
+<!-- role management -->
+<script>
 	// auto change menu access checkbox
 	$('.menuAccess').on('click', function() {
 		const menuId = $(this).data('menu');
@@ -105,33 +111,11 @@
 			}
 		});
 	});
-
-	// auto change rekening status button
-	$('body').on('click', '.changeStatus', function() {
-		const id = $(this).data('id');
-		const status = $(this).data('status');
-		// console.log(id);
-		// console.log(status);
-		$.ajax({
-			url: "<?= base_url('rekening/changeActive'); ?>",
-			type: 'post',
-			data: {
-				id: id,
-				status: status
-			},
-			// success: function() {
-			// 	document.location.href = "<?= base_url('rekening'); ?>";
-			// }
-			success: function(data) {
-				console.log(data);
-			}
-		});
-	});
 </script>
-<!-- auto change is_active -->
+<!-- auto change status -->
 <script>
 	let id;
-	let is_active;
+	let id_status;
 	let url;
 
 	// anggota
@@ -155,6 +139,7 @@
 		url = "<?= base_url('rekening'); ?>";
 	});
 
+	// ajax function
 	$('body').on('click', '.changeActive', function() {
 		$.ajax({
 			url: url + "/changeActive",
@@ -163,28 +148,25 @@
 				id: id,
 				id_status: id_status
 			},
-			// dataType: 'json',
 			success: function() {
 				document.location.href = url;
 			}
-			// success: function(data) {
-			// 	console.log(data);
-			// }
 		});
 	});
 </script>
-<!-- bootbox -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
 <!-- bootbox modal delete -->
 <script>
 	$(function() {
 		let url;
+		// user
 		$('body').on('click', '.userDelete', function() {
 			url = "<?= base_url('user'); ?>";
 		});
+		// anggota
 		$('body').on('click', '.anggotaDelete', function() {
 			url = "<?= base_url('anggota'); ?>";
 		});
+		// rekening
 		$('body').on('click', '.rekeningDelete', function() {
 			url = "<?= base_url('rekening'); ?>";
 		});
@@ -214,46 +196,45 @@
 		});
 	});
 </script>
-<!-- kalkulator rekening -->
+<!-- kalkulator rekening pembiayaan -->
 <script>
 	const formatter = new Intl.NumberFormat();
-	let bulan = $('select.jangka_waktu').children('option:selected').val();
+	let jangkaWaktu = $('select.jangka_waktu').children('option:selected').val();
 	let margin = $('input.inputMargin').val() / 100;
 	let inputPinjaman = $('input.perolehan').val();
 
-
+	// jangka waktu pinjaman
 	$('select.jangka_waktu').change(function() {
-		bulan = $(this).children('option:selected').val();
-		console.log(bulan);
+		jangkaWaktu = $(this).children('option:selected').val();
 	});
 
+	// margin pinjaman (%)
 	$('input.inputMargin').on('input', function() {
-		// Print entered value in a div box
 		margin = $(this).val() / 100;
-		console.log(margin);
 	});
 
+	// jumlah pinjaman
 	$('input.perolehan').on('input', function() {
-		// Print entered value in a div box
 		inputPinjaman = $(this).val();
-		console.log(inputPinjaman);
 	});
 
 	$('body').on('click', 'button.hitung', function() {
-		let afterMargin = inputPinjaman * margin;
-		let jumlah = parseInt(inputPinjaman) + parseInt(afterMargin);
-		let bulanan = jumlah / bulan;
-		console.log("margin : " + afterMargin);
-		console.log("jumlah : " + jumlah);
-		console.log("bulanan : " + bulanan);
-		if (bulanan && bulan) {
-			$('#margin').val(afterMargin);
-			$('#jumlah').val(jumlah);
+		// jumlah margin = jumlah pinjaman x margin(%) * jangka waktu angsuran
+		let jumlahMargin = inputPinjaman * margin * jangkaWaktu;
+		// jumlah total = jumlah pinjaman + jumlah margin
+		let jumlahTotal = parseInt(inputPinjaman) + parseInt(jumlahMargin);
+		// jumlah angsuran = jumlah total : jangka waktu angsuran
+		let angsuran = jumlahTotal / jangkaWaktu;
+		if (angsuran && jangkaWaktu) {
+			// for input post
+			$('#margin').val(jumlahMargin);
+			$('#jumlah').val(jumlahTotal);
 
+			// show only
 			$('#pinjamanShow').text('Rp. ' + formatter.format(inputPinjaman));
-			$('#marginShow').text('Rp. ' + formatter.format(afterMargin));
-			$('#jumlahShow').text('Rp. ' + formatter.format(jumlah));
-			$('#bulananShow').text('Rp. ' + formatter.format(bulanan));
+			$('#marginShow').text('Rp. ' + formatter.format(jumlahMargin));
+			$('#jumlahShow').text('Rp. ' + formatter.format(jumlahTotal));
+			$('#bulananShow').text('Rp. ' + formatter.format(angsuran));
 		} else {
 			$('#pinjamanShow').text('');
 			$('#marginShow').text('');

@@ -26,10 +26,6 @@
 								<?php echo form_error('password', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="email" name="email" placeholder="Email">
-								<?php echo form_error('email', '<small class="text-danger">', '</small>'); ?>
-							</div>
-							<div class="form-group">
 								<select class="form-control" id="role_id" name="role_id">
 									<option value="">Pilih Role</option>
 									<?php foreach ($role as $r) : ?>
@@ -40,9 +36,9 @@
 							</div>
 							<div class="form-group">
 								<div class="form-check">
-									<input type="hidden" id="is_active" name="is_active" value="0">
-									<input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active">
-									<label class="form-check-label" for="is_active">
+									<input type="hidden" id="id_status" name="id_status" value="3">
+									<input class="form-check-input" type="checkbox" value="1" id="id_status" name="id_status">
+									<label class="form-check-label" for="id_status">
 										Active
 									</label>
 								</div>

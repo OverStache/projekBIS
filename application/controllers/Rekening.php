@@ -12,7 +12,6 @@ class Rekening extends CI_Controller
 		$this->load->model('Alert_model', 'alert');
 		$this->load->model('Rekening_model', 'rekening');
 		$data['title'] = $this->construct->getTitle();
-		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);
@@ -20,6 +19,7 @@ class Rekening extends CI_Controller
 		$this->load->view('templates/sidebar', $data);
 	}
 
+	// menampilkan semua rekening
 	public function index()
 	{
 		$data['rekening'] = $this->rekening->joinRekeningAnggotaStatus();
@@ -27,16 +27,19 @@ class Rekening extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	// menambah rekening pembiayaan baru
 	public function add()
 	{
 		$data['anggota'] = $this->db->get_where('tbl_anggota', ['id_status' => 1])->result_array();
 		$data['userdata'] = $this->construct->getUserdata();
 
+		// form validation
 		$this->form_validation->set_rules('id_anggota', 'Anggota', 'required');
 		$this->form_validation->set_rules('jaminan', 'Jaminan', 'required');
 		$this->form_validation->set_rules('jangka_waktu', 'Lama Angsuran', 'required');
 		$this->form_validation->set_rules('%', 'Margin', 'required');
 		$this->form_validation->set_rules('perolehan', 'Jumlah Pembiayaan', 'required');
+		// end of form validation
 
 		if ($this->form_validation->run() == false) {
 			$this->load->view('dataKeanggotaan/rekening/add', $data);
@@ -61,6 +64,7 @@ class Rekening extends CI_Controller
 		}
 	}
 
+	// mengubah data rekening jika status masih Pending
 	public function update($id)
 	{
 		$data['anggota'] = $this->db->get_where('tbl_anggota', ['id_status' => 1])->result_array();
@@ -135,7 +139,7 @@ class Rekening extends CI_Controller
 				break;
 			case 1:
 				$update = 3;
-				$message = 'Rekening Disactivated!';
+				$message = 'Rekening Deactivated!';
 				$alert = 'danger';
 				break;
 			case 3:

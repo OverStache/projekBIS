@@ -12,7 +12,6 @@ class Simpanan extends CI_Controller
 		$this->load->model('Alert_model', 'alert');
 		$this->load->model('Simpanan_model', 'simpanan');
 		$data['title'] = $this->construct->getTitle();
-		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);
@@ -27,9 +26,11 @@ class Simpanan extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	// fungsi bayar simpanan pokok
 	public function add()
 	{
 		$data['anggota'] = $this->db->get_where('tbl_anggota', ['id_status' => 0])->result_array();
+		$data['userdata'] = $this->construct->getUserdata();
 		$this->load->helper('date');
 		$this->form_validation->set_rules('id_anggota', 'Anggota', 'required');
 		$this->form_validation->set_rules('kredit', 'Jumlah', 'required');
@@ -39,6 +40,7 @@ class Simpanan extends CI_Controller
 			$this->load->view('templates/footer');
 		} else {
 			$insert = [
+				'id_user' => $data['userdata']['id'],
 				'id_anggota' => $this->input->post('id_anggota'),
 				'tanggal' => date('Y-m-d'),
 				'kredit' => $this->input->post('kredit'),
@@ -53,6 +55,7 @@ class Simpanan extends CI_Controller
 		}
 	}
 
+	// fungsi menampilkan detail rekening simpanan
 	public function detail($id)
 	{
 		$data['simpanan'] = $this->simpanan->joinSimpananAnggotaStatusById($id);

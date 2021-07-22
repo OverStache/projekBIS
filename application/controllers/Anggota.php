@@ -12,7 +12,6 @@ class Anggota extends CI_Controller
 		$this->load->model('Alert_model', 'alert');
 		$this->load->model('Anggota_model', 'anggota');
 		$data['title'] = $this->construct->getTitle();
-		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);
@@ -29,6 +28,7 @@ class Anggota extends CI_Controller
 
 	public function add()
 	{
+		// form validation
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('jenisKelamin', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('id_jenis_anggota', 'Jenis Anggota', 'required');
@@ -38,11 +38,13 @@ class Anggota extends CI_Controller
 		$this->form_validation->set_rules('jenisID', 'Jenis Identitas', 'required');
 		$this->form_validation->set_rules('nomerID', 'Nomer Identitas', 'required|is_unique[tbl_anggota.nomerID]', [
 			'is_unique' => 'Nomor Identitas sudah terdaftar'
-		]);
+		]); // nomor ID harus unique
 		$this->form_validation->set_rules('statusMarital', 'Status Marital', 'required');
 		$this->form_validation->set_rules('agama', 'Agama', 'required');
 		$this->form_validation->set_rules('kewarganegaraan', 'Kewarganegaraan', 'required');
 		$this->form_validation->set_rules('pendidikan', 'Pendidikan', 'required');
+		// end of form validation
+
 		if ($this->form_validation->run() == false) {
 			$this->load->view('dataKeanggotaan/anggota/add');
 			$this->load->view('templates/footer');
@@ -62,6 +64,7 @@ class Anggota extends CI_Controller
 				'kewarganegaraan' => $this->input->post('kewarganegaraan'),
 				'pendidikan' => $this->input->post('pendidikan')
 			];
+			// insert data ke database
 			$this->db->insert('tbl_anggota', $data);
 			$alert = 'success';
 			$message = 'Anggota Berhasil Ditambahkan!';
@@ -72,6 +75,7 @@ class Anggota extends CI_Controller
 
 	public function update($id)
 	{
+		// form validation
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('jenisKelamin', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('id_jenis_anggota', 'Jenis Anggota', 'required');
@@ -79,11 +83,14 @@ class Anggota extends CI_Controller
 		$this->form_validation->set_rules('tanggalLahir', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('namaIbuKandung', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('jenisID', 'Jenis Kelamin', 'required');
-		$this->form_validation->set_rules('nomerID', 'Jenis Kelamin', 'required');
+		$this->form_validation->set_rules('nomerID', 'Nomer Identitas', 'required|is_unique[tbl_anggota.nomerID]', [
+			'is_unique' => 'Nomor Identitas sudah terdaftar'
+		]); // nomor ID harus unique
 		$this->form_validation->set_rules('statusMarital', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('agama', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('kewarganegaraan', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('pendidikan', 'Jenis Kelamin', 'required');
+		// end of form validation
 
 		if ($this->form_validation->run() == false) {
 			$this->detail($id);
@@ -103,6 +110,7 @@ class Anggota extends CI_Controller
 				'kewarganegaraan' => $this->input->post('kewarganegaraan'),
 				'pendidikan' => $this->input->post('pendidikan')
 			];
+			// update data ke database
 			$this->db->where('id', $id);
 			$this->db->update('tbl_anggota', $data);
 			$alert = 'success';
@@ -112,6 +120,7 @@ class Anggota extends CI_Controller
 		}
 	}
 
+	// lihat detail per anggota
 	public function detail($id)
 	{
 		$data['anggota'] = $this->anggota->joinAnggotaJenisStatusById($id);
@@ -136,24 +145,28 @@ class Anggota extends CI_Controller
 		}
 	}
 
-	// aktivasi dan disaktivasi anggota
+	// aktivasi dan deaktivasi anggota
 	public function changeActive()
 	{
 		$id = $this->input->post('id');
 		$id_status = $this->input->post('id_status');
 
-		if ($id_status == 0) {
-			$update = 1;
-			$message = 'Anggota Activated!';
-			$alert = 'success';
-		} else if ($id_status == 1) {
-			$update = 3;
-			$message = 'Anggota Deactivated!';
-			$alert = 'warning';
-		} else {
-			$update = 1;
-			$message = 'Anggota Activated!';
-			$alert = 'success';
+		switch ($id_status) {
+			case 0:
+				$update = 1;
+				$message = 'Anggota Activated!';
+				$alert = 'success';
+				break;
+			case 1:
+				$update = 3;
+				$message = 'Anggota Deactivated!';
+				$alert = 'warning';
+				break;
+			case 3:
+				$update = 1;
+				$message = 'Anggota Activated!';
+				$alert = 'success';
+				break;
 		}
 		$this->db->where('id', $id);
 		$this->db->update('tbl_anggota', ['id_status' => $update]);

@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Alert_model extends CI_Model
 {
+	// menampilkan alert
 	public function alertResult($alert, $message, $redirect)
 	{
 		$this->session->set_flashdata('message', '
@@ -12,10 +13,13 @@ class Alert_model extends CI_Model
         <span aria-hidden="true">&times;</span>
         </button>
       </div>');
+		// redirect halaman jika diperlukan
 		if ($redirect) {
 			redirect('' . $redirect . '');
 		}
 	}
+
+	// menampilkan alert untuk registrasi
 	public function alertRegistration()
 	{
 		$this->session->set_flashdata('message', '

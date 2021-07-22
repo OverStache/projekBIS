@@ -1,4 +1,3 @@
-<!-- Menu Management -->
 <!-- Navbar -->
 <!-- Main Sidebar Container -->
 <!-- Content Wrapper. Contains page content -->
@@ -18,7 +17,7 @@
 									<tr>
 										<th>#</th>
 										<th>Menu</th>
-										<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+										<!--akses khusus pengurus--> <?php if ($this->session->userdata('role_id') == 1) : ?>
 											<th>Action</th>
 										<?php endif ?>
 									</tr>
@@ -29,7 +28,7 @@
 										<tr>
 											<td><?= $i++; ?></td>
 											<td><?= $m['menu']; ?></td>
-											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+											<!--akses khusus pengurus--> <?php if ($this->session->userdata('role_id') == 1) : ?>
 												<td>
 													<a href="<?= base_url('menu/update/' . $m['id']) ?>" class="btn btn-xs btn-primary">
 														<i class="fas fa-fw fa-edit"></i>
@@ -43,7 +42,7 @@
 									<tr>
 										<th>#</th>
 										<th>Menu</th>
-										<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+										<!--akses khusus pengurus--> <?php if ($this->session->userdata('role_id') == 1) : ?>
 											<th>Action</th>
 										<?php endif ?>
 									</tr>

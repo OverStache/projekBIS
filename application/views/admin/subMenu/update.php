@@ -26,7 +26,7 @@
 							<div class="form-group">
 								<label for="menu_id">Menu</label>
 								<select class="form-control" id="menu_id" name="menu_id">
-									<option value="">Select Menus</option>
+									<option value="">Select Menu</option>
 									<?php foreach ($menuLoop as $m) : ?>
 										<option value="<?= $m['id']; ?>" <?php if ($menu['id'] == $m['id']) : ?> selected <?php endif ?>><?= $m['menu']; ?></option>
 									<?php endforeach ?>
@@ -45,7 +45,6 @@
 							<div class="form-group">
 								<div class="form-check">
 									<input type="hidden" id="is_active" name="is_active" value="0">
-
 									<input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active" <?php if ($subMenu['is_active'] == 1) : ?> checked <?php endif ?>>
 									<label class="form-check-label" for="is_active">
 										Active
@@ -62,8 +61,11 @@
 					</div>
 					<!-- /.card -->
 				</div>
+				<!-- /.col -->
 			</div>
+			<!-- /.row -->
 		</div>
+		<!-- /.container-fluid -->
 	</section>
 	<!-- /.content -->
 </div>

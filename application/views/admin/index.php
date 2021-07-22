@@ -9,10 +9,8 @@
 	<section class="content">
 		<div class="container-fluid">
 			<div class="row">
-				<!-- small box -->
-				<!-- ./col -->
 				<div class="col-lg-3 col-6">
-					<!-- small box -->
+					<!-- tampilkan semua pengajuan anggota -->
 					<div class="small-box bg-primary">
 						<div class="inner">
 							<h3><?= $total_anggota; ?></h3>
@@ -25,10 +23,8 @@
 					</div>
 				</div>
 				<!-- ./col -->
-				<!-- small box -->
-				<!-- ./col -->
 				<div class="col-lg-3 col-6">
-					<!-- small box -->
+					<!-- tampilkan sema pengajuan rekening -->
 					<div class="small-box bg-success">
 						<div class="inner">
 							<h3><?= $total_rekening; ?></h3>
@@ -43,8 +39,9 @@
 				</div>
 				<!-- ./col -->
 			</div>
+			<!-- /.row -->
 		</div>
-
+		<!-- /.container-fluid -->
 	</section>
 </div>
 <!-- /.content-wrapper -->

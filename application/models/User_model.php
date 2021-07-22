@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User_model extends CI_Model
 {
+	// mengambil data user beserta status nya
 	public function getUserRoleStatus()
 	{
 		$query = " SELECT tbl_user.*, 

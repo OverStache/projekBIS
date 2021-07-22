@@ -1,4 +1,3 @@
-<!-- Tambah Transaksi -->
 <!-- Navbar -->
 <!-- Main Sidebar Container -->
 <!-- Content Wrapper. Contains page content -->
@@ -24,7 +23,7 @@
 								<select class="form-control transaksi" id="id_jenis" name="id_jenis">
 									<option value="" selected="selected">Pilih Transaksi</option>
 									<option value="2">Angsuran Murobahah</option>
-									<option value="4">Simpanan Bulanan Anggota</option>
+									<option value="4">Simpanan Wajib Anggota</option>
 								</select>
 								<?= form_error('id_jenis', '<small class="text-danger">', '</small>'); ?>
 							</div>
@@ -61,8 +60,11 @@
 					</div>
 					<!-- /.card -->
 				</div>
+				<!-- /.col -->
 			</div>
+			<!-- /.row -->
 		</div>
+		<!-- /.container-fluid -->
 	</section>
 	<!-- /.content -->
 </div>

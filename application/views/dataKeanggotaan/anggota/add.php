@@ -1,4 +1,3 @@
-<!-- Tambah Angsuran -->
 <!-- Navbar -->
 <!-- Main Sidebar Container -->
 <!-- Content Wrapper. Contains page content -->

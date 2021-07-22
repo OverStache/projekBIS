@@ -1,4 +1,3 @@
-<!-- rekening -->
 <!-- Navbar -->
 <!-- Main Sidebar Container -->
 <!-- Content Wrapper. Contains page content -->
@@ -13,9 +12,11 @@
 					<?= $this->session->flashdata('message'); ?>
 					<div class="card card-primary card-outline">
 						<div class="card-body">
-							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
+							<!--CRUD visibility (khusus pengurus & admin yang dapat akses)-->
+							<?php if ($this->session->userdata('role_id') != 3) : ?>
 								<a href="<?= base_url('rekening/add') ?>" class="btn btn-primary mb-4">Tambah Rekening</a>
 							<?php endif ?>
+							<!--CRUD visibility-->
 							<table id="searchOnly" class="table table-striped">
 								<thead>
 									<tr>
@@ -46,25 +47,30 @@
 											<td>
 												<span class="badge badge-<?= $r['statusColor']; ?>"><?= $r['status']; ?></span>
 											</td>
+											<!-- hanya bisa diakses oleh pengurus dan pengawas -->
 											<?php if ($this->session->userdata('role_id') != 2) : ?>
 												<td>
 													<a href="<?= base_url('rekening/detail/' . $r['id_rekening']) ?>" class="btn btn-xs btn-primary">
 														<i class="fas fa-fw fa-search"></i>
 													</a>
-													<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+													<!--CRUD visibility (hanya bisa diakses oleh pengurus)-->
+													<?php if ($this->session->userdata('role_id') == 1) : ?>
 
+														<!-- dapat mengubah status jika status selain dari Lunas -->
 														<?php if ($r['id_status'] != 2) : ?>
 															<a href="#" class="changeActive rekening btn btn-xs btn-<?= $r['buttonColor']; ?>" data-id="<?= $r['id_rekening']; ?>" data-id_status="<?= $r['id_status']; ?>">
 																<i class="fas fa-fw fa-<?= $r['buttonIcon'] ?> "></i>
 															</a>
 														<?php endif ?>
 
+														<!-- dapat menghapus rekening jika status masih Pending -->
 														<?php if ($r['id_status'] == 0) : ?>
 															<a href="#" class="btn btn-xs btn-danger modalDelete rekeningDelete" data-id="<?= $r['id']; ?>" data-title="<?= $r['nama']; ?> - <?= $r['id']; ?><?= $r['id_anggota']; ?>">
 																<i class="fas fa-fw fa-times"></i>
 															</a>
 														<?php endif ?>
-														<!--CRUD visibility--> <?php endif ?>
+													<?php endif ?>
+													<!--CRUD visibility-->
 												</td>
 											<?php endif ?>
 										</tr>

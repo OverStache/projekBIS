@@ -12,7 +12,6 @@ class Profile extends CI_Controller
 		$this->load->model('Alert_model', 'alert');
 		$this->load->model('Image_model', 'image');
 		$data['title'] = $this->construct->getTitle();
-		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);
@@ -20,24 +19,30 @@ class Profile extends CI_Controller
 		$this->load->view('templates/sidebar', $data);
 	}
 
+	// menampilkan profile dari user
 	public function index()
 	{
-		$data['role'] = $this->db->get_where('tbl_user_role', ['id' => $this->session->userdata('role_id')])->row_array();
+		$data['userdata'] = $this->construct->getUserdata();
 		$this->load->view('profile/index', $data);
 		$this->load->view('templates/footer');
 	}
 
+	// mengubah username dari user
 	public function update()
 	{
 		$data['userdata'] = $this->construct->getUserdata();
-		$this->form_validation->set_rules('username', 'Name', 'required');
+		$this->form_validation->set_rules(
+			'username',
+			'Name',
+			'required|is_unique[tbl_user.username]',
+			['is_unique' => 'Username sudah dipakai']
+		);
 
 		if ($this->form_validation->run() == false) {
 			$this->load->view('profile/edit', $data);
 			$this->load->view('templates/footer');
 		} else {
 			$name = $this->input->post('username');
-			$email = $this->input->post('email');
 
 			// cek jika ada gambar yang akan di upload
 			$upload_image = $_FILES['image']['name'];
@@ -49,16 +54,20 @@ class Profile extends CI_Controller
 			$alert = 'success';
 			$redirect = 'profile';
 			$this->db->set('username', $name);
-			$this->db->where('email', $email);
+			$this->db->where('username', $data['userdata']['username']);
 			$this->db->update('tbl_user');
+
+			// merubah username dalam session dengan yang baru
+			$this->session->unset_userdata('username');
+			$this->session->set_userdata(['username' => $name]);
 
 			$this->alert->alertResult($alert, $message, $redirect);
 		}
 	}
 
+	// ganti password user
 	public function changepassword()
 	{
-		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
@@ -81,7 +90,7 @@ class Profile extends CI_Controller
 				} else {
 					$password_hash = password_hash($new_password, PASSWORD_DEFAULT);
 					$this->db->set('password', $password_hash);
-					$this->db->where('email', $this->session->userdata('email'));
+					$this->db->where('username', $this->session->userdata('username'));
 					$this->db->update('tbl_user');
 					$message = 'Password Berhasil Diubah!';
 					$alert = 'success';

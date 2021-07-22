@@ -11,7 +11,6 @@ class Menu extends CI_Controller
 		$this->load->model('Construct_model', 'construct');
 		$this->load->model('Alert_model', 'alert');
 		$data['title'] = $this->construct->getTitle();
-		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);
@@ -19,6 +18,7 @@ class Menu extends CI_Controller
 		$this->load->view('templates/sidebar', $data);
 	}
 
+	// menampilkan semua menu
 	public function index()
 	{
 		$data['menu'] = $this->db->get('tbl_user_menu')->result_array();
@@ -26,6 +26,7 @@ class Menu extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	// mengubah nama dan URL menu
 	public function update($id)
 	{
 		$data['menu'] = $this->db->get_where('tbl_user_menu', ['id' => $id])->row_array();
@@ -41,7 +42,6 @@ class Menu extends CI_Controller
 				'menu' => $this->input->post('title'),
 				'urlMenu' => $this->input->post('url')
 			];
-			// insert menu baru ke tbl_user_menu
 			$this->db->where('id', $id);
 			$this->db->update('tbl_user_menu', $data);
 			$alert = 'success';

@@ -12,7 +12,6 @@ class Transaksi extends CI_Controller
 		$this->load->model('Alert_model', 'alert');
 		$this->load->model('Transaksi_model', 'transaksi');
 		$data['title'] = $this->construct->getTitle();
-		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);

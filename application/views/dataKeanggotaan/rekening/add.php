@@ -1,4 +1,3 @@
-<!-- Tambah Angsuran -->
 <!-- Navbar -->
 <!-- Main Sidebar Container -->
 <!-- Content Wrapper. Contains page content -->
@@ -10,7 +9,6 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-12">
-					<!-- general form elements -->
 					<div class="card card-primary">
 						<div class="card-header">
 							<h3 class="card-title">Tambah Rekening</h3>
@@ -38,7 +36,8 @@
 									</div>
 									<?= form_error('jaminan', '<small class="text-danger">', '</small>'); ?>
 								</div>
-							</div><!-- /.form-row-->
+							</div>
+							<!-- /.form-row-->
 							<div class="form-row">
 								<!-- inline form -->
 								<div class="form-group col-md-4">
@@ -75,10 +74,12 @@
 									<?= form_error('perolehan', '<small class="text-danger">', '</small>'); ?>
 								</div>
 								<!-- inline form -->
-							</div><!-- /.form-row-->
-
-						</div><!-- /.card-body -->
+							</div>
+							<!-- /.form-row-->
+						</div>
+						<!-- /.card-body -->
 						<div class="card-footer">
+							<!-- result kalkulator rekening pembiayaan (javascript berada di templates/footer) -->
 							<div class="form-group row justify-content-end">
 								<div class="col-sm-6">
 									<table class="table table-striped border-bottom">
@@ -101,6 +102,7 @@
 									</table>
 								</div>
 							</div>
+							<!-- /.result kalkulator rekening pembiayaan -->
 							<input type="hidden" id="margin" name="margin">
 							<input type="hidden" id="jumlah" name="jumlah">
 							<button type="submit" class="btn btn-primary float-right tambah">Tambah</button>

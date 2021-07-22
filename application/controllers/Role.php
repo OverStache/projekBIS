@@ -11,7 +11,7 @@ class Role extends CI_Controller
 		$this->load->model('Construct_model', 'construct');
 		$this->load->model('Alert_model', 'alert');
 		$data['title'] = $this->construct->getTitle();
-		// select * from tbl_user where email = email dari session
+
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);
@@ -23,15 +23,15 @@ class Role extends CI_Controller
 	{
 		// combobox
 		$data['role'] = $this->db->get('tbl_user_role')->result_array();
-		// get role_id
 		$data['role_id'] = $this->db->get_where('tbl_user_role', ['id' => $id])->row_array();
-		// tampilin tabel menu
+		// tampilkan tabel menu
 		$this->db->where('id!=', 2);
 		$data['menu'] = $this->db->get('tbl_user_menu')->result_array();
 		$this->load->view('admin/role/index', $data);
 		$this->load->view('templates/footer');
 	}
 
+	// fungsi ganti akes menu
 	public function changeMenuAccess()
 	{
 		$menu_id = $this->input->post('menuId');
@@ -56,6 +56,7 @@ class Role extends CI_Controller
 		$this->alert->alertResult($alert, $message, null);
 	}
 
+	// fungsi ganti akses CRUD
 	public function changeCrudAccess()
 	{
 		$menu_id = $this->input->post('menuId');

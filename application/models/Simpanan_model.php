@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Simpanan_model extends CI_Model
 {
+	// tampilkan semua rekening simpanan
 	public function joinSimpananAnggotaStatus()
 	{
 		$query = "SELECT
@@ -22,6 +23,7 @@ class Simpanan_model extends CI_Model
 		return $this->db->query($query)->result_array();
 	}
 
+	// tampilkan rekening simpanan per id
 	public function joinSimpananAnggotaStatusById($id)
 	{
 		$query = "SELECT

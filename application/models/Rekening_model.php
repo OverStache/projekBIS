@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Rekening_model extends CI_Model
 {
+	// menampilkan semua rekening
 	public function joinRekeningAnggotaStatus()
 	{
 		$query = "SELECT
@@ -19,6 +20,8 @@ class Rekening_model extends CI_Model
 		return $this->db->query($query)->result_array();
 	}
 
+	// menampilkan rekening sesuai id
+	// join tabel rekening dengan anggota dan status
 	public function joinRekeningAnggotaStatusById($id)
 	{
 		$query = "SELECT
@@ -36,6 +39,7 @@ class Rekening_model extends CI_Model
 		return $this->db->query($query)->row_array();
 	}
 
+	// join tabel rekening pembiayaan dengan user
 	public function joinRekeningUserById($id)
 	{
 		$query = "SELECT
@@ -50,6 +54,7 @@ class Rekening_model extends CI_Model
 		return $this->db->query($query)->row_array();
 	}
 
+	// join tabel angsuran dengan status
 	public function joinStatusAngsuran($id)
 	{
 		$query = "SELECT tbl_angsuran.*, 
@@ -60,4 +65,5 @@ class Rekening_model extends CI_Model
 							 WHERE tbl_angsuran.id_rekening = $id";
 		return $this->db->query($query)->result_array();
 	}
+	// end of menampilkan rekening sesuai id
 }

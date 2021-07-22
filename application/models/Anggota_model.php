@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Anggota_model extends CI_Model
 {
+	// menampilkan semua anggota pada index
 	public function joinAnggotaStatus()
 	{
 		$query = "SELECT 
@@ -16,7 +17,7 @@ class Anggota_model extends CI_Model
 						";
 		return $this->db->query($query)->result_array();
 	}
-
+	// menampilkan anggota sesuai id 
 	public function joinAnggotaJenisStatusbyId($id)
 	{
 		$query = "SELECT 

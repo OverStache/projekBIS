@@ -11,7 +11,6 @@ class SubMenu extends CI_Controller
 		$this->load->model('Construct_model', 'construct');
 		$this->load->model('Alert_model', 'alert');
 		$data['title'] = $this->construct->getTitle();
-		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);
@@ -30,6 +29,7 @@ class SubMenu extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	// mengubah data submenu (title, menu_is, URL)
 	public function update($id)
 	{
 		$data['subMenu'] = $this->db->get_where('tbl_user_sub_menu', ['id' => $id])->row_array();

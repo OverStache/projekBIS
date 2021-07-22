@@ -1,4 +1,3 @@
-<!-- Rekening Detail -->
 <!-- Navbar -->
 <!-- Main Sidebar Container -->
 <!-- Content Wrapper. Contains page content -->
@@ -16,14 +15,17 @@
 							<ul class="nav nav-pills mr-auto">
 								<li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Detail</a></li>
 								<li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Jadwal Pembayaran</a></li>
+								<!-- hanya dapat diakses oleh pengurus -->
 								<?php if ($this->session->userdata('role_id') == 1) : ?>
+									<!-- hanya akan tampil jika status rekening masih Pending -->
 									<?php if ($rekening['id_status'] == 0) : ?>
 										<li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Update Rekening</a></li>
 									<?php endif ?>
 								<?php endif ?>
 							</ul>
 							<a href="<?= base_url('rekening'); ?>" class="btn btn-danger">Back</a>
-						</div><!-- /.card-header -->
+						</div>
+						<!-- /.card-header -->
 						<div class="card-body">
 							<div class="tab-content">
 								<!-- tab detail -->
@@ -92,7 +94,7 @@
 									</div>
 									<!-- row -->
 								</div>
-								<!-- /.tab-pane -->
+								<!-- /.tab detail -->
 								<!-- tab jadwal pembayaran -->
 								<div class="tab-pane" id="tab_2">
 									<div class="row">
@@ -136,9 +138,11 @@
 										</div>
 									</div>
 								</div>
-								<!-- /.tab-pane -->
+								<!-- /.tab jadwal pembayaran -->
+								<!-- hanya dapat diakses oleh pengurus -->
 								<?php if ($this->session->userdata('role_id') == 1) : ?>
 									<!-- tab update -->
+									<!-- hanya akan tampil jika status rekening masih Pending -->
 									<?php if ($rekening['id_status'] == 0) : ?>
 										<div class="tab-pane" id="tab_3">
 											<div class="row">
@@ -226,7 +230,7 @@
 											</form>
 										</div>
 									<?php endif ?>
-									<!-- /.tab-pane -->
+									<!-- /.tab update -->
 								<?php endif ?>
 							</div>
 							<!-- /.tab-content -->

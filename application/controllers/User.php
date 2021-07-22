@@ -11,7 +11,6 @@ class User extends CI_Controller
 		$this->load->model('Construct_model', 'construct');
 		$this->load->model('Alert_model', 'alert');
 		$data['title'] = $this->construct->getTitle();
-		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);
@@ -23,16 +22,15 @@ class User extends CI_Controller
 	{
 		$this->load->model('User_model', 'user');
 		$data['user'] = $this->user->getUserRoleStatus();
-
 		$this->load->view('admin/user/index', $data);
 		$this->load->view('templates/footer');
 	}
 
+	// fungsi menambah user baru
 	public function add()
 	{
-		$this->form_validation->set_rules('username', 'Name', 'required');
+		$this->form_validation->set_rules('username', 'Name', 'required|is_unique[tbl_user.username]');
 		$this->form_validation->set_rules('password', 'Password', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('role_id', 'Role', 'required');
 
 		if ($this->form_validation->run() == false) {
@@ -43,10 +41,9 @@ class User extends CI_Controller
 			$data = [
 				'username' => htmlspecialchars($this->input->post('username', true)),
 				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-				'email' => htmlspecialchars($this->input->post('email', true)),
 				'image' => 'default.png',
 				'role_id' => $this->input->post('role_id'),
-				'is_active' => $this->input->post('is_active'),
+				'id_status' => $this->input->post('id_status'),
 				'date_created' => time()
 			];
 			// insert user baru ke tbl_user
@@ -58,6 +55,7 @@ class User extends CI_Controller
 		}
 	}
 
+	// fungsi mengubah data user
 	public function update($id)
 	{
 		$data['user'] =  $this->db->get_where('tbl_user', ['id' => $id])->row_array();
@@ -73,10 +71,8 @@ class User extends CI_Controller
 			$data = [
 				'username' => htmlspecialchars($this->input->post('username', true)),
 				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-				'email' => htmlspecialchars($this->input->post('email', true)),
 				'image' => 'default.png',
 				'role_id' => $this->input->post('role_id'),
-				'is_active' => $this->input->post('is_active'),
 				'date_created' => time()
 			];
 			// insert user baru ke tbl_user_menu
@@ -88,15 +84,28 @@ class User extends CI_Controller
 			$this->alert->alertResult($alert, $message, $redirect);
 		}
 	}
+
+	// dapat menghapus jika user tidak aktif & tidak memiliki record
 	public function delete($id)
 	{
-		$this->db->delete('tbl_user', array('id' => $id));
-		$alert = 'warning';
-		$message = 'User Berhasil Dihapus!';
-		$redirect = 'user';
+		$this->db->delete('tbl_user', array('id' => $id, 'id_status' => 3));
+		if ($this->db->affected_rows() > 0) {
+			$alert = 'warning';
+			$message = 'User Berhasil Dihapus!';
+			$redirect = 'user';
+		} else if ($this->db->error()['code'] == 1451) {
+			$alert = 'danger';
+			$redirect = 'user';
+			$message = 'User memiliki record';
+		} else {
+			$alert = 'danger';
+			$redirect = 'user';
+			$message = 'User Gagal Dihapus!';
+		}
 		$this->alert->alertResult($alert, $message, $redirect);
 	}
 
+	// mengubah aktif tidak nya anggota
 	public function changeActive()
 	{
 		$id = $this->input->post('id');

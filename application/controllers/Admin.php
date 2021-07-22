@@ -1,8 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-use Dompdf\Dompdf;
-
 class Admin extends CI_Controller
 {
 	public function __construct()
@@ -13,7 +11,6 @@ class Admin extends CI_Controller
 		$this->load->model('Construct_model', 'construct');
 		$this->load->model('Alert_model', 'alert');
 		$data['title'] = $this->construct->getTitle();
-		// select * from tbl_user where email = email dari session
 		$data['userdata'] = $this->construct->getUserdata();
 
 		$this->load->view('templates/header', $data);
@@ -23,8 +20,10 @@ class Admin extends CI_Controller
 
 	public function index()
 	{
+		// jumlah anggota yang belum di acc
 		$data['total_anggota'] = $this->db->where('id_status', 0)->from('tbl_anggota')->count_all_results();
-		$data['total_rekening'] = $this->db->where('role_id', 2)->from("tbl_user")->count_all_results();
+		// jumlah rekening pembiayaan yang belum di acc
+		$data['total_rekening'] = $this->db->where('id_status', 0)->from("tbl_rekening_pembiayaan")->count_all_results();
 		$this->load->view('admin/index', $data);
 		$this->load->view('templates/footer');
 	}

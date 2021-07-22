@@ -1,4 +1,3 @@
-<!-- simpanan -->
 <!-- Navbar -->
 <!-- Main Sidebar Container -->
 <!-- Content Wrapper. Contains page content -->
@@ -13,7 +12,7 @@
 					<?= $this->session->flashdata('message'); ?>
 					<div class="card card-primary card-outline">
 						<div class="card-body">
-							<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 3) : ?>
+							<!--akses khusus pengurus & admin--> <?php if ($this->session->userdata('role_id') != 3) : ?>
 								<a href="<?= base_url('simpanan/add') ?>" class="btn btn-primary mb-4">Bayar Simpanan Pokok</a>
 							<?php endif ?>
 							<table id="searchOnly" class="table table-striped">
@@ -25,7 +24,7 @@
 										<th>Produk</th>
 										<th>Saldo</th>
 										<th>Status</th>
-										<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 2) : ?>
+										<!--akses khusus pengurus & admin--> <?php if ($this->session->userdata('role_id') != 2) : ?>
 											<th>Action</th>
 										<?php endif ?>
 									</tr>
@@ -42,7 +41,7 @@
 											<td>
 												<span class="badge badge-<?= $s['statusColor']; ?>"><?= $s['status']; ?></span>
 											</td>
-											<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') != 2) : ?>
+											<!--akses khusus pengurus & admin--> <?php if ($this->session->userdata('role_id') != 2) : ?>
 												<td>
 													<a href="<?= base_url('simpanan/detail/' . $s['id_simpanan']) ?>" class="btn btn-xs btn-primary">
 														<i class="fas fa-fw fa-search"></i>
@@ -61,7 +60,7 @@
 										<th>Jumlah Pinjaman</th>
 										<!-- <th>Sisa Angsuran</th> -->
 										<th>Status</th>
-										<!--CRUD visibility--> <?php if ($this->session->userdata('role_id') == 1) : ?>
+										<!--akses khusus pengurus & admin--> <?php if ($this->session->userdata('role_id') == 1) : ?>
 											<th>Action</th>
 										<?php endif ?>
 									</tr>
