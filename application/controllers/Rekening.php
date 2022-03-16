@@ -35,10 +35,13 @@ class Rekening extends CI_Controller
 
 		// form validation
 		$this->form_validation->set_rules('id_anggota', 'Anggota', 'required');
+		$this->form_validation->set_rules('barang', 'Nama Barang', 'required');
 		$this->form_validation->set_rules('jaminan', 'Jaminan', 'required');
 		$this->form_validation->set_rules('jangka_waktu', 'Lama Angsuran', 'required');
 		$this->form_validation->set_rules('%', 'Margin', 'required');
 		$this->form_validation->set_rules('perolehan', 'Jumlah Pembiayaan', 'required');
+		$this->form_validation->set_rules('margin', 'margin final', 'required');
+		$this->form_validation->set_rules('jumlah', 'Jumlah final', 'required');
 		// end of form validation
 
 		if ($this->form_validation->run() == false) {
@@ -54,6 +57,7 @@ class Rekening extends CI_Controller
 				'perolehan' => $this->input->post('perolehan'),
 				'margin' => $this->input->post('margin'),
 				'jumlah' => $this->input->post('jumlah'),
+				'barang' => $this->input->post('barang'),
 				'jaminan' => $this->input->post('jaminan')
 			];
 			$this->db->insert('tbl_rekening_pembiayaan', $data);
@@ -70,6 +74,7 @@ class Rekening extends CI_Controller
 		$data['anggota'] = $this->db->get_where('tbl_anggota', ['id_status' => 1])->result_array();
 		$data['userdata'] = $this->construct->getUserdata();
 
+		$this->form_validation->set_rules('barang', 'Nama Barang', 'required');
 		$this->form_validation->set_rules('jaminan', 'Jaminan', 'required');
 		$this->form_validation->set_rules('jangka_waktu', 'Lama Angsuran', 'required');
 		$this->form_validation->set_rules('%', 'Margin', 'required');
@@ -81,13 +86,13 @@ class Rekening extends CI_Controller
 			$redirect = 'rekening/detail/' . $id;
 		} else {
 			$data = [
-				'tanggal' => date('Y-m-d'),
 				'id_user' => $data['userdata']['id'],
 				'jangka_waktu' => $this->input->post('jangka_waktu'),
 				'%' => $this->input->post('%'),
 				'perolehan' => $this->input->post('perolehan'),
 				'margin' => $this->input->post('margin'),
 				'jumlah' => $this->input->post('jumlah'),
+				'barang' => $this->input->post('barang'),
 				'jaminan' => $this->input->post('jaminan')
 			];
 			$this->db->where('id', $id);
@@ -111,7 +116,7 @@ class Rekening extends CI_Controller
 	public function delete($id)
 	{
 		// hapus rekening jika status = 0 (Pending)
-		$this->db->delete('tbl_rekening_pembiayaan', array('id' => $id, 'status' => 0));
+		$this->db->delete('tbl_rekening_pembiayaan', array('id' => $id, 'id_status' => 0));
 
 		if ($this->db->affected_rows() > 0) {
 			$alert = 'warning';
@@ -151,5 +156,21 @@ class Rekening extends CI_Controller
 		$this->db->where('id', $id);
 		$this->db->update('tbl_rekening_pembiayaan', ['id_status' => $update]);
 		$this->alert->alertResult($alert, $message, null);
+	}
+
+	public function printAll()
+	{
+		$data['rekening'] = $this->rekening->printByDate();
+		$this->load->view('dataKeanggotaan/rekening/print', $data);
+		$this->load->view('templates/footer');
+	}
+
+	public function print($id)
+	{
+		$data['rekening'] = $this->rekening->joinRekeningAnggotaStatusById($id);
+		$data['user'] = $this->rekening->joinRekeningUserById($id);
+		$data['jadwal'] = $this->rekening->joinStatusAngsuran($id);
+		$this->load->view('dataKeanggotaan/rekening/printSingle', $data);
+		$this->load->view('templates/footer');
 	}
 }

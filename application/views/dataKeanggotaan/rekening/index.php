@@ -16,7 +16,10 @@
 							<?php if ($this->session->userdata('role_id') != 3) : ?>
 								<a href="<?= base_url('rekening/add') ?>" class="btn btn-primary mb-4">Tambah Rekening</a>
 							<?php endif ?>
-							<!--CRUD visibility-->
+							<?php if ($this->session->userdata('role_id') == 1) : ?>
+								<a href="<?= base_url('rekening/printAll') ?>" class="btn btn-secondary mb-4">Print</a>
+							<?php endif ?>
+							<!--/CRUD visibility-->
 							<table id="searchOnly" class="table table-striped">
 								<thead>
 									<tr>
@@ -25,12 +28,10 @@
 										<th>No. Rekening</th>
 										<th>Tanggal Registrasi</th>
 										<th>Jangka Waktu</th>
-										<th>Jumlah Pinjaman</th>
+										<th>Harga Jual</th>
 										<th>Sisa Angsuran</th>
 										<th>Status</th>
-										<?php if ($this->session->userdata('role_id') != 2) : ?>
-											<th>Action</th>
-										<?php endif ?>
+										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -40,7 +41,7 @@
 											<td><?= $i++; ?></td>
 											<td><?= $r['nama']; ?></td>
 											<td><?= $r['id_rekening']; ?><?= $r['id_anggota']; ?></td>
-											<td><?= $r['tanggal']; ?></td>
+											<td><?= date_format(date_create($r['tanggal']), 'd M Y'); ?></td>
 											<td><?= $r['jangka_waktu']; ?> Bulan</td>
 											<td><?= 'Rp. ' . number_format($r['jumlah']); ?></td>
 											<td><?= 'Rp. ' . number_format($r['jumlah'] - $r['saldo']); ?></td>
@@ -48,8 +49,13 @@
 												<span class="badge badge-<?= $r['statusColor']; ?>"><?= $r['status']; ?></span>
 											</td>
 											<!-- hanya bisa diakses oleh pengurus dan pengawas -->
-											<?php if ($this->session->userdata('role_id') != 2) : ?>
-												<td>
+											<td>
+												<?php if ($this->session->userdata('role_id') != 3) : ?>
+													<a href="<?= base_url('rekening/print/') . $r['id_rekening']; ?>" class="btn btn-xs btn-secondary">
+														<i class="fas fa-fw fa-print"></i>
+													</a>
+												<?php endif ?>
+												<?php if ($this->session->userdata('role_id') != 2) : ?>
 													<a href="<?= base_url('rekening/detail/' . $r['id_rekening']) ?>" class="btn btn-xs btn-primary">
 														<i class="fas fa-fw fa-search"></i>
 													</a>
@@ -65,14 +71,14 @@
 
 														<!-- dapat menghapus rekening jika status masih Pending -->
 														<?php if ($r['id_status'] == 0) : ?>
-															<a href="#" class="btn btn-xs btn-danger modalDelete rekeningDelete" data-id="<?= $r['id']; ?>" data-title="<?= $r['nama']; ?> - <?= $r['id']; ?><?= $r['id_anggota']; ?>">
+															<a href="#" class="btn btn-xs btn-danger modalDelete rekeningDelete" data-id="<?= $r['id_rekening']; ?>" data-title="<?= $r['nama']; ?> - <?= $r['id_rekening']; ?><?= $r['id_anggota']; ?>">
 																<i class="fas fa-fw fa-times"></i>
 															</a>
 														<?php endif ?>
 													<?php endif ?>
 													<!--CRUD visibility-->
-												</td>
-											<?php endif ?>
+												<?php endif ?>
+											</td>
 										</tr>
 									<?php endforeach ?>
 								</tbody>

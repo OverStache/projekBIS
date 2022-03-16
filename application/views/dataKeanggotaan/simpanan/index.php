@@ -23,7 +23,6 @@
 										<th>No. Rekening</th>
 										<th>Produk</th>
 										<th>Saldo</th>
-										<th>Status</th>
 										<!--akses khusus pengurus & admin--> <?php if ($this->session->userdata('role_id') != 2) : ?>
 											<th>Action</th>
 										<?php endif ?>
@@ -38,9 +37,9 @@
 											<td><?= $s['id_simpanan']; ?><?= $s['id_anggota']; ?></td>
 											<td><?= $s['jenis']; ?></td>
 											<td><?= 'Rp. ' . number_format($s['saldo']); ?></td>
-											<td>
+											<!-- <td>
 												<span class="badge badge-<?= $s['statusColor']; ?>"><?= $s['status']; ?></span>
-											</td>
+											</td> -->
 											<!--akses khusus pengurus & admin--> <?php if ($this->session->userdata('role_id') != 2) : ?>
 												<td>
 													<a href="<?= base_url('simpanan/detail/' . $s['id_simpanan']) ?>" class="btn btn-xs btn-primary">
@@ -51,20 +50,6 @@
 										</tr>
 									<?php endforeach ?>
 								</tbody>
-								<tfoot>
-									<tr>
-										<th>#</th>
-										<th>Nama</th>
-										<th>No. Rekening</th>
-										<th>Jangka Waktu</th>
-										<th>Jumlah Pinjaman</th>
-										<!-- <th>Sisa Angsuran</th> -->
-										<th>Status</th>
-										<!--akses khusus pengurus & admin--> <?php if ($this->session->userdata('role_id') == 1) : ?>
-											<th>Action</th>
-										<?php endif ?>
-									</tr>
-								</tfoot>
 							</table>
 						</div>
 						<!-- /.card-body -->

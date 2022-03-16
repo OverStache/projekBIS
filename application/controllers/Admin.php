@@ -24,6 +24,13 @@ class Admin extends CI_Controller
 		$data['total_anggota'] = $this->db->where('id_status', 0)->from('tbl_anggota')->count_all_results();
 		// jumlah rekening pembiayaan yang belum di acc
 		$data['total_rekening'] = $this->db->where('id_status', 0)->from("tbl_rekening_pembiayaan")->count_all_results();
+
+		$this->db->select_sum('debit');
+		$this->db->select_sum('kredit');
+		$query = $this->db->get('tbl_transaksi')->row();
+		$data['total_debit'] = $query->debit;
+		$data['total_kredit'] = $query->kredit;
+
 		$this->load->view('admin/index', $data);
 		$this->load->view('templates/footer');
 	}

@@ -79,4 +79,26 @@ class Transaksi extends CI_Controller
 			$this->alert->alertResult($alert, $message, $redirect);
 		}
 	}
+
+	public function printAll()
+	{
+		$data['transaksi'] = $this->transaksi->printByDate();
+
+		$this->db->select_sum('debit');
+		$this->db->select_sum('kredit');
+		$this->db->where('MONTH(tanggal) = MONTH(NOW())');
+		$query = $this->db->get('tbl_transaksi')->row();
+		$data['total_debit'] = $query->debit;
+		$data['total_kredit'] = $query->kredit;
+
+		$this->load->view('dataKeanggotaan/transaksi/print', $data);
+		$this->load->view('templates/footer');
+	}
+
+	public function print($id)
+	{
+		$data['transaksi'] = $this->transaksi->printByDateById($id);
+		$this->load->view('dataKeanggotaan/transaksi/printSingle', $data);
+		$this->load->view('templates/footer');
+	}
 }

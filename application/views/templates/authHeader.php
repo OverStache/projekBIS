@@ -16,15 +16,6 @@
 	<link rel="stylesheet" href="<?= base_url('assets/') ?>plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="<?= base_url('assets/') ?>dist/css/adminlte.min.css">
-	<style>
-		body {
-			background: url('<?= base_url('assets/img/auth/') ?>arabic-6018638_1920.png') no-repeat center center fixed rgba(1, 1, 1, 0.3);
-			-webkit-background-size: cover;
-			-moz-background-size: cover;
-			background-size: cover;
-			-o-background-size: cover;
-		}
-	</style>
 </head>
 
 <body class="login-page mt-5">

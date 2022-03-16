@@ -53,7 +53,7 @@
 						</div>
 						<!-- /.card-body -->
 						<div class="card-footer">
-							<button type="submit" class="btn btn-primary">Tambah</button>
+							<button type="submit" class="btn btn-primary">Bayar</button>
 							<a href="<?= base_url('transaksi'); ?>" class="btn btn-danger">Cancel</a>
 						</div>
 						</form>

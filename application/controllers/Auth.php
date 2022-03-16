@@ -56,11 +56,7 @@ class Auth extends CI_Controller
 					$this->session->set_userdata($data);
 
 					// cek privilege user atau admin
-					if ($user['role_id'] == 1) {
-						redirect('admin');
-					} else {
-						redirect('profile');
-					}
+					redirect('admin');
 				} else {
 					// password salah
 					$message = 'Wrong Password!';

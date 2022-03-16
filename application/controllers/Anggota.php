@@ -83,9 +83,7 @@ class Anggota extends CI_Controller
 		$this->form_validation->set_rules('tanggalLahir', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('namaIbuKandung', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('jenisID', 'Jenis Kelamin', 'required');
-		$this->form_validation->set_rules('nomerID', 'Nomer Identitas', 'required|is_unique[tbl_anggota.nomerID]', [
-			'is_unique' => 'Nomor Identitas sudah terdaftar'
-		]); // nomor ID harus unique
+		$this->form_validation->set_rules('nomerID', 'Nomer Identitas', 'required');
 		$this->form_validation->set_rules('statusMarital', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('agama', 'Jenis Kelamin', 'required');
 		$this->form_validation->set_rules('kewarganegaraan', 'Jenis Kelamin', 'required');
@@ -171,5 +169,10 @@ class Anggota extends CI_Controller
 		$this->db->where('id', $id);
 		$this->db->update('tbl_anggota', ['id_status' => $update]);
 		$this->alert->alertResult($alert, $message, null);
+	}
+
+	public function print()
+	{
+		return 'print';
 	}
 }

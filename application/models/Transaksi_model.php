@@ -15,7 +15,7 @@ class Transaksi_model extends CI_Model
 									ON tbl_transaksi.id_anggota = tbl_anggota.id
 								JOIN tbl_jenis_transaksi
 									ON tbl_transaksi.id_jenis = tbl_jenis_transaksi.id
-						ORDER BY tbl_transaksi.id DESC";
+						ORDER BY tbl_transaksi.tanggal DESC";
 		return $this->db->query($query)->result_array();
 	}
 
@@ -31,7 +31,7 @@ class Transaksi_model extends CI_Model
 		$output = '<option value="">Pilih Rekening</option>';
 		$result = $this->db->query($query);
 		foreach ($result->result() as $row) {
-			$output .= '<option value="' . $row->id . '">' . $row->nama . ' - ' . $row->id_anggota . ' - ' . $row->id . '</option>';
+			$output .= '<option value="' . $row->id . '">' . $row->id .  $row->id_anggota . ' - ' . $row->nama . '</option>';
 		}
 		return $output;
 	}
@@ -44,7 +44,7 @@ class Transaksi_model extends CI_Model
 								FROM tbl_rekening_simpanan
 								JOIN tbl_anggota
 								  ON tbl_rekening_simpanan.id_anggota = tbl_anggota.id
-							 WHERE tbl_rekening_simpanan.produk = 4";
+							 WHERE tbl_rekening_simpanan.id_jenis = 4";
 		$output = '<option value="">Pilih Anggota</option>';
 		$result = $this->db->query($query);
 		foreach ($result->result() as $row) {
@@ -74,7 +74,38 @@ class Transaksi_model extends CI_Model
 	{
 		$query = "SELECT tbl_rekening_simpanan.*
 								FROM tbl_rekening_simpanan
-							 WHERE tbl_rekening_simpanan.produk = 4 AND tbl_rekening_simpanan.id = $id_rekening";
+							 WHERE tbl_rekening_simpanan.id_jenis = 4 AND tbl_rekening_simpanan.id = $id_rekening";
 		return $this->db->query($query);
+	}
+
+	public function printByDate()
+	{
+		$query = "SELECT tbl_transaksi.*,
+										 LPAD(tbl_transaksi.id_rekening, 6, 0) as idRek,
+										 tbl_anggota.nama,
+										 tbl_jenis_transaksi.jenis 
+								FROM tbl_transaksi
+								JOIN tbl_anggota
+									ON tbl_transaksi.id_anggota = tbl_anggota.id
+								JOIN tbl_jenis_transaksi
+									ON tbl_transaksi.id_jenis = tbl_jenis_transaksi.id
+							 WHERE MONTH(tanggal) = MONTH(NOW())
+						ORDER BY tbl_transaksi.tanggal DESC";
+		return $this->db->query($query)->result_array();
+	}
+
+	public function printByDateById($id)
+	{
+		$query = "SELECT tbl_transaksi.*,
+										 LPAD(tbl_transaksi.id_rekening, 6, 0) as idRek,
+										 tbl_anggota.nama,
+										 tbl_jenis_transaksi.jenis 
+								FROM tbl_transaksi
+								JOIN tbl_anggota
+									ON tbl_transaksi.id_anggota = tbl_anggota.id
+								JOIN tbl_jenis_transaksi
+									ON tbl_transaksi.id_jenis = tbl_jenis_transaksi.id
+							 WHERE tbl_transaksi.id = $id";
+		return $this->db->query($query)->row_array();
 	}
 }

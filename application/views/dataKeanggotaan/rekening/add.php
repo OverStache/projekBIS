@@ -29,7 +29,14 @@
 									</select>
 									<?= form_error('id_anggota', '<small class="text-danger">', '</small>'); ?>
 								</div>
-								<div class="form-group col-md-6">
+								<div class="form-group col-md-3">
+									<label for="barang">Nama Barang</label>
+									<div class="input-group">
+										<input type="text" class="form-control" name="barang" placeholder="Nama Barang">
+									</div>
+									<?= form_error('barang', '<small class="text-danger">', '</small>'); ?>
+								</div>
+								<div class="form-group col-md-3">
 									<label for="jaminan">Jaminan</label>
 									<div class="input-group">
 										<input type="text" class="form-control" name="jaminan" placeholder="Jaminan">
@@ -61,7 +68,7 @@
 									<?= form_error('%', '<small class="text-danger">', '</small>'); ?>
 								</div>
 								<div class="form-group col-md-6">
-									<label for="perolehan">Jumlah Pinjaman</label>
+									<label for="perolehan">Harga Barang</label>
 									<div class="input-group">
 										<div class="input-group-prepend">
 											<span class="input-group-text">Rp.</span>
@@ -84,7 +91,7 @@
 								<div class="col-sm-6">
 									<table class="table table-striped border-bottom">
 										<tr>
-											<td class="col-4">Jumlah Pinjaman</td>
+											<td class="col-4">Harga Barang</td>
 											<td class="col-8  text-right" id="pinjamanShow"></td>
 										</tr>
 										<tr>
@@ -92,11 +99,11 @@
 											<td class="col-8  text-right" id="marginShow"></td>
 										</tr>
 										<tr>
-											<td class="col-4">Jumlah Total</td>
+											<td class="col-4">Harga Jual</td>
 											<td class="col-8  text-right" id="jumlahShow"></td>
 										</tr>
 										<tr>
-											<td class="col-4">Jumlah Angsuran</td>
+											<td class="col-4">Angsuran per Bulan</td>
 											<td class="col-8  text-right" id="bulananShow"></td>
 										</tr>
 									</table>

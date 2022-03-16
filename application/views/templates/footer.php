@@ -107,7 +107,7 @@
 				crudId: crudId,
 			},
 			success: function() {
-				document.location.href = "<?= base_url('role/index/'); ?>" + roleId;
+				// document.location.href = "<?= base_url('role/index/'); ?>" + roleId;
 			}
 		});
 	});

@@ -3,7 +3,7 @@
 		<div class="card-header pb-0">
 			<div class="text-center">
 				<h3><small>Koperasi Simpan Pinjam dan Pembiayaan Syariah</small></h3>
-				<h3>BMT Taawun Finance (Tawfin)</h3>
+				<h3>BMT Ta'awun Finance (Tawfin)</h3>
 			</div>
 		</div>
 		<!-- /.card-header -->
