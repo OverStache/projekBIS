@@ -26,6 +26,7 @@ class Auth extends CI_Controller
 		if ($this->session->userdata('username')) {
 			redirect('profile');
 		}
+		// form validation
 		$this->form_validation->set_rules('username', 'username', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 		if ($this->form_validation->run() == false) {
